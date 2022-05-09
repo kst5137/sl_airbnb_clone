@@ -16,13 +16,14 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-import q01.views
+import airbnb.views
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('q01/func1', q01.views.func1),
-    path('q01/func2', q01.views.func2),
-    path('q01/func3', q01.views.func3),
+    path('airbnb/', airbnb.views.index, name = 'index'),
+    path('airbnb/host/main', airbnb.views.hostpage_main, name = 'host_main'),
+    path('airbnb/login', airbnb.views.login, name = 'login'),
+    path('airbnb/host/register', airbnb.views.register, name='register'),
+    path('airbnb/room', airbnb.views.room, name = 'room'),
 
 
 ]
