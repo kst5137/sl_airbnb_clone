@@ -17,13 +17,17 @@ from django.contrib import admin
 from django.urls import path
 
 import airbnb.views
+import board
+from board import views
 
 urlpatterns = [
-    path('airbnb/', airbnb.views.index, name = 'index'),
-    path('airbnb/host/main', airbnb.views.hostpage_main, name = 'host_main'),
-    path('airbnb/login', airbnb.views.login, name = 'login'),
+    path('airbnb/', airbnb.views.index, name='index'),
+    path('airbnb/host/main', airbnb.views.hostpage_main, name='host_main'),
+    path('airbnb/login', airbnb.views.login, name='login'),
     path('airbnb/host/register', airbnb.views.register, name='register'),
-    path('airbnb/room', airbnb.views.room, name = 'room'),
+    path('airbnb/room', airbnb.views.room, name='room'),
+    path('airbnb/room2', airbnb.views.room, name='room2'),
 
+    path('boardRegister/', board.views.register),
 
 ]

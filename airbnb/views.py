@@ -11,3 +11,5 @@ def register(abcde) :
     return render(abcde, 'host_register.html')
 def room(abcde) :
     return render(abcde, 'room.html')
+def register(abc):
+    return render(abc, '/board/register.html')
