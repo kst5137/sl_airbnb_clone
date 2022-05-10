@@ -42,16 +42,16 @@
 |page|request|feature|api|event|설명|담당|비고|구현여부|
 |------|-----|-----|-----|-----|-----|-----|-----|-----|
 |헤더|GET|검색|/room|click / enter|||||
-||GET|마이페이지|/mypage|click|마이페이지 버튼 클릭시 마이페이지로 이동|||
+||GET|마이페이지|/mypage|click|마이페이지 버튼 클릭시 마이페이지로 이동|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;||
 ||GET|호스트페이지|/hostpage|click|호스트모드 버튼 클릭시 호스트 모드 페이지로 이동|||
 |||||||||
 |메인페이지|GET|현재숙소목록|/|default|메인페이지에 유형에 따라 이미지 요청|||
-||GET|랜덤한 숙소|/randomroom|click|모든 숙소중 랜덤하게 요청||필수는 아님|
+||GET|랜덤한 숙소|/randomroom|click|모든 숙소중 랜덤하게 요청|||
 |||||||||
 |호스트모드|GET|현재 게스트 상황|/|Default|현재의 게스트 상황을 요청|||
 ||GET|메세지|/message|Default|메세지 이력 요청|||
 ||GET|숙소등록|/register|Click|숙소등록 페이지로 이동|||
-||PUT|숙소 정보 수정|/register/modify|Click|숙소 정보 수정|||
+||PUT|숙소 정보 수정|/register/modify|Click|숙소 정보 수정|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;||
 |||||||||
 |숙소등록페이지|POST|숙소유형선택|/register|click|숙소 유형 몇 가지 중 선택|재중||
 ||POST|숙소위치|/register|Click|숙소 위치 지도 api를 사용하여 선택|재중||
@@ -65,7 +65,7 @@
 ||POST|로그인|/|Click|로그인시 아이디 비밀번호 받는다|규호||
 ||GET|회원가입페이지|/signup|Click|회원가입 페이지로 이동|규호||
 ||POST|회원가입|/signup|Click|아이디,비밀번호,닉네임 외에 회원가입에 필요한 정보를 받는다|규호||
-||GET|전화번호 문자 전송|/login|Click|가입된 번호가 있는지 확인하고 있다면 인증번호를 받아서 로그인|규호|없어도 됨|
+||GET|전화번호 문자 전송|/login|Click|가입된 번호가 있는지 확인하고 있다면 인증번호를 받아서 로그인|규호||
 ||GET|이메일로그인|/|Click|이메일로 로그인|규호||
 ||GET|구글 로그인|/|Click|구글 아이디로 로그인|규호||
 ||GET|카카오 로그인|/|Click|카카오로 로그인|규호||
