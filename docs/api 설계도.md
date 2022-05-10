@@ -1,6 +1,6 @@
-|page|request|feature|api|event|설명|담당|비고|체크|
+|page|request|feature|api|event|설명|담당|비고|구현여부|
 |------|-----|-----|-----|-----|-----|-----|-----|-----|
-|헤더|GET|검색|/room|click / enter|||| - [ ] 완료 
+|헤더|GET|검색|/room|click / enter|||||
 ||GET|마이페이지|/mypage|click|마이페이지 버튼 클릭시 마이페이지로 이동|||
 ||GET|호스트페이지|/hostpage|click|호스트모드 버튼 클릭시 호스트 모드 페이지로 이동|||
 |||||||||
