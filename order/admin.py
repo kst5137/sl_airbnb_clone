@@ -16,6 +16,8 @@ def export_to_csv(modeladmin, request, queryset):
     fields = [field for field in opts.get_fields() if not field.many_to_many and not field.one_to_many]
     writer.writerow([field.verbose_name for field in fields])
 
+
+
     for obj in queryset:
         data_row = []
         for field in fields:
@@ -28,9 +30,12 @@ def export_to_csv(modeladmin, request, queryset):
 export_to_csv.short_description = 'Export to CSV'
 
 
+
 def order_detail(obj):
     return mark_safe('<a href="{}">Detail</a>'.format(reverse('order:admin_order_detail', args=[obj.id])))
 order_detail.short_description = 'Detail'
+
+
 
 
 def order_pdf(obj):
@@ -44,7 +49,7 @@ class OrderItemInline(admin.TabularInline):
 
 
 class OrderAdmin(admin.ModelAdmin):
-    list_display = ['id', 'first_name', 'last_name', 'email', 'address', 'postal_code', 'city', 'paid', order_detail, 'created', 'updated']
+    list_display = ['id', 'first_name', 'last_name', 'email', 'address', 'postal_code', 'city', 'paid', order_detail, order_pdf, 'created', 'updated']
     list_filter = ['paid', 'created', 'updated']
     inlines = [OrderItemInline] # 다른 모델과 연결되어있는 경우 한페이지 표시하고 싶을 때
     actions = [export_to_csv]

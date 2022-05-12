@@ -73,6 +73,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'cart.context_processors.cart'
             ],
         },
     },
@@ -89,7 +90,7 @@ DATABASES = {
         'NAME': 'onlineshop',
         'USER': 'admin',
         'PASSWORD': 'qwer1234',
-        'HOST': 'onlineshop.cvwvhr7gqfmz.ap-northeast-2.rds.amazonaws.com',
+        'HOST': 'onlineshop.cl9jiuj5fpo6.ap-northeast-2.rds.amazonaws.com',
         'PORT': '3306',
     }
 }
@@ -133,10 +134,10 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-AWS_ACCESS_KEY_ID = 'AKIAWF4UGQOTZ4EFULFR'
-AWS_SECRET_ACCESS_KEY = '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'
+AWS_ACCESS_KEY_ID = 'AKIAZNMIF73RFQPDLDXQ'
+AWS_SECRET_ACCESS_KEY = '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'
 AWS_REGION = 'ap-northeast-2'
-AWS_STORAGE_BUCKET_NAME = 'onlineshopgh'
+AWS_STORAGE_BUCKET_NAME = 'onlineshopgh2'
 AWS_S3_CUSTOM_DOMAIN = '%s.s3.%s.amazonaws.com' % (AWS_STORAGE_BUCKET_NAME, AWS_REGION)
 AWS_S3_OBJECT_PARAMETERS = {
     'CacheControl': 'max-age=86400',
