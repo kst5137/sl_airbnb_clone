@@ -131,12 +131,4 @@
 <!-- * https://github.com/farukipekcom/airbnb-clone -->
 
 
-## 업무계획
-### 0511
-onlineshop에서 우리프로젝트에서 사용할 부분 결정  
-기존 airbnb 템플릿, css, 적용시켜보기  
-관리자 말고도 게시글 생성가능하게 하기  
-로그인페이지 따로 띄어서 하는거 알아보기  
-
-+ 시간되면 추가로 사용할 api 찾아보기  
 
