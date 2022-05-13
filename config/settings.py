@@ -22,7 +22,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-63laegfy$n@i(#8*2b(bc%+2pr#4uh%2qg5vu_ms$wg5_1zc7f'
+SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -45,6 +45,8 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.naver',
+    'allauth.socialaccount.providers.kakao',
+    'allauth.socialaccount.providers.google',
     'cart',
     'coupon',
     'order',
@@ -88,9 +90,9 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'onlineshop',
-        'USER': 'admin',
-        'PASSWORD': 'qwer1234',
-        'HOST': 'onlineshop.cl9jiuj5fpo6.ap-northeast-2.rds.amazonaws.com',
+        'USER': os.environ.get('DB_USER'),
+        'PASSWORD': os.environ.get('DB_PASSWORD'),
+        'HOST': os.environ.get('DB_HOST'),
         'PORT': '3306',
     }
 }
@@ -134,10 +136,10 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-AWS_ACCESS_KEY_ID = 'AKIAZNMIF73RFQPDLDXQ'
-AWS_SECRET_ACCESS_KEY = '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'
+AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
 AWS_REGION = 'ap-northeast-2'
-AWS_STORAGE_BUCKET_NAME = 'onlineshopgh2'
+AWS_STORAGE_BUCKET_NAME = 'onlineshop-sl'
 AWS_S3_CUSTOM_DOMAIN = '%s.s3.%s.amazonaws.com' % (AWS_STORAGE_BUCKET_NAME, AWS_REGION)
 AWS_S3_OBJECT_PARAMETERS = {
     'CacheControl': 'max-age=86400',
@@ -166,5 +168,5 @@ LOGIN_REDIRECT_URL = '/'
 
 CART_ID = 'cart_in_session'
 
-IAMPORT_KEY = '5750855183972384'
-IAMPORT_SECRET = '2437c82c0b49293ab5bc847b312705f22f8a5dd1d6df34296c38410989b33740980808b9dfc98a0b'
+IAMPORT_KEY = os.environ.get('IAMPORT_KEY')
+IAMPORT_SECRET = os.environ.get('IAMPORT_SECRET')

@@ -23,6 +23,7 @@ urlpatterns = [
     path('coupon/', include('coupon.urls')),
     path('order/', include('order.urls')),
     path('', include('shop.urls')),
+    path('login/', include('allauth.urls') )
 ]
 # urlpatterns = [
 #     path('admin/', admin.site.urls),
