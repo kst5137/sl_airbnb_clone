@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Safe-Bike</title>
+    <link rel="stylesheet" href="index.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js" integrity="sha384-q2kxQ16AaE6UbzuKqyBE9/u/KzioAlnx2maXQHiDX9d4/zp8Ok3f+M7DPm+Ib6IU" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.min.js" integrity="sha384-pQQkAEnwaBkjpqZ8RU1fF1AKtTcHJwFl3pblpTlHXybJjHpMYo79HY3hIi4NKxyj" crossorigin="anonymous"></script>
+    <script src="index.js"></script>
+</head>
+<body>
+    <div class="container">
+        <!--Navigation bar-->
+        <nav class="navbar navbar-expand-sm">
+            <div class="navbar-brand">
+                SafeBike
+            </div>
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">Rent</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <!--Form-->
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-8">
+                    <img src="assets/undraw_bike_ride_7xit.svg" alt="">
+                </div>
+                <div class="col-sm-4">
+                    <div class="form-section">
+                        <form class="form">
+                            <h2 class="form_title">Log in</h2>
+                            <p class="info">To rent a bike near you sign in</p>
+
+                            <div class="form_div">
+                                <input type="text" class="form_input" placeholder=" ">
+                                <label for="" class="form_label">Emails</label>
+                            </div>
+                            <div class="form_div">
+                                <input type="password" class="form_input" placeholder=" ">
+                                <label for="" class="form_label">Password</label>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <input type="submit" class="sign_in" value="Sign In">
+                                </div>
+                                <div class="col-md-6">
+                                    <button type="button" class="sign_up_link" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Sign Up</button>
+                                </div>
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <hr>
+                                </div>
+                                <div class="col-md-2">
+                                    <p class="info">Or</p>
+                                </div>
+                                <div class="col-md-5">
+                                    <hr>
+                                </div>
+                            </div>
+                            <div class="row google">
+                                <button type="submit" class="google_sign_in">
+                                <img src="assets/google.svg" alt="" class="icon" id="or">
+                                Continue with Google
+                                </button>
+                            </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--Modal for Signup-->
+        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h2>Sign Up</h2>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <form class="form-section">
+                    <div class="form_div">
+                        <input type="tel" class="form_input" placeholder=" ">
+                        <label for="" class="form_label">Phone Number</label>
+                    </div>
+                    <p class="info">
+                        We’ll call or text you to confirm your number.
+                        Standard message and data rates apply.
+                    </p>
+                    <button type="submit" class="continue">
+                        Continue
+                    </button>
+                    <div class="row">
+                        <div class="col-md-5">
+                            <hr>
+                        </div>
+                        <div class="col-md-2">
+                            <p class="info">Or</p>
+                        </div>
+                        <div class="col-md-5">
+                            <hr>
+                        </div>
+                    </div>
+                    <div class="row google">
+                        <button type="submit" class="sign_up">
+                        <img src="assets/google.svg" alt="" class="icon" id="or">
+                        Continue with Google
+                        </button>
+                    </div>
+                    <div class="row google">
+                        <button type="submit" class="sign_up">
+                        <img src="assets/facebook.svg" alt="" class="icon" id="or">
+                        Continue with Facebook
+                        </button>
+                    </div>
+                    <div class="row google">
+                        <button type="submit" class="sign_up">
+                        <img src="assets/apple.svg" alt="" class="icon" id="or">
+                        Continue with Apple
+                        </button>
+                    </div>
+                    <p>Already have an account? <a href="">log in</a></p>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+
+    </div>
+</body>
+</html>

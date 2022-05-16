@@ -6,6 +6,13 @@ from allauth.account.signals import user_signed_up
 from django.dispatch import receiver
 
 
+def func2(abcde) :
+
+
+
+    return render(abcde, 'templates/users01/login.html')
+
+
 def product_in_category(request, category_slug=None):
     current_category = None
     categories = Category.objects.all()
