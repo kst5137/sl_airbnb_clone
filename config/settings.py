@@ -54,8 +54,7 @@ INSTALLED_APPS = [
     'cart',
     'coupon',
     'order',
-    'accounts',
-
+    'imagekit',
 ]
 
 MIDDLEWARE = [
@@ -372,13 +371,3 @@ ACCOUNT_EMAIL_VERIFICATION = "none"
 #
 # IAMPORT_KEY = os.environ.get('IAMPORT_KEY')
 # IAMPORT_SECRET = os.environ.get('IAMPORT_SECRET')
-# ACCOUNT_AUTHENTICATION_METHOD = 'email'
-# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-# ACCOUNT_EMAIL_REQUIRED = True
-# ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
-# ACCOUNT_LOGIN_ATTEMPTS_LIMIT = 5
-# ACCOUNT_LOGIN_ATTEMPTS_TIMEOUT = 300
-# SOCIALACCOUNT_AUTO_SIGNUP = False
-
-
-# ACCOUNT_SIGNUP_FORM_CLASS = accounts.forms.SignupForm

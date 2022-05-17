@@ -1,17 +1,16 @@
-from django.shortcuts import render, get_object_or_404
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render, get_object_or_404, redirect
 from .models import *
 from cart.forms import AddProductForm
+from .forms import ProductForm
+from django.db import transaction
 #
 from allauth.account.signals import user_signed_up
 from django.dispatch import receiver
 
 
 def func2(abcde) :
-
-
-
     return render(abcde, 'templates/users01/login.html')
-
 
 def product_in_category(request, category_slug=None):
     current_category = None
@@ -44,3 +43,16 @@ def product_detail(request, id, product_slug=None):
 # from django.shortcuts import render
 
 # Create your views here.
+
+@login_required
+def create_product(request) :
+    if request.method == 'POST':
+        form = ProductForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('shop:product_all')
+    else:
+        form = ProductForm()
+
+    context = {'form': form}
+    return render(request, 'shop/create_product.html', context)
