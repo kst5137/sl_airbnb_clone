@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% load i18n %}
+{% load account socialaccount %}
+
+{% block head_title %}{% trans "Sign In" %}{% endblock %}
+
+{% block content %}
+
+<!--<h1>{% trans "Sign In" %}</h1>-->
+
+<!--<h3> hi</h3>-->
+
+<!--{% get_providers as socialaccount_providers %}-->
+
+
+<!--<p>{% blocktrans with site.name as site_name %}Please sign in with one-->
+<!--    of your existing third party accounts. Or, <a href="{{ signup_url }}">sign up</a>-->
+<!--    for a {{ site_name }} account and sign in below:{% endblocktrans %}</p>-->
+
+
+
+<div class="container main-content">
+    <div class="row">
+        <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+            <div class="card card-signin my-5">
+                <div class="card-body">
+                    <h5 class="card-title text-center">Login</h5>
+                    {% include "socialaccount/snippets/login_extra.html" %}
+
+
+                    <form class="login" method="POST" action="{% url 'account_login' %}">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        {% if redirect_field_value %}
+                        <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}"/>
+                        {% endif %}
+                        <a class="button secondaryAction" href="{% url 'account_reset_password' %}">"Forgot
+                            Password?"</a>
+                        <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Sign In
+
+                        </button>
+                    </form>
+
+                    <form class="form-signin">
+
+                        <br>
+                        <hr class="my-4">
+                        <div class="socialaccount_ballot">
+
+    <ul class="socialaccount_providers">
+        {% include "socialaccount/snippets/provider_list.html" with process="login" %}
+    </ul>
+
+<!--    <div class="login-or">{% trans 'or' %}</div>-->
+
+</div>
+                        <a class="btn btn-lg btn-info btn-block text-uppercase" href="{{ signup_url }}">Sign Up</a>
+                        <a class="btn btn-lg btn-primary btn-google btn-block text-uppercase" href="https://accounts.google.com/o/oauth2/auth/oauthchooseaccount?client_id=391572997585-lkphald95j54l6c971a7vu8i7tdlijku.apps.googleusercontent.com&redirect_uri=http%3A%2F%2F127.0.0.1%3A8000%2Faccounts%2Fgoogle%2Flogin%2Fcallback%2F&scope=profile&response_type=code&state=Efe0Btxk8UkD&flowName=GeneralOAuthFlow"><i
+                                class="fab fa-google mr-2"></i> Login with Google</a>
+                        <a href="https://accounts.kakao.com/login?continue=https%3A%2F%2Fkauth.kakao.com%2Foauth%2Fauthorize%3Fscope%3D%26response_type%3Dcode%26redirect_uri%3Dhttp%253A%252F%252F127.0.0.1%253A8000%252Faccounts%252Fkakao%252Flogin%252Fcallback%252F%26state%3Do9PjWfmA7Wkj%26client_id%3D2e432c22dce164ab1628b24f39f4ac75"><img src="{%static 'images/kakao_login.png'%}" style="width:500px;height:10x;padding-bottom:10px;padding-top:10px;fontsize:50px;"/></a>
+                        <a href="https://nid.naver.com/oauth2.0/authorize?client_id=QwgVolOBioXtlXroL08Z&redirect_uri=http%3A%2F%2F127.0.0.1%3A8000%2Faccounts%2Fnaver%2Flogin%2Fcallback%2F&scope=&response_type=code&state=vTTrRYcExjJ5"><img src="{%static 'images/naver_login.png'%}" style="width:365px;height:20x;"/></a>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}
