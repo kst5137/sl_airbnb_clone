@@ -16,6 +16,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 import shop.views
+import users.views
+
 # from rest_auth.views import (
 #     LoginView, LogoutView, PasswordChangeView,
 #     PasswordResetView, PasswordResetConfirmView
@@ -28,7 +30,10 @@ urlpatterns = [
     path('coupon/', include('coupon.urls')),
     path('order/', include('order.urls')),
     path('', include('shop.urls')),
-    path('login',shop.views.func2)
+    path('login', shop.views.func2),
+    # path('login/', users.views.userlogin),
+    # path('logout/', users.views.userlogout),
+    # path('signup/', users.views.signup),
 ]
 # urlpatterns = [
 #     path('admin/', admin.site.urls),
