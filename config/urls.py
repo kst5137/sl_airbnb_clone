@@ -16,6 +16,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 import shop.views
+# from rest_auth.views import (
+#     LoginView, LogoutView, PasswordChangeView,
+#     PasswordResetView, PasswordResetConfirmView
+# )
 
 urlpatterns = [
     path('admin/', admin.site.urls),

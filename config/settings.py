@@ -13,6 +13,7 @@ import os.path
 from pathlib import Path
 import pymysql
 
+
 pymysql.install_as_MySQLdb()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -47,9 +48,14 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.naver',
     'allauth.socialaccount.providers.kakao',
     'allauth.socialaccount.providers.google',
+    'rest_framework',
+    'rest_framework.authtoken',
+    'rest_auth.registration',
     'cart',
     'coupon',
     'order',
+    'accounts',
+
 ]
 
 MIDDLEWARE = [
@@ -174,6 +180,12 @@ CART_ID = 'cart_in_session'
 
 IAMPORT_KEY = '5750855183972384'
 IAMPORT_SECRET = '2437c82c0b49293ab5bc847b312705f22f8a5dd1d6df34296c38410989b33740980808b9dfc98a0b'
+# 이메일 인증 관련
+# ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
+ACCOUNT_EMAIL_VERIFICATION = "none"
+# ACCOUNT_EMAIL_REQUIRED = True
+
+
 
 
 
