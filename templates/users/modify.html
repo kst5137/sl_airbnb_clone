@@ -4,18 +4,54 @@
 
 {% block head_title %}{% trans "Signup" %}{% endblock %}
 
+
 {% block content %}
-<h1>회원정보 수정</h1>
+<form action="" method="POST">
+    {% csrf_token %}
+    <div class="join_row">
+        <h3 class="join_title"><h2>유저네임</h2></h3>
+        <input type="text" id="id_username" name="username" value="" maxlength="16" required=""
+               PLACEHOLDER="닉네임을 입력해주세요"
+               style="width:300px;height:50x;font-size:20px;">
+    </div>
 
-<p>{% blocktrans %}Already have an account? Then please <a href="{{ login_url }}">sign in</a>.{% endblocktrans %}</p>
 
-<form class="signup" id="signup_form" method="post" action="{% url 'account_signup' %}">
-  {% csrf_token %}
-  {{ form.as_p }}
-  {% if redirect_field_value %}
-  <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}">
-  {% endif %}
-  <button type="submit">{% trans "Sign Up" %} »</button>
+    <div class="join_row">
+        <h3 class="join_title"><h2>주소</h2></h3>
+
+        <input type="text" id="u_address" name="u_address" value="" maxlength="500" required="" PLACEHOLDER={{ user.u_address }}
+               style="width:500px;height:500x;font-size:20px;">
+    </div>
+    <div class="join_row">
+        <h3 class="join_title"><h2>email</h2></h3>
+        <input type="text" name="email" value="" data-email="" size="30" required=""
+               fld_esssential="" option="regEmail" label="이메일"
+               placeholder={{ user.email }}
+               style="width:300px;height:30px;font-size:20px;">
+    </div>
+    <div class="join_row join_birthday">
+        <h3 class="join_title"><h2>핸드폰번호</h2></h3>
+        <div class="birth_day">
+            <input type="text" name="u_phonenum" id="u_phonenum" pattern="[0-9]*"
+                   value="" label="핸드폰번호" size="11" maxlength="11"
+                   placeholder={{ user.u_phonenum }}
+                   style="width:500px;height:500x;font-size:20px;">
+            <span class="bar"></span>
+        </div>
+    </div>
+    <div class="join_row join_sex">
+        <h3 class="join_title"><h2>성별</h2></h3>
+        <div class="ps_box gender_code">
+            <select name="u_sex" aria-label="u_sex" style="width:100px;height:30px;font-size:20px;">
+                <option value="" selected="">성별</option>
+                <option value="M">남자</option>
+                <option value="F">여자</option>
+                <option value="U">선택 안함</option>
+            </select>
+        </div>
+    </div>
+
+    <button class="btn btn-primary">수정</button>
 </form>
 
 {% endblock %}

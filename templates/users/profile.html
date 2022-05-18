@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% load static %}
+{% load i18n %}
+
+{% block head_title %}{% trans "Signup" %}{% endblock %}
+{% block content %}
+
+<h1>{{pk}}: {{ user.username }} 님 환영합니다</h1>
+    {% if request.user == user %}
+        <a href="{% url 'users:user_modify' user.pk %}">회원 수정</a>
+        <form action="" method="POST">
+            {% csrf_token %}
+            <button class="btn btn-secondary">회원 탈퇴</button>
+        </form>
+
+    {% endif %}
+
+<hr>
+<h3>내 주문 정보</h3>
+<h3>내 숙소 정보</h3>
+
+{% endblock %}
