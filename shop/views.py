@@ -4,7 +4,6 @@ from .models import *
 from cart.forms import AddProductForm
 from .forms import ProductForm, ImageFormSet
 from django.db import transaction
-import slick
 #
 from allauth.account.signals import user_signed_up
 from django.dispatch import receiver
