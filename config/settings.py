@@ -55,8 +55,10 @@ INSTALLED_APPS = [
     'coupon',
     'order',
     'imagekit',
-]
+    'users',
 
+]
+AUTH_USER_MODEL = 'users.User'
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -101,6 +103,7 @@ DATABASES = {
         'PORT': '3306',
     }
 }
+ACCOUNT_SIGNUP_FORM_CLASS = 'users.forms.SignupForm'
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
