@@ -2,8 +2,9 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import *
 from cart.forms import AddProductForm
-from .forms import ProductForm
+from .forms import ProductForm, ImageFormSet
 from django.db import transaction
+import slick
 #
 from allauth.account.signals import user_signed_up
 from django.dispatch import receiver
@@ -47,12 +48,20 @@ def product_detail(request, id, product_slug=None):
 @login_required
 def create_product(request) :
     if request.method == 'POST':
-        form = ProductForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            return redirect('shop:product_all')
-    else:
-        form = ProductForm()
+        product_form = ProductForm(request.POST)
+        image_formset = ImageFormSet(request.POST, request.FILES)
+        if product_form.is_valid() and image_formset.is_valid():
+            product = product_form.save(commit=False)
+            product.user = request.user
 
-    context = {'form': form}
+            with transaction.atomic():
+                product.save()
+                image_formset.instance = product
+                image_formset.save()
+                return redirect('shop:product_all')
+    else:
+        product_form = ProductForm()
+        image_formset = ImageFormSet()
+
+    context = {'product_form' : product_form, 'image_formset' : image_formset}
     return render(request, 'shop/create_product.html', context)

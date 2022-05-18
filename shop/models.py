@@ -26,7 +26,6 @@ class Product(models.Model):
     name = models.CharField(max_length=200, db_index=True)
     slug = models.SlugField(max_length=200, db_index=True, unique=True, allow_unicode=True)
 
-    image = models.ImageField(upload_to='products/%Y/%m/%d', null=False)
     description = models.TextField(blank=True)
     meta_description = models.TextField(blank=True)
 
@@ -52,3 +51,11 @@ class Product(models.Model):
 # class ProductImage(models.Model) :
 #     productImage = models.ForeignKey(Product, on_delete=models.CASCADE)
 #     image = models.ImageField(upload_to='products/%Y/%m/%d')
+
+def path_image_path(instance, filename):
+    #{instance.content} => {instance.product.content}
+    return f'products/{instance.product.content}/{filename}'
+
+class Image(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    file = ProcessedImageField(upload_to='products/%Y/%m/%d', null=False)

@@ -22,8 +22,10 @@
         <div class="row">
             {% for product in products %}
             <div class="col-4">
-                <div class="card">
-                    <img class="card-img-top" src="{{product.image.url}}" alt="Product Image">
+                <div class="card-header">
+                    {% for image in product.image_set.all %}
+                    <img class="card-img-top" src="{{image.file.url}}" alt="Product Image">
+                    {% endfor %}
                     <div class="card-body">
                         <h5 class="card-title">{{product.name}}</h5>
                         <p class="card-text">{{product.description}} <span class="badge badge-secondary">&#8361;{{product.price}}</span>
