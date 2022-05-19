@@ -52,7 +52,7 @@
 ||GET|메세지|/message|Default|메세지 이력 요청|||
 ||GET|숙소등록|/register|Click|숙소등록 페이지로 이동||| ○
 ||PUT|숙소 정보 수정|/register/modify|Click|숙소 정보 수정|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;||
-|||||||||
+|||||||||△
 |숙소등록페이지|POST|숙소유형선택|/register|click|숙소 유형 몇 가지 중 선택|재중|| ○
 ||POST|숙소위치|/register|Click|숙소 위치 지도 api를 사용하여 선택|재중||
 ||POST|숙소인원수|/register|Click|숙소 인원수 입력|재중|| △
