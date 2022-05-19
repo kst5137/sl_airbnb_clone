@@ -61,17 +61,19 @@
 ||POST|숙소 기간|/register|Click|숙소 사용 가능 기간 선택하기|재중||
 ||POST|숙소 가격|/register|Click|숙소 가격 입력|재중||○
 |||||||||
-|로그인및 회원가입|GET|로그인페이지|/login|Click|로그인 페이지로 접속|규호||○
-||POST|로그인|/|Click|로그인시 아이디 비밀번호 받는다|규호||○
-||GET|회원가입페이지|/signup|Click|회원가입 페이지로 이동|규호||○
-||POST|회원가입|/signup|Click|아이디,비밀번호,닉네임 외에 회원가입에 필요한 정보를 받는다|규호||○
-||GET|전화번호 문자 전송|/login|Click|가입된 번호가 있는지 확인하고 있다면 인증번호를 받아서 로그인|규호||
-||GET|이메일로그인|/|Click|이메일로 로그인|규호||△
-||GET|구글 로그인|/|Click|구글 아이디로 로그인|규호||△
-||GET|카카오 로그인|/|Click|카카오로 로그인|규호||△
+|로그인및 회원가입|GET|로그인페이지|accounts/login|Click|로그인 페이지로 접속|규호||○
+||POST|로그인|accounts/login|Click|로그인시 아이디 비밀번호 받는다|규호||○
+||GET|회원가입페이지|accounts/signup|Click|회원가입 페이지로 이동|규호||○
+||POST|회원가입|accounts/signup|Click|아이디,비밀번호,닉네임 외에 회원가입에 필요한 정보를 받는다|규호||○
+||GET|이메일 유효성검사|accounts/singup|Click|가입된 이메일로 메일을 보내고 이를 확인해야 회원가입가능|규호||
+||GET|이메일로그인|accounts/login|Click|이메일로 로그인|규호||△
+||GET|구글 로그인|accounts/login|Click|구글 아이디로 로그인|규호||△
+||GET|카카오 로그인|accounts/login|Click|카카오로 로그인|규호||△
 |||||||||
-|회원정보수정|GET|회원정보 수정 페이지|/updatemyinfo|Click|회원정보 수정페이지로 접속|||
-||POST|회원정보 수정|/login|Click|수정할 아이디 비번 외에 회원정보 받는다|||
+|회원정보수정|GET|회원정보 수정 페이지|users/<int:pk>/|Click|회원정보 수정페이지로 접속|규호||○
+||POST|회원정보수정|users/<int:pk>/modify|Click|아이디 비밀번호를 제외한 회원가입에 입력한 정보를 수정한다.|규호||○
+||POST|비밀번호변경|users/change_password|Click|비밀번호를 변경한다.|규호||○
+||DELETE|회원탈퇴|users/user_delete|Click|회원정보를 삭제한다|규호||○
 |||||||||
 |숙소검색리스트|GET|요금과 유형외에 분류|/room|Click|숙소 분류에 따라 재정렬|||
 ||GET|숙소간략정보|/room|Default|검색한 애용에 따라 숙소정보 요청|||
