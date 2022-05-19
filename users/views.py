@@ -97,7 +97,7 @@ def change_password(request):
             if new_password == password_confirm:
                 user.set_password(new_password)
                 user.save()
-                
+
                 return render(request, 'users/profile.html')
             else:
                 context.update({'error':"새로운 비밀번호를 다시 확인해주세요."})
