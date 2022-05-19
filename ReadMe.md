@@ -43,7 +43,7 @@
 |------|-----|-----|-----|-----|-----|-----|-----|-----|
 |헤더|GET|검색|/room|click / enter|||||
 ||GET|마이페이지|/mypage|click|마이페이지 버튼 클릭시 마이페이지로 이동|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|| △
-||GET|호스트페이지|/hostpage|click|호스트모드 버튼 클릭시 호스트 모드 페이지로 이동||| △
+||GET|호스트페이지|/hostpage|click|호스트모드 버튼 클릭시 호스트 모드 페이지로 이동||△| 
 |||||||||
 |메인페이지|GET|현재숙소목록|/|default|메인페이지에 유형에 따라 이미지 요청||| ○
 ||GET|랜덤한 숙소|/randomroom|click|모든 숙소중 랜덤하게 요청|||
