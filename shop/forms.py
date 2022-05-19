@@ -1,5 +1,5 @@
 from django import forms
-from .models import Product, Image
+from .models import *
 
 class ProductForm(forms.ModelForm):
     class Meta:
@@ -12,3 +12,33 @@ class ImageForm(forms.ModelForm):
         exclude = ()
 
 ImageFormSet = forms.inlineformset_factory(Product, Image, form=ImageForm, extra=5)
+
+class TypeForm(forms.ModelForm):
+    class Meta:
+        model = Type
+        exclude = ()
+
+class SizeForm(forms.ModelForm):
+    class Meta:
+        model = Size
+        exclude = ()
+
+class AttributeForm(forms.ModelForm):
+    class Meta:
+        model = Attribute
+        exclude = ()
+
+class FacilityForm(forms.ModelForm):
+    class Meta:
+        model = Facility
+        exclude = ()
+
+class RuleForm(forms.ModelForm):
+    class Meta:
+        model = Rule
+        exclude = ()
+
+class SafetyForm(forms.ModelForm):
+    class Meta:
+        model = Safety
+        exclude = ()

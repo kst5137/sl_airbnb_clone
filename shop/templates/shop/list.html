@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% block title %}Category Page{% endblock %}
+{% block title %}AirBnB Main{% endblock %}
 {% block content %}
 
 <div class="row">
@@ -13,8 +13,6 @@
             {% endfor %}
         </div>
     </div>
-
-
     <div class="col">
         <div class="alert alert-info" role="alert">
             {% if current_category %}{{current_category.name}}{% else %}All Products{% endif %}

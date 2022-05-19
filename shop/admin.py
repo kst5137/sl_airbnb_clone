@@ -10,10 +10,41 @@ class CategoryAdmin(admin.ModelAdmin):
 admin.site.register(Category, CategoryAdmin)
 
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ['name', 'slug', 'category', 'price', 'stock', 'available_display', 'available_order', 'created', 'updated']
-    list_filter = ['available_display', 'created', 'updated', 'category']
+    # 'user',
+    list_display = ['name', 'slug', 'category', 'price', 'stock', 'display', 'order', 'created', 'updated']
+    list_filter = ['display', 'created', 'updated', 'category']
     prepopulated_fields = {'slug': ('name',)}
-    list_editable = ['price', 'stock', 'available_display', 'available_order']
+    list_editable = ['price', 'stock', 'display', 'order']
 
 
 admin.site.register(Product, ProductAdmin)
+
+class TypeAdmin(admin.ModelAdmin):
+    list_display = ['name']
+
+admin.site.register(Type, TypeAdmin)
+
+class SizeAdmin(admin.ModelAdmin):
+    list_display = ['name']
+
+admin.site.register(Size, SizeAdmin)
+
+class AttributeAdmin(admin.ModelAdmin):
+    list_display = ['name']
+
+admin.site.register(Attribute, AttributeAdmin)
+
+class FacilityAdmin(admin.ModelAdmin):
+    list_display = ['name']
+
+admin.site.register(Facility, FacilityAdmin)
+
+class RuleAdmin(admin.ModelAdmin):
+    list_display = ['name']
+
+admin.site.register(Rule, RuleAdmin)
+
+class SafetyAdmin(admin.ModelAdmin):
+    list_display = ['name']
+
+admin.site.register(Safety, SafetyAdmin)
