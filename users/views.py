@@ -54,19 +54,21 @@ def userprofile(request, pk):
 #     return render(request, 'users/modify.html', {'user_form': user_form, 'profile_form': profile_form})
 #
 
-
+@login_required
 def user_modify(request,pk):
     if request.method == 'POST':
         form = CustomUserChangeForm(request.POST, instance=request.user)
         if form.is_valid():
             form.save()
-            return redirect('users/profile.html')
+            # return redirect('/user/<int:pk>/')
+        return render(request, 'users/profile.html')
     else:
         form = CustomUserChangeForm(instance=request.user)
     context = {
         'form': form,
         'pk' : pk
     }
+    print('fail')
     return render(request, 'users/modify.html', context)
 
 

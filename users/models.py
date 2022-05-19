@@ -12,7 +12,7 @@ from django.contrib.auth.models import AbstractUser
 #     REQUIRED_FIELDS = ["email"]
 
 class User(AbstractUser):
-    # u_id = models.CharField(max_length=200, verbose_name='아이디')  # user 아이디
+    u_nickname = models.CharField(max_length=200, verbose_name='닉네임')  # user 닉네임
     u_phonenum = models.CharField(max_length=200, verbose_name='전화번호', null=True)  # user 전화번호
     u_address = models.CharField(max_length=200, verbose_name='주소', null=True)  # user 주소
     SEX = (('F', '여자'), ('M', '남자'), ('U', '선택 안함'))
