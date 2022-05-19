@@ -6,18 +6,17 @@
 {% block content %}
 
 <h1>{{ user.u_nickname }} 님 환영합니다</h1>
-    {% if request.user == user %}
+{% if request.user == user %}
 
-<button class="btn btn-secondary" onclick="location.href=http://127.0.0.1:8000/users/2/modify/"> 회원정보 수정</button>
 
-        <a href="{% url 'users:user_modify' user.pk %}">회원 수정</a>
-        <form action="" method="POST">
-            {% csrf_token %}
-            <br>
-            <button class="btn btn-secondary">회원 탈퇴</button>
-        </form>
+<button class="btn btn-secondary" onclick="location.href='{% url 'users:user_modify' user.pk %}'"> 회원정보 수정</button>
+<br>
+<button class="btn btn-secondary" onclick="location.href='{% url 'users:user_delete' %}'"> 회원 탈퇴</button>
+<br>
+<button class="btn btn-secondary" onclick="location.href='{% url 'users:change_password' %}'"> 비밀번호 변경</button>
 
-    {% endif %}
+
+{% endif %}
 
 <hr>
 <h3>내 주문 정보</h3>

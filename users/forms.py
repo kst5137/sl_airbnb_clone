@@ -8,24 +8,6 @@ class CustomUserChangeForm(UserChangeForm):
     class Meta:
         model = get_user_model()
         fields = ['u_nickname','email',"u_phonenum", 'u_address','u_sex']
-#
-# class UpdateUserForm(forms.ModelForm):
-#     class Meta:
-#         model = User
-#         fields = ['username','email',"u_phonenum", 'u_address','u_sex']
-#
-# class UpdateProfileForm(forms.ModelForm):
-#     u_nickname = forms.CharField()
-#     email = forms.CharField()
-#     u_sex = forms.CharField()
-#     birth_year = forms.CharField()
-#     class Meta:
-#         model = User
-#         fields = ['username','email',"u_phonenum", 'u_address','u_sex']
-
-
-
-
 
 
 class SignupForm(forms.ModelForm):
