@@ -24,7 +24,7 @@ def product_in_category(request, category_slug=None):
         current_category = get_object_or_404(Category, slug=category_slug)
         products = products.filter(category=current_category)
 
-    return render(request, 'shop/list.html', {'current_category': current_category,
+    return render(request, 'airbnb/index_test.html', {'current_category': current_category,
                                               'categories': categories,
                                               'products': products,
                                               })
