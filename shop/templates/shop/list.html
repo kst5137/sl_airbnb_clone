@@ -1,20 +1,18 @@
 {% extends 'base.html' %}
-{% block title %}Category Page{% endblock %}
+{% block title %}AirBnB Main{% endblock %}
 {% block content %}
 
 <div class="row">
     <div class="col-2">
         <div class="list-group">
-            <a href="/" class="list-group-item {% if not current_category %}active{% endif %}">All</a>
+            <a href="/" class="list-group-item {% if not current_category %}active{% endif %} btn btn-primary btn-block" >All</a>
             {% for c in categories %}
 
             <a href="{{c.get_absolute_url}}"
-               class="list-group-item {% if current_category.slug == c.slug %}active{% endif %}">{{c.name}}</a>
+               class="list-group-item {% if current_category.slug == c.slug %}active{% endif %} btn btn-primary btn-block"style="background-color: #008DC9;">{{c.name}}</a>
             {% endfor %}
         </div>
     </div>
-
-
     <div class="col">
         <div class="alert alert-info" role="alert">
             {% if current_category %}{{current_category.name}}{% else %}All Products{% endif %}
@@ -22,20 +20,21 @@
         <div class="row">
             {% for product in products %}
             <div class="col-4">
-                <div class="card">
-                    <img class="card-img-top" src="{{product.image.url}}" alt="Product Image">
+                <div class="card-header">
+                    {% for image in product.image_set.all %}
+                    <img class="card-img-top" src="{{image.file.url}}" alt="Product Image">
+                    {% endfor %}
                     <div class="card-body">
                         <h5 class="card-title">{{product.name}}</h5>
                         <p class="card-text">{{product.description}} <span class="badge badge-secondary">&#8361;{{product.price}}</span>
                         </p>
-                        <a href="{{product.get_absolute_url}}" class="btn btn-primary">View Detail</a>
+                        <a href="{{product.get_absolute_url}}" class="btn btn-primary btn-block">View Detail</a>
                     </div>
                 </div>
             </div>
             {% endfor %}
         </div>
     </div>
-                <a href="{% url 'shop:create_product' %}" class="btn btn-primary">등록</a>
 </div>
 
 {% endblock %}

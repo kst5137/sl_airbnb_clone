@@ -1,0 +1,440 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% load i18n %}
+{% load account socialaccount %}
+
+{% block head_title %}{% trans "Sign In" %}{% endblock %}
+
+{% block content %}
+
+    <div class="explore_nearby">
+        <div class="container">
+            <h2 class="heading">Explore Nearby</h2>
+            <div class="cities">
+                <div class="city">
+                    <a href="stay.html"><img src="{%static 'img/city1.webp' %}" alt="" />
+
+                        <div class="city_details">
+                            <span class="city_name">Fethiye</span>
+                            <span class="city_distance">8 hour drive</span>
+                        </div>
+                    </a>
+                </div>
+                <div class="city">
+                    <a href="stay.html"><img src="img/city2.webp" alt="" />
+                        <div class="city_details">
+                            <span class="city_name">Ankara</span>
+                            <span class="city_distance">3.5 hour drive</span>
+                        </div>
+                    </a>
+                </div>
+                <div class="city">
+                    <a href="stay.html"><img src="img/city3.webp" alt="" />
+                        <div class="city_details">
+                            <span class="city_name">Kaş</span>
+                            <span class="city_distance">8.5 hour drive</span>
+                        </div>
+                    </a>
+                </div>
+                <div class="city">
+                    <a href="stay.html"> <img src="img/city4.webp" alt="" />
+                        <div class="city_details">
+                            <span class="city_name">Ölüdeniz</span>
+                            <span class="city_distance">8 hour drive</span>
+                        </div>
+                    </a>
+                </div>
+                <div class="city">
+                    <a href="stay.html"><img src="img/city5.webp" alt="" />
+                        <div class="city_details">
+                            <span class="city_name">Göreme</span>
+                            <span class="city_distance">3.5 hour drive</span>
+                        </div>
+                    </a>
+                </div>
+                <div class="city">
+                    <a href="stay.html"><img src="img/city6.webp" alt="" />
+                        <div class="city_details">
+                            <span class="city_name">Sapanca</span>
+                            <span class="city_distance">7 hour drive</span>
+                        </div>
+                    </a>
+                </div>
+                <div class="city">
+                    <a href="stay.html"><img src="img/city7.webp" alt="" />
+                        <div class="city_details">
+                            <span class="city_name">Bursa</span>
+                            <span class="city_distance">7 hour drive</span>
+                        </div>
+                    </a>
+                </div>
+                <div class="city">
+                    <a href="stay.html"><img src="img/city8.webp" alt="" />
+                        <div class="city_details">
+                            <span class="city_name">Eskişehir</span>
+                            <span class="city_distance">5 hour drive</span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="live_things">
+        <div class="container">
+            <div class="heading">Live anywhere</div>
+            <div class="stays">
+                <a href="stay.html">
+                    <div class="item">
+                        <img src="img/stay1.webp" alt="" />
+                        <span class="item_heading">Outdoor getaways</span>
+                    </div>
+                </a>
+                <a href="stay.html">
+                    <div class="item">
+                        <img src="img/stay2.webp" alt="" />
+                        <span class="item_heading">Unique stays</span>
+                    </div>
+                </a>
+                <a href="stay.html">
+                    <div class="item">
+                        <img src="img/stay3.webp" alt="" />
+                        <span class="item_heading">Entire homes</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="try_hosting">
+        <div class="container">
+            <div class="host_background">
+                <div class="details">
+                    <h3 class="host_heading">Try Hosting</h3>
+                    <span class="host_details">Earn extra income and unlock new oppurtunities by sharing your
+                        space.</span>
+                    <div class="host_learn_more_button">Learn more</div>
+                </div>
+                <img src="img/host.webp" alt="" />
+            </div>
+        </div>
+    </div>
+    <div class="live_things">
+        <div class="container">
+            <div class="heading">Discover things to do</div>
+            <div class="stays">
+                <a href="experiences.html">
+                    <div class="item">
+                        <img src="img/live1.webp" alt="" />
+                        <span class="item_heading">Experiences</span>
+                        <span class="item_desc">Find unforgettable activities near you.</span>
+                    </div>
+                </a>
+                <a href="online-experiences.html">
+                    <div class="item">
+                        <img src="img/live2.webp" alt="" />
+                        <span class="item_heading">Online Experiences</span>
+                        <span class="item_desc">Live, interactive activities led by Hosts.</span>
+                    </div>
+                </a>
+                <a href="wanderlust.html">
+                    <div class="item">
+                        <img src="img/live3.webp" alt="" />
+                        <span class="item_heading">Featured collection</span>
+                        <span class="item_desc">Travel from home with Online Experiences.</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="future_getaways">
+        <div class="container">
+            <div class="scope">
+                <div class="heading">Inspiration for future getaways</div>
+                <nav>
+                    <ul>
+                        <li>
+                            Destinations for arts & culture
+                            <div class="bottom_border"></div>
+                        </li>
+                        <li>Destinations for outdoor adventure</li>
+                        <li>Mountain cabins</li>
+                        <li>Beach destinations</li>
+                        <li>Popular destinations</li>
+                        <li>Unique Stays</li>
+                    </ul>
+                </nav>
+                <div class="cities">
+                    <div class="city">
+                        <span class="city_name">Phoenix</span>
+                        <span class="city_state">Arizona</span>
+                    </div>
+                    <div class="city">
+                        <span class="city_name">Hot Spring</span>
+                        <span class="city_state">Arkansas</span>
+                    </div>
+                    <div class="city">
+                        <span class="city_name">Los Angeles</span>
+                        <span class="city_state">California</span>
+                    </div>
+                    <div class="city">
+                        <span class="city_name">San Diego</span>
+                        <span class="city_state">California</span>
+                    </div>
+                    <div class="city">
+                        <span class="city_name">San Francisco</span>
+                        <span class="city_state">California</span>
+                    </div>
+                    <div class="city">
+                        <span class="city_name">Barcelona</span>
+                        <span class="city_state">Catalonia</span>
+                    </div>
+                    <div class="city">
+                        <span class="city_name">Prague</span>
+                        <span class="city_state">Czechia</span>
+                    </div>
+                    <div class="city">
+                        <span class="city_name">Washington</span>
+                        <span class="city_state">District of Columbia</span>
+                    </div>
+                    <div class="city">
+                        <span class="city_name">Keswick</span>
+                        <span class="city_state">England</span>
+                    </div>
+                    <div class="city">
+                        <span class="city_name">London</span>
+                        <span class="city_state">England</span>
+                    </div>
+                    <div class="city">
+                        <span class="city_name">Scarborough</span>
+                        <span class="city_state">England</span>
+                    </div>
+                    <div class="city">
+                        <span class="city_name">Sherwood Forest</span>
+                        <span class="city_state">England</span>
+                    </div>
+
+                    <div class="city">
+                        <span class="city_name">York</span>
+                        <span class="city_state">England</span>
+                    </div>
+                    <div class="city">
+                        <span class="city_name">Paris</span>
+                        <span class="city_state">France</span>
+                    </div>
+                    <div class="city">
+                        <span class="city_name">Rhodes</span>
+                        <span class="city_state">Greece</span>
+                    </div>
+                    <div class="city">
+                        <span class="city_name">Nashville</span>
+                        <span class="city_state">Indiana</span>
+                    </div>
+                    <div class="city">
+                        <span class="city_name">Dublin</span>
+                        <span class="city_state">Ireland</span>
+                    </div>
+                    <div class="city">
+                        <span class="city_name">Florence</span>
+                        <span class="city_state">Italy</span>
+                    </div>
+                    <div class="city">
+                        <span class="city_name">Rome</span>
+                        <span class="city_state">Italy</span>
+                    </div>
+                    <div class="city">
+                        <span class="city_name">Lisbon</span>
+                        <span class="city_state">Lisbon</span>
+                    </div>
+                    <div class="city">
+                        <span class="city_name">Grande Isle</span>
+                        <span class="city_state">Louisiana</span>
+                    </div>
+                    <div class="city">
+                        <span class="city_name">New Orleans</span>
+                        <span class="city_state">Louisiana</span>
+                    </div>
+                    <div class="city">
+                        <span class="city_name">Marthas Vineyard</span>
+                        <span class="city_state">Massachusetts</span>
+                    </div>
+                    <div class="city">
+                        <span class="city_name">South Haven</span>
+                        <span class="city_state">Michigan</span>
+                    </div>
+                    <div class="city">
+                        <span class="city_name">Duluth</span>
+                        <span class="city_state">Minnesota</span>
+                    </div>
+                    <div class="city">
+                        <span class="city_name">Amsterdam</span>
+                        <span class="city_state">Netherlands</span>
+                    </div>
+                    <div class="city">
+                        <span class="city_name">New York</span>
+                        <span class="city_state">New York</span>
+                    </div>
+                    <div class="city">
+                        <span class="city_name">Nice</span>
+                        <span class="city_state">Provence-Alpes-Côte d'Azur</span>
+                    </div>
+                    <div class="city">
+                        <span class="city_name">Inverness</span>
+                        <span class="city_state">Scotland</span>
+                    </div>
+                    <div class="city">
+                        <span class="city_name">Malaga</span>
+                        <span class="city_state">Spain</span>
+                    </div>
+                    <div class="city">
+                        <span class="city_name">Valencia</span>
+                        <span class="city_state">Spain</span>
+                    </div>
+                    <div class="city">
+                        <span class="city_name">Split</span>
+                        <span class="city_state">Split-Dalmatia County</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer">
+        <div class="container">
+            <div class="footer_top">
+                <div class="column">
+                    <div class="footer_heading">ABOUT</div>
+                    <ul>
+                        <li><a href="#">How Airbnb works</a></li>
+                        <li><a href="#">Newsroom</a></li>
+                        <li><a href="#">Airbnb 2021</a></li>
+                        <li><a href="#">Investors</a></li>
+                        <li><a href="#">Airbnb Plus</a></li>
+                        <li><a href="#">Airbnb Luxe</a></li>
+                        <li><a href="#">HotelTonight</a></li>
+                        <li><a href="#">Airbnb for Work</a></li>
+                        <li><a href="#">Made possible by Hosts</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Founders' Letter</a></li>
+                    </ul>
+                </div>
+                <div class="column">
+                    <div class="footer_heading">COMMUNITY</div>
+                    <ul>
+                        <li><a href="#">Diversity & Belonging</a></li>
+                        <li><a href="#">Against Discrimination</a></li>
+                        <li><a href="#">Accessibility</a></li>
+                        <li><a href="#">Airbnb Associates</a></li>
+                        <li><a href="#">Host Afghan refugees</a></li>
+                        <li><a href="#">Guest Referrals</a></li>
+                        <li><a href="#">Gift cards</a></li>
+                        <li><a href="#">Airbnb.org</a></li>
+                    </ul>
+                </div>
+                <div class="column">
+                    <div class="footer_heading">HOST</div>
+                    <ul>
+                        <li><a href="#">Host your home</a></li>
+                        <li><a href="#">Host an Online Experience</a></li>
+                        <li><a href="#">Host an Experience</a></li>
+                        <li><a href="#">Responsible hosting</a></li>
+                        <li><a href="#">Resource Center</a></li>
+                        <li><a href="#">Community Center</a></li>
+                    </ul>
+                </div>
+                <div class="column">
+                    <div class="footer_heading">SUPPORT</div>
+                    <ul>
+                        <li><a href="#">Our COVID-19 Response</a></li>
+                        <li><a href="#">Help Center</a></li>
+                        <li><a href="#">Cancellation options</a></li>
+                        <li><a href="#">Neighborhood Support</a></li>
+                        <li><a href="#">Trust & Safety</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer_bottom">
+                <div class="left">
+                    <span>© 2021 Airbnb, Inc.</span>
+                    <ul>
+                        <li>Privacy</li>
+                        <li>Terms</li>
+                        <li>Sitemap</li>
+                    </ul>
+                </div>
+                <div class="right">
+                    <div class="icons">
+                        <div class="icon">
+                            <i class="icon-country"></i>
+                            <span>English (US)</span>
+                        </div>
+                        <div class="icon">
+                            ₺
+                            <span>TRY</span>
+                        </div>
+                    </div>
+                    <div class="social">
+                        <i class="icon-facebook"></i>
+                        <i class="icon-twitter"></i>
+                        <i class="icon-instagram"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        $(document).ready(function () {
+            // window.addEventListener("resize", () => {
+            //     if (document.body.clientWidth > 728) {
+            //         $(".sticky_menu").css("display", "block");
+            //         $(".form").css("display", "none");
+            //         $(".logo").css("display", "none");
+            //         $(".menu2").css("display", "none");
+            //         $(".profile").css("display", "none");
+            //         $(".menu2").css("display", "none");
+            //     } else {
+            //         $(".sticky_menu").css("display", "none");
+            //         // $(".form").css("display", "flex");
+            //         // $(".logo").css("display", "flex");
+            //         // $(".menu2").css("display", "flex");
+            //         // $(".profile").css("display", "flex");
+            //         // $(".menu2").css("display", "flex");
+            //     }
+            // });
+
+            $(window).scroll(function () {
+                if ($(document).scrollTop() > 1) {
+                    $(".sticky_menu").css("display", "block");
+                    $(".formm").css("display", "none");
+                    $(".logo").css("display", "none");
+                    $(".profile").css("display", "none");
+                    $(".menu2").css("opacity", "0");
+                } else {
+                    $(".sticky_menu").css("display", "none");
+                    $(".formm").css("display", "flex");
+                    $(".logo").css("display", "flex");
+                    $(".profile").css("display", "flex");
+                    $(".menu2").css("opacity", "1");
+                }
+            });
+            // const mediaQuery = window.matchMedia('(min-width: 744px)')
+            // if (mediaQuery.matches) {
+            //     // Then trigger an alert
+            //     $(".sticky_menu").css("b", "flex");
+            //     $(".form").css("display", "flex");
+            // }
+
+            // function responsive() {
+            //     if (window.innerWidth < 744 && document.scrollTop() > 1) {
+            //         $(".sticky_menu").css("background-color", "yellow");
+            //         $(".sticky_menu").css("display", "flex");
+            //     }
+            //     else {
+            //         $(".sticky_menu").css("display", "flex");
+            //         $(".form").css("display", "flex");
+
+            //     }
+            // }
+            // window.addEventListener("resize", responsive);
+        });
+    </script>
+{% endblock %}

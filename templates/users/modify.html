@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% load static %}
+{% load i18n %}
+
+{% block head_title %}{% trans "Signup" %}{% endblock %}
+
+
+{% block content %}
+<form action="" method="POST">
+    {% csrf_token %}
+    <div class="join_row">
+        <h3 class="join_title"><h2>닉네임</h2></h3>
+        <input type="text" id="u_nickname" name="u_nickname" value="" maxlength="16" required=""
+               PLACEHOLDER= '현재 닉네임은  {{ user.u_nickname }} 입니다'
+               style="width:300px;height:50x;font-size:20px;">
+    </div>
+
+    <div class="join_row">
+        <h3 class="join_title"><h2>주소</h2></h3>
+
+        <input type="text" id="u_address" name="u_address" value="" maxlength="500" required="" PLACEHOLDER={{ user.u_address }}
+               style="width:500px;height:500x;font-size:20px;">
+    </div>
+    <div class="join_row">
+        <h3 class="join_title"><h2>email</h2></h3>
+        <input type="text" name="email" value="" data-email="" size="30" required=""
+               fld_esssential="" option="regEmail" label="이메일"
+               placeholder={{ user.email }}
+               style="width:300px;height:30px;font-size:20px;">
+    </div>
+    <div class="join_row join_phonenum">
+        <h3 class="join_title"><h2>핸드폰번호</h2></h3>
+        <div class="phonenum">
+            <input type="text" name="u_phonenum" id="u_phonenum" pattern="[0-9]*"
+                   value="" label="핸드폰번호" size="11" maxlength="11"
+                   placeholder={{ user.u_phonenum }}
+                   style="width:500px;height:500x;font-size:20px;">
+            <span class="bar"></span>
+        </div>
+    </div>
+    <div class="join_row join_sex">
+        <h3 class="join_title"><h2>성별</h2></h3>
+        <div class="ps_box gender_code">
+            <select name="u_sex" aria-label="u_sex" style="width:100px;height:30px;font-size:20px;">
+                <option value="" selected="">성별</option>
+                <option value="M">남자</option>
+                <option value="F">여자</option>
+                <option value="U">선택 안함</option>
+            </select>
+        </div>
+    </div>
+
+    <button class="btn btn-primary">수정</button>
+</form>
+
+{% endblock %}

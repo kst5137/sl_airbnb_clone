@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% load static %}
+{% load i18n %}
+
+{% block head_title %}{% trans "Signup" %}{% endblock %}
+{% block content %}
+
+<h1>{{ user.u_nickname }} 님 환영합니다</h1>
+{% if request.user == user %}
+
+
+<button class="btn btn-secondary" onclick="location.href='{% url 'users:user_modify' user.pk %}'"> 회원정보 수정</button>
+<br>
+<button class="btn btn-secondary" onclick="location.href='{% url 'users:user_delete' %}'"> 회원 탈퇴</button>
+<br>
+<button class="btn btn-secondary" onclick="location.href='{% url 'users:change_password' %}'"> 비밀번호 변경</button>
+
+
+{% endif %}
+
+<hr>
+<h3>내 주문 정보</h3>
+<h3>내 숙소 정보</h3>
+
+{% endblock %}
