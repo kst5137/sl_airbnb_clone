@@ -1,7 +1,7 @@
 from django.db import models
 from django.urls import reverse
-from imagekit.models import ProcessedImageField
-from pilkit.processors import ResizeToFill
+from imagekit.models import ProcessedImageField, ImageSpecField
+from imagekit.processors import ResizeToFill
 
 class Category(models.Model):
     name = models.CharField(max_length=200, db_index=True)
@@ -67,7 +67,7 @@ def path_image_path(instance, filename):
 
 class Image(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
-    file = ProcessedImageField(upload_to='products/%Y/%m/%d', null=False)
+    file = ProcessedImageField(upload_to='products/%Y/%m/%d', null=False, processors=[ResizeToFill(120, 100)], format='JPEG', options={'quality':90})
 
 
 class Size(models.Model):
@@ -91,6 +91,9 @@ class Attribute(models.Model):
 
     class Meta:
         db_table = 'attributes'
+
+    def __str__(self):
+        return self.name
 
 
 class ProductAttributes(models.Model):
