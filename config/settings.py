@@ -64,6 +64,7 @@ INSTALLED_APPS = [
     'order',
     'imagekit',
     'users',
+    'search',
 
 ]
 AUTH_USER_MODEL = 'users.User'
@@ -82,7 +83,7 @@ ROOT_URLCONF = 'config.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates'), os.path.join(BASE_DIR, 'templates', 'accounts')],
+        'DIRS': [os.path.join(BASE_DIR, 'templates'), os.path.join(BASE_DIR, 'templates', 'accounts','search')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
