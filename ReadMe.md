@@ -41,7 +41,7 @@
 ## :link: API 설계도
 |page|request|feature|api|event|설&nbsp;명|담&nbsp;당|비&nbsp;고|&nbsp;구현여부&nbsp;|
 |------|-----|-----|-----|-----|-----|-----|-----|-----|
-|헤더|GET|검색|/room|click / enter||규호|||
+|헤더|GET|검색|/room|click / enter||규호||  ○
 ||GET|마이페이지|/mypage|click|마이페이지 버튼 클릭시 마이페이지로 이동|규호|| ○
 ||GET|호스트페이지|/hostpage|click|호스트모드 버튼 클릭시 호스트 모드 페이지로 이동|규호||○ 
 |||||||||
@@ -61,11 +61,11 @@
 ||POST|숙소 기간|/register|Click|숙소 사용 가능 기간 선택하기|재중||
 ||POST|숙소 가격|/register|Click|숙소 가격 입력|재중|| ○
 |||||||||
-|로그인및 회원가입|GET|로그인페이지|accounts/login|Click|로그인 페이지로 접속|규호|| ○
-||POST|로그인|accounts/login|Click|로그인시 아이디 비밀번호 받는다|규호|| ○
-||GET|회원가입페이지|accounts/signup|Click|회원가입 페이지로 이동|규호|| ○
-||POST|회원가입|accounts/signup|Click|아이디,비밀번호,닉네임 외에 회원가입에 필요한 정보를 받는다|규호||○
-||GET|이메일 유효성검사|accounts/singup|Click|가입된 이메일로 메일을 보내고 이를 확인해야 회원가입가능|규호||
+|로그인및 회원가입|GET|로그인페이지|accounts/login|Click|로그인 페이지로 접속|규호|| ●
+||POST|로그인|accounts/login|Click|로그인시 아이디 비밀번호 받는다|규호|| ●
+||GET|회원가입페이지|accounts/signup|Click|회원가입 페이지로 이동|규호|| ●
+||POST|회원가입|accounts/signup|Click|아이디,비밀번호,닉네임 외에 회원가입에 필요한 정보를 받는다|규호||●
+||GET|이메일 유효성검사|accounts/singup|Click|가입된 이메일로 메일을 보내고 이를 확인해야 회원가입가능|규호|| ●
 ||GET|이메일로그인|accounts/login|Click|이메일로 로그인|규호|| △
 ||GET|구글 로그인|accounts/login|Click|구글 아이디로 로그인|규호|| △
 ||GET|카카오 로그인|accounts/login|Click|카카오로 로그인|규호|| △
@@ -76,7 +76,7 @@
 ||DELETE|회원탈퇴|users/user_delete|Click|회원정보를 삭제한다|규호|| ○
 |||||||||
 |숙소검색리스트|GET|요금과 유형외에 분류|/room|Click|숙소 분류에 따라 재정렬|규호||
-||GET|숙소간략정보|/room|Default|검색한 애용에 따라 숙소정보 요청|규호||
+||GET|숙소간략정보|/room|Default|검색한 애용에 따라 숙소정보 요청|규호|| △
 ||GET|페이지에 나온 숙소들 위치 지도에 출력|/room|Default|검색한 내용에 따라 숙소 정보 요청|규호||
 |||||||||
 |숙소예약|GET|예약할 숙소정보|/room/reservation|Default|숙소정보들(이름, 사진, 옵션, 가격, 기간등을 요청)|재중||
