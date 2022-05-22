@@ -7,11 +7,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
-
+    <script src="https://kit.fontawesome.com/0abf022b9d.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css">
     <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!--    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>-->
     <title>login</title>
     <link rel="stylesheet" href="{% static 'css/main.css' %}">
     <script
@@ -48,10 +48,16 @@
                 </svg>
             </a>
         </div>
-        <div class="input2">
-                <input type="text" placeholder="Start your search">
-                <i class="icon-search"></i>
+        <form action="{% url 'search:searchResult' %}" method="get">
+            {% csrf_token %}
+            <div class="input2" >
+                <input type="text" placeholder="Start your search" name="q">
+                <button type="submit">
+                    <i class="icon-search"></i>
+                </button>
+
             </div>
+        </form>
         <div class="profile2">
             {% if user.is_authenticated %}
             <a href="{% url 'users:host_main' %}">Become a Host</a>
@@ -60,51 +66,49 @@
 
             </a>
 
-                <div>
-                    <li class="nav-item">
-                        {% if user.is_authenticated %}
+            <div>
+                <li class="nav-item">
+                    {% if user.is_authenticated %}
 
-                        <a  href="{% url 'account_logout' %}">Logout</a>
+                    <a href="{% url 'account_logout' %}">Logout</a>
+                    {% else %}
+                    <a href="{% url 'account_login' %}">Login</a>
+                    {% endif %}
+                </li>
+            </div>
+
+
+            <div>
+                <li class="nav-item">
+                    <a href="{% url 'cart:detail' %}">Cart
+                        {% if cart|length > 0 %}
+                        ${{ cart.get_total_price }} with {{cart|length}} items
                         {% else %}
-                        <a  href="{% url 'account_login' %}">Login</a>
+                        : Empty
                         {% endif %}
-                    </li>
-                </div>
+                    </a>
+                </li>
+            </div>
+            <div>
+                <li class="nav-item">
+
+                    {% if user.is_authenticated %}
+
+                    <a href="{% url 'users:userprofile' user.pk %}">{{ user.u_nickname }}님</a>
 
 
-                <div>
-                    <li class="nav-item">
-                        <a  href="{% url 'cart:detail' %}">Cart
-                            {% if cart|length > 0 %}
-                            ${{ cart.get_total_price }} with {{cart|length}} items
-                            {% else %}
-                            : Empty
-                            {% endif %}
-                        </a>
-                    </li>
-                </div>
-             <div>
-                    <li class="nav-item">
-
-                            {% if user.is_authenticated %}
-
-                        <a href="{% url 'users:userprofile' user.pk %}">{{ user.u_nickname }}님</a>
-
-
-
-                        {% endif %}
-                        </a>
-                    </li>
-                </div>
-
+                    {% endif %}
+                    </a>
+                </li>
+            </div>
 
 
         </div>
     </div>
 </div>
 
-    {% block content %}
-    {% endblock %}
+{% block content %}
+{% endblock %}
 
 
 </body>
