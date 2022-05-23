@@ -32,12 +32,38 @@
                 </form>
                 <h5><span class="badge badge-secondary">Description</span>{{product.description|linebreaks}}</h5>
             </div>
+            <h5>{{ product.inquiry_set.count }}개의 문의가 있습니다.</h5>
+            <div>
+                <ul>
+                    {% for inquiry in product.inquiry_set.all %}
+                    <li>{{ inquiry.content }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <form action="{% url 'shop:inquiry_create' product.id %}" method="post" class="my-3">
+                {% csrf_token %}
+                {% if form.errors %}
+                <div class="alert alert-danger" role="alert">
+                    {% for field in form %}
+                    {% if field.errors %}
+                    <div>
+                        <strong>{{ field.label }}</strong>
+                        {{ field.errors }}
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+                </div>
+                {% endif %}
+                <div class="form-group">
+                    <center><div class="btn btn-info btn-sm ">문의</div></center>
+                    <textarea name="content" id="content" class="form-control btn btn-outline-primary" rows="5"></textarea>
+                </div>
+
+                <input type="submit" value="문의 하기" class="btn btn-primary">
+            </form>
         </div>
-        <a href="{% url 'shop:register_product' product.id  %}"
-           class="btn btn-sm btn-outline-secondary float-right">수정</a>
     </div>
 </div>
 
 {% endblock %}
-<!--   user 모델 생성 후 할 내용         {% if request.user == product.user %}-->
-<!--            {% endif %}-->
+

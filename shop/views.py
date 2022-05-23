@@ -7,6 +7,7 @@ from .models import *
 from cart.forms import AddProductForm
 from .forms import *
 from django.db import transaction
+from django.http import HttpResponseNotAllowed
 #
 from allauth.account.signals import user_signed_up
 from django.dispatch import receiver
@@ -94,29 +95,48 @@ def create_product(request) :
                'facility_form':facility_form, 'rule_form':rule_form, 'safety_form':safety_form}
     return render(request, 'shop/create_product.html', context)
 
-# @login_required(login_url='product:login')
-def register_product(request, product_id):
-    product = get_object_or_404(Product, pk=product_id)
-    # if request.user != product.user:
-    #     messages.error(request, '수정권한이 없습니다')
-    #     return redirect('shop:detail', product_id=product.id)
-    if request.method == "POST":
-        form = ProductForm(request.POST, instance=product)
-        if form.is_valid():
-            product = form.save(commit=False)
-            product.save()
-            return redirect('shop:detail', product_id=product.id)
-    else:
-        product_form = ProductForm()
-        image_formset = ImageFormSet()
-        type_form = TypeForm()
-        size_form = SizeForm()
-        attribute_form = AttributeForm()
-        facility_form = FacilityForm()
-        rule_form = RuleForm()
-        safety_form = SafetyForm()
 
-    context = {'product_form': product_form, 'image_formset': image_formset,
-               'type_form': type_form, 'size_form': size_form, 'attribute_form': attribute_form,
-               'facility_form': facility_form, 'rule_form': rule_form, 'safety_form': safety_form}
-    return render(request, 'shop/list.html', context)
+def inquiry_create(request, product_id):
+    product = get_object_or_404(Product, pk=product_id)
+    if request.method == "POST":
+        form = InquiryForm(request.POST)
+        if form.is_valid():
+            inquiry = form.save(commit=False)
+            inquiry.product = product
+            inquiry.save()
+            print('save', inquiry)
+            return redirect('shop:product_detail', product_id = product_id)
+    else:
+        print('else')
+        return HttpResponseNotAllowed('Only POST is possible.')
+    context = {'product': product, 'form': form}
+    return render(request, 'shop/detail.html', context)
+
+
+
+# @login_required(login_url='product:login')
+# def register_product(request, product_id):
+#     product = get_object_or_404(Product, pk=product_id)
+#     # if request.user != product.user:
+#     #     messages.error(request, '수정권한이 없습니다')
+#     #     return redirect('shop:detail', product_id=product.id)
+#     if request.method == "POST":
+#         form = ProductForm(request.POST, instance=product)
+#         if form.is_valid():
+#             product = form.save(commit=False)
+#             product.save()
+#             return redirect('shop:detail', product_id=product.id)
+#     else:
+#         product_form = ProductForm()
+#         image_formset = ImageFormSet()
+#         type_form = TypeForm()
+#         size_form = SizeForm()
+#         attribute_form = AttributeForm()
+#         facility_form = FacilityForm()
+#         rule_form = RuleForm()
+#         safety_form = SafetyForm()
+#
+#     context = {'product_form': product_form, 'image_formset': image_formset,
+#                'type_form': type_form, 'size_form': size_form, 'attribute_form': attribute_form,
+#                'facility_form': facility_form, 'rule_form': rule_form, 'safety_form': safety_form}
+#     return render(request, 'shop/list.html', context)

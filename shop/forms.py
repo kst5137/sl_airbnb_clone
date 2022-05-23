@@ -42,3 +42,11 @@ class SafetyForm(forms.ModelForm):
     class Meta:
         model = Safety
         exclude = ()
+
+class InquiryForm(forms.ModelForm):
+    class Meta:
+        model = Inquiry
+        fields = ['content']
+        labels = {
+            'content': '문의내용',
+        }

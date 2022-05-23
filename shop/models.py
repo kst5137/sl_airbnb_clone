@@ -69,6 +69,11 @@ class Image(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     file = ProcessedImageField(upload_to='products/%Y/%m/%d', null=False, processors=[ResizeToFill(120, 100)], format='JPEG', options={'quality':90})
 
+class Inquiry(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    content = models.TextField()
+    create_date = models.DateTimeField(auto_now_add=True)
+
 
 class Size(models.Model):
     name = models.CharField(max_length=100)
