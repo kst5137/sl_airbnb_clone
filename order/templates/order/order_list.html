@@ -8,36 +8,6 @@
 
 <h1>{{ user.u_nickname }} 님의 판매 내역입니다.</h1>
 
-<!--<hr>-->
-<!--<h3>내 주문 정보</h3>-->
-<!--<table class="table table-striped">-->
-<!--    <thead>-->
-<!--    <tr>-->
-<!--        <th scope="col">Image</th>-->
-<!--        <th scope="col">Product</th>-->
-<!--        <th scope="col">Price</th>-->
-<!--        <th scope="col">주문날짜</th>-->
-<!--    </tr>-->
-<!--    </thead>-->
-<!--    <tbody>-->
-<!--    {% for order in order_list %}-->
-<!--    {% with product=item.product %}-->
-<!--    <tr>-->
-<!--        <th scope="row">-->
-<!--            <a href="{{ product.get_absolute_url }}">-->
-<!--                <img src="{{ product.image.url }}" class="img-thumbnail">-->
-<!--            </a>-->
-<!--        </th>-->
-<!--        <th>{{order.product}}</th>-->
-<!--        <th>{{order.price}}</th>-->
-<!--        <th>{{order.register_date|date:'Y-m-d H:i'}}</th>-->
-
-<!--    </tr>-->
-<!--    {% endwith %}-->
-<!--    {% endfor %}-->
-
-<!--    </tbody>-->
-<!--</table>-->
 <div class="row mt-5">
     <div class="col-12">
         <table class="table table-light">

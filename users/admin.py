@@ -5,7 +5,7 @@ from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.admin import UserAdmin
 
 
-UserAdmin.fieldsets += (("Custom fields", {"fields": ("u_nickname", "u_phonenum","u_address","SEX")}),)
+UserAdmin.fieldsets += (("Custom fields", {"fields": ("u_nickname", "u_phonenum","u_address","SEX",)}),)
 
 
 #

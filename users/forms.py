@@ -13,7 +13,7 @@ class CustomUserChangeForm(UserChangeForm):
 class SignupForm(forms.ModelForm):
     class Meta:
         model = User
-        fields = ["u_nickname", "u_phonenum", 'u_address','u_sex']
+        fields = ["u_nickname","email", "u_phonenum", 'u_address','u_sex']
 
 
 
@@ -22,5 +22,6 @@ class SignupForm(forms.ModelForm):
         user.u_phonenum = self.cleaned_data['u_phonenum']
         user.u_address = self.cleaned_data['u_address']
         user.u_sex = self.cleaned_data['u_sex']
+        user.email = self.cleaned_data['email']
         user.save()
 

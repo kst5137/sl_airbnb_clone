@@ -13,7 +13,7 @@ class Order(models.Model):
 
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
-    email = models.EmailField()
+    email = models.EmailField(max_length=128, verbose_name='사용자이메일')
     address = models.CharField(max_length=250)
     postal_code = models.CharField(max_length=20)
     city = models.CharField(max_length=100)
@@ -22,7 +22,7 @@ class Order(models.Model):
     paid = models.BooleanField(default=False)
     coupon = models.ForeignKey(Coupon, on_delete=models.PROTECT, related_name='order_coupon', null=True, blank=True)
     discount = models.IntegerField(default=0, validators=[MinValueValidator(0), MaxValueValidator(100000)])
-    u_nickname = models.ForeignKey(User, on_delete=models.PROTECT)
+
 
     class Meta:
         ordering = ['-created']

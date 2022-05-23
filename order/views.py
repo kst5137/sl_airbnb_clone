@@ -9,6 +9,10 @@ from django.contrib.admin.views.decorators import staff_member_required
 from django.conf import settings
 from django.http import HttpResponse
 from django.template.loader import render_to_string
+from django.views.generic import ListView
+from .models import Order
+
+from django.contrib.auth.models import User
 # import weasyprint
 from users.models import User
 
@@ -154,7 +158,7 @@ def admin_order_pdf(request, order_id):
 
 # 주문내역 조회
 
-from django.views.generic import ListView
+
 
 
 # 왜인지 모르지만 구매자 목록
@@ -165,11 +169,12 @@ class order_List(ListView):
     context_object_name = 'order_list'
 
 
-    def get_queryset(self, **kwargs):
-
-        queryset = Order.objects.filter(
-            u_nickname=self.request.session.get('user'))
-        return queryset
+    # def get_queryset(self, **kwargs):
+    #     user = self.request.session.get('user')
+    #     print(user)
+    #
+    #     queryset = Order.objects.filter(user__email=self.request.session.get('user'))
+    #     return queryset
 
 # 주문내역 조회 다시 도전
 
