@@ -52,13 +52,17 @@
             </thead>
             <tbody class="text-dark">
             {% for orderitem in orderitem_list %}
+
+             {% with product=orderitem.product %}
             <tr>
                 <th scope="row">{{orderitem.order}}</th>
 
-                <th>{{orderitem.product}}</th>
+                <th href="{{ product.get_absolute_url }}">{{orderitem.product}}</th>
                 <th>{{orderitem.price}}</th>
-                <th>{{order.updated|date:'Y-m-d H:i'}}</th>
+                <th>{{orderitem.created}}</th>
             </tr>
+            {% endwith %}
+
             {% endfor %}
             </tbody>
         </table>

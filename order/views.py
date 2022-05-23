@@ -10,7 +10,7 @@ from django.conf import settings
 from django.http import HttpResponse
 from django.template.loader import render_to_string
 # import weasyprint
-
+from users.models import User
 
 
 
@@ -163,6 +163,13 @@ class order_List(ListView):
     model = Order
     template_name = 'order_list.html'
     context_object_name = 'order_list'
+
+
+    def get_queryset(self, **kwargs):
+
+        queryset = Order.objects.filter(
+            u_nickname=self.request.session.get('user'))
+        return queryset
 
 # 주문내역 조회 다시 도전
 

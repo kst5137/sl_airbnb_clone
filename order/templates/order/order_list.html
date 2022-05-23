@@ -42,32 +42,44 @@
     <div class="col-12">
         <table class="table table-light">
             <thead class="thead-light">
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">상품명</th>
-                    <th scope="col">구매자</th>
-                    <th scope="col">email</th>
-                    <th scope="col">주문날짜</th>
-                </tr>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">상품명</th>
+                <th scope="col">구매자</th>
+                <th scope="col">email</th>
+                <th scope="col">주문날짜</th>
+            </tr>
             </thead>
             <tbody class="text-dark">
-                {% for order in order_list %}
-                {% if order.paid == 1%}
-                <tr>
-                    <th scope="row">{{order.id}}</th>
+            {% for order in order_list %}
 
-                    <th>{{order.product}}</th>
-                    <th>{{order.first_name}}{{order.last_name}} </th>
-                    <th>{{order.email}} </th>
-                    <th>{{order.updated|date:'Y-m-d H:i'}}</th>
-                </tr>
-                {% endif %}
-                {% endfor %}
+            {% if order.paid == 1%}
+            {% with product=item.product %}
+            <tr>
+                <th scope="row">
+                <a href="{{ product.get_absolute_url }}">
+
+                </a>
+                <div class="col-4">
+                    {% for image in product.image_set.all %}
+                    <img src="{{image.file.url}}" width="100%" alt="Product Image">
+                    {% endfor %}
+                </div>
+            </th>
+
+                <th>{{order.product}}</th>
+                <th>{{order.first_name}}{{order.last_name}}</th>
+                <th>{{order.email}}</th>
+                <th>{{order.updated|date:'Y-m-d H:i'}}</th>
+            </tr>
+            {% endwith %}
+            {% endif %}
+
+            {% endfor %}
             </tbody>
         </table>
     </div>
 </div>
-
 
 
 {% endblock %}

@@ -9,23 +9,19 @@
 <h1>{{ user.u_nickname }} 님 환영합니다</h1>
 {% if request.user == user %}
 
-
+<h2>
+    회원정보 관련
+</h2>
 <button class="btn btn-secondary" onclick="location.href='{% url 'users:user_modify' user.pk %}'"> 회원정보 수정</button>
-<br>
+
 <button class="btn btn-secondary" onclick="location.href='{% url 'users:user_delete' %}'"> 회원 탈퇴</button>
-<br>
+
 <button class="btn btn-secondary" onclick="location.href='{% url 'users:change_password' %}'"> 비밀번호 변경</button>
-
-
 {% endif %}
-
 <hr>
+<h2> 내 상품 내역 </h2>
 <button class="btn btn-secondary" onclick="location.href='{% url 'order:order_list' %}'"> 내 판매 내역</button>
 <button class="btn btn-secondary" onclick="location.href='{% url 'order:orderitem_list' %}'"> 내 주문 내역</button>
 
-
-
-
-<h3>내 숙소 정보</h3>
 
 {% endblock %}

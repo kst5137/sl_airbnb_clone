@@ -3,11 +3,14 @@ from django.core.validators import MinValueValidator, MaxValueValidator
 from coupon.models import Coupon
 from shop.models import Product
 import hashlib
+
+from users.models import User
 from .iamport import payments_prepare, find_transaction
 from django.db.models.signals import post_save
 
 
 class Order(models.Model):
+
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
     email = models.EmailField()
@@ -17,9 +20,9 @@ class Order(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     paid = models.BooleanField(default=False)
-
     coupon = models.ForeignKey(Coupon, on_delete=models.PROTECT, related_name='order_coupon', null=True, blank=True)
     discount = models.IntegerField(default=0, validators=[MinValueValidator(0), MaxValueValidator(100000)])
+    u_nickname = models.ForeignKey(User, on_delete=models.PROTECT)
 
     class Meta:
         ordering = ['-created']
@@ -40,6 +43,7 @@ class OrderItem(models.Model):
     product = models.ForeignKey(Product, on_delete=models.PROTECT, related_name='order_products')
     price = models.DecimalField(max_digits=10, decimal_places=2)
     quantity = models.PositiveIntegerField(default=1)
+    created = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return '{}'.format(self.id)
