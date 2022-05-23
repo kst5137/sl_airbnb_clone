@@ -11,4 +11,6 @@ urlpatterns = [
     path('complete/', order_complete, name='order_complete'),
     path('admin/order/<int:order_id>/', admin_order_detail, name='admin_order_detail'),
     path('admin/order/<int:order_id>/pdf/', admin_order_pdf, name='admin_order_pdf'),
+    path('order_list/', order_List.as_view(), name='order_list'),
+    path('orderlist2/', OrderitemList.as_view(), name='orderitem_list')
 ]

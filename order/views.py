@@ -12,6 +12,8 @@ from django.template.loader import render_to_string
 # import weasyprint
 
 
+
+
 def order_create(request):
     cart = Cart(request)
     if request.method == 'POST':
@@ -147,3 +149,24 @@ def admin_order_pdf(request, order_id):
     response['Content-Disposition'] = 'filename=order_{}.pdf'.format(order.id)
     # weasyprint.HTML(string=html).write_pdf(response, stylesheets=[weasyprint.CSS(settings.STATICFILES_DIRS[0]+'/css/pdf.css')])
     return response
+
+
+
+# 주문내역 조회
+
+from django.views.generic import ListView
+
+
+# 왜인지 모르지만 구매자 목록
+# 후에 buyer detailfh tnwjdgodigka
+class order_List(ListView):
+    model = Order
+    template_name = 'order_list.html'
+    context_object_name = 'order_list'
+
+# 주문내역 조회 다시 도전
+
+class OrderitemList(ListView):
+    model = OrderItem
+    template_name = 'orderitem_list.html'
+    context_object_name = 'orderitem_list'
