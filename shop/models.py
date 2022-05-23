@@ -2,6 +2,7 @@ from django.db import models
 from django.urls import reverse
 from imagekit.models import ProcessedImageField, ImageSpecField
 from imagekit.processors import ResizeToFill
+from users.models import User
 
 class Category(models.Model):
     name = models.CharField(max_length=200, db_index=True)
@@ -28,7 +29,7 @@ class Type(models.Model):
         return self.name
 
 class Product(models.Model):
-    # user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user_product')
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, related_name='products')
     type     = models.ForeignKey(Type, on_delete=models.CASCADE, null=True)
     name     = models.CharField(max_length=200, db_index=True)
@@ -71,9 +72,10 @@ class Image(models.Model):
 
 class Inquiry(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
-    content = models.TextField()
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    content = models.CharField(max_length=300)
     create_date = models.DateTimeField(auto_now_add=True)
-
+    update_date = models.DateTimeField(auto_now=True)
 
 class Size(models.Model):
     name = models.CharField(max_length=100)

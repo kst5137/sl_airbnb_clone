@@ -31,13 +31,23 @@
 
                 </form>
                 <h5><span class="badge badge-secondary">Description</span>{{product.description|linebreaks}}</h5>
+                <td><button class="btn btn-secondary rounded-pill" onclick="location.href='/register_product/{{product.id}}/'">수정</button></td>
+                <td><button class="btn btn-danger rounded-pill" onclick="location.href='/delete_product/{{product.id}}/'">삭제</button></td>
             </div>
             <h5>{{ product.inquiry_set.count }}개의 문의가 있습니다.</h5>
             <div>
                 <ul>
                     {% for inquiry in product.inquiry_set.all %}
-                    <li>{{ inquiry.content }}</li>
+                    <li>{{ inquiry.user_id }} - {{ inquiry.content }}
+                        {% if user == inquiry.user %}
+                            <form action="{% url 'shop:inquiry_delete' inquiry.pk %}" method="POST" class="d-inline">
+                            {% csrf_token %}
+                            <input type="submit" value="DELETE">
+                        </form>
+                        {% endif %}
+                    </li>
                     {% endfor %}
+
                 </ul>
             </div>
             <form action="{% url 'shop:inquiry_create' product.id %}" method="post" class="my-3">

@@ -51,6 +51,7 @@ def product_detail(request, id, product_slug=None):
 @login_required
 def create_product(request) :
     if request.method == 'POST':
+
         product_form = ProductForm(request.POST)
         type_form = TypeForm(request.POST)
         size_form = SizeForm(request.POST)
@@ -95,13 +96,25 @@ def create_product(request) :
                'facility_form':facility_form, 'rule_form':rule_form, 'safety_form':safety_form}
     return render(request, 'shop/create_product.html', context)
 
+@login_required
+def delete_product(request, product_id) :
+    product = get_object_or_404(Product, pk=product_id)
+    if request.user != product.user :
+        return redirect('shop:product_detail')
+    product.delete()
+    return redirect('shop:product_all')
+
+
 
 def inquiry_create(request, product_id):
     product = get_object_or_404(Product, pk=product_id)
     if request.method == "POST":
         form = InquiryForm(request.POST)
+        print(form)
         if form.is_valid():
             inquiry = form.save(commit=False)
+            print(inquiry)
+            inquiry.user = request.user
             inquiry.product = product
             inquiry.save()
             print('save', inquiry)
@@ -112,31 +125,46 @@ def inquiry_create(request, product_id):
     context = {'product': product, 'form': form}
     return render(request, 'shop/detail.html', context)
 
+#             comment = commentForm.save(commit=False)
+#             comment.writer = request.user
+#             comment.post = post
+#             comment.save()
+#             return redirect('/read/' + str(bid))
 
 
-# @login_required(login_url='product:login')
-# def register_product(request, product_id):
-#     product = get_object_or_404(Product, pk=product_id)
-#     # if request.user != product.user:
-#     #     messages.error(request, '수정권한이 없습니다')
-#     #     return redirect('shop:detail', product_id=product.id)
-#     if request.method == "POST":
-#         form = ProductForm(request.POST, instance=product)
-#         if form.is_valid():
-#             product = form.save(commit=False)
-#             product.save()
-#             return redirect('shop:detail', product_id=product.id)
-#     else:
-#         product_form = ProductForm()
-#         image_formset = ImageFormSet()
-#         type_form = TypeForm()
-#         size_form = SizeForm()
-#         attribute_form = AttributeForm()
-#         facility_form = FacilityForm()
-#         rule_form = RuleForm()
-#         safety_form = SafetyForm()
-#
-#     context = {'product_form': product_form, 'image_formset': image_formset,
-#                'type_form': type_form, 'size_form': size_form, 'attribute_form': attribute_form,
-#                'facility_form': facility_form, 'rule_form': rule_form, 'safety_form': safety_form}
-#     return render(request, 'shop/list.html', context)
+def inquiry_delete(request, product_id, inquiry_id) :
+    inquiry = get_object_or_404(Product, pk=inquiry_id)
+    if request.method == "POST" :
+        if request.user == inquiry.user :
+            inquiry.delete()
+    return redirect('shop:product_detail', product_id)
+
+@login_required(login_url='product:login')
+def register_product(request, product_id):
+    product = get_object_or_404(Product, pk=product_id)
+    if request.user != product.user:
+        return redirect('shop:product_detail', product_id=product.id)
+    if request.method == "GET":
+        productForm = ProductForm(instance=product)
+        return render(request, 'shop/register_product.html', {'productForm' : productForm})
+    else:
+        productForm = ProductForm(request.POST)
+        if productForm.is_valid():
+            product.category = productForm.cleaned_data['category']
+            product.type = productForm.cleaned_data['type']
+            product.name = productForm.cleaned_data['name']
+            product.slug = productForm.cleaned_data['slug']
+            product.addr = productForm.cleaned_data['addr']
+            product.content = productForm.cleaned_data['content']
+            product.price = productForm.cleaned_data['price']
+            product.stock = productForm.cleaned_data['stock']
+            product.size = productForm.cleaned_data['size']
+            product.attribute = productForm.cleaned_data['attribute']
+            product.facility = productForm.cleaned_data['facility']
+            product.rule = productForm.cleaned_data['rule']
+            product.safety = productForm.cleaned_data['safety']
+            product.display = productForm.cleaned_data['display']
+            product.order = productForm.cleaned_data['order']
+            product.save()
+            return redirect('shop:product_detail')
+    return render(request, 'shop/list.html', )

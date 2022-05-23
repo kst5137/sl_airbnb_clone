@@ -1,12 +1,54 @@
 {% extends 'base.html' %}
 {% block content %}
-<div class="container">
-    <h5 class="my-3 border-bottom pb-2">게시글 등록</h5>
+<section class="page-section" id="contact">
+    <div class="container">
+    <h4 class="my-3 border-bottom pb-2">&nbsp&nbsp숙소 등록</h4>
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
-        {{ product_form.as_p }}
-        {{ image_formset.as_p }}
-        <button type="submit" class="btn btn-primary">저장하기</button>
+        <div class="row justify-content">
+            <div class="col-lg-8 col-xl-7">
+                <form method="post">
+                    <br>
+                    <br>
+                    <br>
+                    {% csrf_token %}
+                    <div style="background-color:#808080;" class="btn btn-info">
+                        카테고리&nbsp&nbsp {{ product_form.category }}</div>
+                    <div style="background-color:#808080;" class="btn btn-info">
+                        숙소형태&nbsp&nbsp {{ product_form.type }}</div><br><br>
+                    <div style="background-color: #808080;" class="btn btn-info">
+                        숙소이름&nbsp&nbsp{{ product_form.name }}</div>
+                    <div style="background-color: #808080;" class="btn btn-info">
+                        URL링크&nbsp&nbsp{{ product_form.slug }}</div><br><br>
+                    <div style="background-color: #808080;" class="btn btn-info">
+                        숙소요약&nbsp&nbsp{{ product_form.addr }}</div><br><br>
+                    <div style="background-color: #808080;" class="btn btn-info">
+                        상세설명&nbsp&nbsp{{ product_form.content }}</div><br><br>
+                    <div style="background-color: #808080;" class="btn btn-info">
+                        숙소가격&nbsp&nbsp{{ product_form.price }}</div>
+                    <div style="background-color: #808080;" class="btn btn-info">
+                        수&nbsp&nbsp량&nbsp&nbsp{{ product_form.stock }}</div><br><br>
+                    <div style="background-color: #808080;" class="btn btn-info">
+                        침대유형&nbsp&nbsp{{ product_form.size }}</div>
+                    <div style="background-color: #808080;" class="btn btn-info">
+                        옵션1&nbsp&nbsp{{ product_form.attribute }}</div>
+                    <div style="background-color: #808080;" class="btn btn-info">
+                        옵션2&nbsp&nbsp{{ product_form.facility }}</div><br><br>
+                    <div style="background-color: #808080;" class="btn btn-info">
+                        숙소규칙&nbsp&nbsp{{ product_form.rule }}</div>
+                    <div style="background-color: #808080;" class="btn btn-info">
+                        안전옵션&nbsp&nbsp{{ product_form.safety }}</div><br><br>
+                    <div style="background-color: #808080;" class="btn btn-info">
+                        화면표시&nbsp&nbsp{{ product_form.display }}</div>
+                    <div style="background-color: #808080;" class="btn btn-info">
+                        주문가능&nbsp&nbsp{{ product_form.order }}</div><br><br>
+                    <div style="color:blue background-color: #E1F6FA;" class="btn btn-dark">
+                        {{ image_formset.as_p }}</div>
+                    </form>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary float-right">저장하기</button><br><br><br><br><br><br>
     </form>
 </div>
+</section>
 {% endblock %}
