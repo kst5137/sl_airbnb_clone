@@ -4,6 +4,7 @@ from django.core.validators import MinValueValidator, MaxValueValidator
 from config.settings import AUTH_USER_MODEL
 from coupon.models import Coupon
 from shop.models import Product
+
 import hashlib
 
 from users.models import User
@@ -25,7 +26,8 @@ class Order(models.Model):
     coupon = models.ForeignKey(Coupon, on_delete=models.PROTECT, related_name='order_coupon', null=True, blank=True)
     discount = models.IntegerField(default=0, validators=[MinValueValidator(0), MaxValueValidator(100000)])
     username = models.ForeignKey(AUTH_USER_MODEL, on_delete=models.CASCADE,null=True, blank=True)
-    
+    product = models.ForeignKey(Product, on_delete=models.PROTECT, related_name='order_list_products')
+
 
 
     class Meta:
