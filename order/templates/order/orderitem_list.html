@@ -55,7 +55,7 @@
 
              {% with product=orderitem.product %}
             <tr>
-                <th scope="row">{{orderitem.order}}</th>
+                <th scope="row">{{orderitem.order_id}}</th>
 
                 <th href="{{ product.get_absolute_url }}">{{orderitem.product}}</th>
                 <th>{{orderitem.price}}</th>

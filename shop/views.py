@@ -12,8 +12,9 @@ from allauth.account.signals import user_signed_up
 from django.dispatch import receiver
 
 
-def func2(abcde) :
+def func2(abcde):
     return render(abcde, 'templates/users01/login.html')
+
 
 def product_in_category(request, category_slug=None):
     current_category = None
@@ -25,15 +26,18 @@ def product_in_category(request, category_slug=None):
         products = products.filter(category=current_category)
 
     return render(request, 'airbnb/index_test.html', {'current_category': current_category,
-                                              'categories': categories,
-                                              'products': products,
-                                              })
+                                                      'categories': categories,
+                                                      'products': products,
+                                                      })
+
+
 
 
 def product_detail(request, id, product_slug=None):
     product = get_object_or_404(Product, id=id, slug=product_slug)
     add_to_cart = AddProductForm(initial={'quantity': 1})
     return render(request, 'shop/detail.html', {'product': product, 'add_to_cart': add_to_cart})
+
 
 #
 # @receiver(user_signed_up)
@@ -48,8 +52,9 @@ def product_detail(request, id, product_slug=None):
 # Create your views here.
 
 @login_required
-def create_product(request) :
+def create_product(request):
     if request.method == 'POST':
+
         product_form = ProductForm(request.POST)
         type_form = TypeForm(request.POST)
         size_form = SizeForm(request.POST)
@@ -58,6 +63,7 @@ def create_product(request) :
         rule_form = RuleForm(request.POST)
         safety_form = SafetyForm(request.POST)
         image_formset = ImageFormSet(request.POST, request.FILES)
+
         if product_form.is_valid() and image_formset.is_valid():
             product = product_form.save(commit=False)
             type = type_form.save(commit=False)
@@ -66,7 +72,6 @@ def create_product(request) :
             facility = facility_form.save(commit=False)
             rule = rule_form.save(commit=False)
             safety = safety_form.save(commit=False)
-            product.user = request.user
 
             with transaction.atomic():
                 product.save()
@@ -89,10 +94,11 @@ def create_product(request) :
         rule_form = RuleForm()
         safety_form = SafetyForm()
 
-    context = {'product_form' : product_form, 'image_formset' : image_formset,
-               'type_form':type_form, 'size_form':size_form, 'attribute_form':attribute_form,
-               'facility_form':facility_form, 'rule_form':rule_form, 'safety_form':safety_form}
+    context = {'product_form': product_form, 'image_formset': image_formset,
+               'type_form': type_form, 'size_form': size_form, 'attribute_form': attribute_form,
+               'facility_form': facility_form, 'rule_form': rule_form, 'safety_form': safety_form}
     return render(request, 'shop/create_product.html', context)
+
 
 # @login_required(login_url='product:login')
 def register_product(request, product_id):

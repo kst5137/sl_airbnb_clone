@@ -7,7 +7,7 @@ $(function () {
         // 폼 데이터를 기준으로 주문 생성
         var order_id = AjaxCreateOrder(e);
         if (order_id == false) {
-            alert('주문 생성 실패\n다시 시도해주세요.');
+            alert('주문 생성 실패\n다시 시도해주세욥.');
             return false;
         }
 
@@ -63,7 +63,7 @@ function AjaxCreateOrder(e) {
         } else if (jqXHR.status == 403) {
             alert("로그인 해주세요.");
         } else {
-            alert("문제가 발생했습니다. 다시 시도해주세요.");
+            alert("문제가 발생했습니다111. 다시 시도해주세요.");
         }
     });
     return order_id;
@@ -95,7 +95,7 @@ function AjaxStoreTransaction(e, order_id, amount, type) {
         } else if (jqXHR.status == 403) {
             alert("로그인 해주세요.");
         } else {
-            alert("문제가 발생했습니다. 다시 시도해주세요.");
+            alert("문제가 발생했습니다222. 다시 시도해주세요.");
         }
     });
     return merchant_id;
@@ -127,7 +127,7 @@ function ImpTransaction(e, order_id,merchant_id, imp_id, amount) {
         } else if (jqXHR.status == 403) {
             alert("로그인 해주세요.");
         } else {
-            alert("문제가 발생했습니다. 다시 시도해주세요.");
+            alert("문제가 발생했습니다333. 다시 시도해주세요.");
         }
     });
 }

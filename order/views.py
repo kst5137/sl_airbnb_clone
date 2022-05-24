@@ -169,12 +169,11 @@ class order_List(ListView):
     context_object_name = 'order_list'
 
 
-    # def get_queryset(self, **kwargs):
-    #     user = self.request.session.get('user')
-    #     print(user)
-    #
-    #     queryset = Order.objects.filter(user__email=self.request.session.get('user'))
-    #     return queryset
+    def get_queryset(self, **kwargs):
+
+        print(self.request.user.id)
+        queryset = Order.objects.filter(username=self.request.user.id)
+        return queryset
 
 # 주문내역 조회 다시 도전
 
@@ -182,3 +181,10 @@ class OrderitemList(ListView):
     model = OrderItem
     template_name = 'orderitem_list.html'
     context_object_name = 'orderitem_list'
+
+    # def get_queryset(self, **kwargs):
+    #     user = self.request.session.get('user')
+    #     print(user)
+    # #
+    #     queryset = OrderItem.objects.filter(email=self.request.session.get('user'))
+    #     return queryset

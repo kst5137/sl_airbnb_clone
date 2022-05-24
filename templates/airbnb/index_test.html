@@ -30,6 +30,14 @@
                         <img class="card-img-top" src="{{image.file.url}}" alt="Product Image" >
                         {% endfor %}
                         <span class="item_heading">{{product.name}}</span>
+                        <span class="item_heading">{{product.price}}</span>
+                        <span class="item_heading">{{product.writer.u_nickname}}</span>
+                        <span class="item_heading">{{product.created}}</span>
+                        {% if product.stock > 0 %}
+                        <span class="item_heading">{{product.stock}}</span>
+                        {% else %}
+                        <span> 재고가 없어요</span>
+                        {% endif %}
                     </div>
                 </a>
                 {% endfor %}

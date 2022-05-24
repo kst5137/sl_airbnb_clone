@@ -26,8 +26,10 @@
                     {% endfor %}
                     <div class="card-body">
                         <h5 class="card-title">{{product.name}}</h5>
-                        <p class="card-text">{{product.description}} <span class="badge badge-secondary">&#8361;{{product.price}}</span>
+                        <h5 class="card-title">{{product.writer}}</h5>
+                        <p class="card-text">{{product.content}} <span class="badge badge-secondary">&#8361;{{product.price}}</span>
                         </p>
+                        <h5 class="card-title">{{product.created}}</h5>
                         <a href="{{product.get_absolute_url}}" class="btn btn-primary btn-block">View Detail</a>
                     </div>
                 </div>

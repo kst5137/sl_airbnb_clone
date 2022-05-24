@@ -2,6 +2,7 @@ from django.db import models
 from django.urls import reverse
 from imagekit.models import ProcessedImageField
 from pilkit.processors import ResizeToFill
+from django.conf import settings
 
 class Category(models.Model):
     name = models.CharField(max_length=200, db_index=True)
@@ -28,6 +29,7 @@ class Type(models.Model):
         return self.name
 
 class Product(models.Model):
+    writer = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE)
     # user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user_product')
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, related_name='products')
     type     = models.ForeignKey(Type, on_delete=models.CASCADE, null=True)
@@ -46,6 +48,7 @@ class Product(models.Model):
     order = models.BooleanField('Order', default=True)
     created  = models.DateTimeField(auto_now_add=True)
     updated  = models.DateTimeField(auto_now=True, null=True, blank=True)
+
 
     class Meata:
         ordering = ['-created']
