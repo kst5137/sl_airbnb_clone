@@ -12,6 +12,8 @@
                     <br>
                     <br>
                     {% csrf_token %}
+                    <span id = "user_name" style="background-color:#808080;" class="btn btn-info">
+                        작성자&nbsp&nbsp {{ user.username }}</span>
                     <div style="background-color:#808080;" class="btn btn-info">
                         카테고리&nbsp&nbsp {{ product_form.category }}</div>
                     <div style="background-color:#808080;" class="btn btn-info">
@@ -24,6 +26,10 @@
                         숙소요약&nbsp&nbsp{{ product_form.addr }}</div><br><br>
                     <div style="background-color: #808080;" class="btn btn-info">
                         상세설명&nbsp&nbsp{{ product_form.content }}</div><br><br>
+                    <div style="background-color: #808080;" class="btn btn-info">
+                        숙소주소&nbsp&nbsp{{ product_form.address1 }}</div><br><br>
+                    <div style="background-color: #808080;" class="btn btn-info">
+                        상세주소&nbsp&nbsp{{ product_form.address2 }}</div><br><br>
                     <div style="background-color: #808080;" class="btn btn-info">
                         숙소가격&nbsp&nbsp{{ product_form.price }}</div>
                     <div style="background-color: #808080;" class="btn btn-info">
@@ -45,9 +51,10 @@
                     <div style="color:blue background-color: #E1F6FA;" class="btn btn-dark">
                         {{ image_formset.as_p }}</div>
                     </form>
+                <button type="submit" class="btn btn-primary float-right">저장하기</button><br><br><br><br><br><br>
             </div>
         </div>
-        <button type="submit" class="btn btn-primary float-right">저장하기</button><br><br><br><br><br><br>
+
     </form>
 </div>
 </section>

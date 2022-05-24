@@ -3,6 +3,8 @@ from django.urls import reverse
 from imagekit.models import ProcessedImageField, ImageSpecField
 from imagekit.processors import ResizeToFill
 from users.models import User
+from django.conf import settings
+
 
 class Category(models.Model):
     name = models.CharField(max_length=200, db_index=True)
@@ -29,13 +31,15 @@ class Type(models.Model):
         return self.name
 
 class Product(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    writer = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE, blank=True)
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, related_name='products')
     type     = models.ForeignKey(Type, on_delete=models.CASCADE, null=True)
     name     = models.CharField(max_length=200, db_index=True)
     slug     = models.SlugField(max_length=200, db_index=True, unique=True, allow_unicode=True)
     addr     = models.TextField(blank=True)
     content  = models.TextField(blank=True)
+    address1 = models.CharField("Address line 1", max_length=300)
+    address2 = models.CharField("Address line 2", max_length=300)
     price    = models.DecimalField(max_digits=8, decimal_places=0, null=True)
     stock    = models.IntegerField(default=1)
     size     = models.ForeignKey('Size', on_delete=models.CASCADE, null=True)

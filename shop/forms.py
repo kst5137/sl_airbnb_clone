@@ -4,7 +4,7 @@ from .models import *
 class ProductForm(forms.ModelForm):
     class Meta:
         model = Product  # 사용할 모델
-        exclude = ('user',)
+        exclude = ()
 
 class ImageForm(forms.ModelForm):
     class Meta:

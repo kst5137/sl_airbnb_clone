@@ -36,6 +36,20 @@ def product_detail(request, id, product_slug=None):
     add_to_cart = AddProductForm(initial={'quantity': 1})
     return render(request, 'shop/detail.html', {'product': product, 'add_to_cart': add_to_cart})
 
+
+    # login_session = request.session.get('login_session', '')
+    # context = {'login_session':login_session}
+    #
+    # product = get_object_or_404(Product, id=id, slug=product_slug)
+    # context['product'] = product
+    # inquiry = get_object_or_404(Inquiry, id=id)
+    # context['inquiry'] = inquiry
+    # if product.writer.user_id == login_session:
+    #     context['writer'] = True
+    # else :
+    #     context['writer'] = False
+
+
 #
 # @receiver(user_signed_up)
 # def user_signed_up_(**kwargs):
@@ -51,7 +65,6 @@ def product_detail(request, id, product_slug=None):
 @login_required
 def create_product(request) :
     if request.method == 'POST':
-
         product_form = ProductForm(request.POST)
         type_form = TypeForm(request.POST)
         size_form = SizeForm(request.POST)
@@ -60,6 +73,7 @@ def create_product(request) :
         rule_form = RuleForm(request.POST)
         safety_form = SafetyForm(request.POST)
         image_formset = ImageFormSet(request.POST, request.FILES)
+        print('test_post')
         if product_form.is_valid() and image_formset.is_valid():
             product = product_form.save(commit=False)
             type = type_form.save(commit=False)
@@ -68,8 +82,8 @@ def create_product(request) :
             facility = facility_form.save(commit=False)
             rule = rule_form.save(commit=False)
             safety = safety_form.save(commit=False)
-            product.user = request.user
-
+            product.writer = request.user
+            print('test_valid')
             with transaction.atomic():
                 product.save()
                 type.save()
@@ -105,39 +119,36 @@ def delete_product(request, product_id) :
     return redirect('shop:product_all')
 
 
-
-def inquiry_create(request, product_id):
-    product = get_object_or_404(Product, pk=product_id)
+@login_required
+def inquiry_create(request, inquiry_id):
+    product = get_object_or_404(Product, pk=inquiry_id)
     if request.method == "POST":
         form = InquiryForm(request.POST)
-        print(form)
         if form.is_valid():
             inquiry = form.save(commit=False)
             print(inquiry)
             inquiry.user = request.user
             inquiry.product = product
             inquiry.save()
-            print('save', inquiry)
-            return redirect('shop:product_detail', product_id = product_id)
+
     else:
-        print('else')
         return HttpResponseNotAllowed('Only POST is possible.')
     context = {'product': product, 'form': form}
     return render(request, 'shop/detail.html', context)
 
-#             comment = commentForm.save(commit=False)
-#             comment.writer = request.user
-#             comment.post = post
-#             comment.save()
-#             return redirect('/read/' + str(bid))
+@login_required
+def inquiry_delete(request, inquiry_id) :
+    inquiry = get_object_or_404(Inquiry, pk=inquiry_id)
+    product = get_object_or_404(Product, pk=inquiry.product.id)
+    if request.user != inquiry.author and not request.user.is_staff and request.user != product.author:
+        messages.warning(request, '권한 없음')
+        return redirect('shop:product_detail')
 
-
-def inquiry_delete(request, product_id, inquiry_id) :
-    inquiry = get_object_or_404(Product, pk=inquiry_id)
-    if request.method == "POST" :
-        if request.user == inquiry.user :
-            inquiry.delete()
-    return redirect('shop:product_detail', product_id)
+    if request.method == "POST":
+        inquiry.delete()
+        return redirect('shop:product_detail')
+    else:
+        return render(request, 'shop/detail.html', {'inquiry': inquiry})
 
 @login_required(login_url='product:login')
 def register_product(request, product_id):
