@@ -115,9 +115,9 @@ function displayMarker(locPosition, message) {
                             {% for inquiry in product.inquiry_set.all %}
                             <li><div class="btn btn-info ">작성자 : {{ inquiry.user }}</div><br>
                                 <h1 class="display-6 btn btn-outline-info btn-lg ">{{ inquiry.content }}</h1>
-                                <form action="" method ="post">
+                                <form action="{% url 'shop:inquiry_delete' inquiry.id %}" method ="post">
                                     {% csrf_token %}
-                                    <input type="submit" value="Delete OK">
+                                    <input type="submit" value="Delete">
                                 </form>
                             </li>
                             {% endfor %}

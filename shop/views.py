@@ -74,7 +74,9 @@ def create_product(request) :
         safety_form = SafetyForm(request.POST)
         image_formset = ImageFormSet(request.POST, request.FILES)
         print('test_post')
+        print(product_form)
         if product_form.is_valid() and image_formset.is_valid():
+            print('test_valid')
             product = product_form.save(commit=False)
             type = type_form.save(commit=False)
             size = size_form.save(commit=False)
@@ -126,7 +128,6 @@ def inquiry_create(request, inquiry_id):
         form = InquiryForm(request.POST)
         if form.is_valid():
             inquiry = form.save(commit=False)
-            print(inquiry)
             inquiry.user = request.user
             inquiry.product = product
             inquiry.save()
@@ -138,17 +139,9 @@ def inquiry_create(request, inquiry_id):
 
 @login_required
 def inquiry_delete(request, inquiry_id) :
-    inquiry = get_object_or_404(Inquiry, pk=inquiry_id)
-    product = get_object_or_404(Product, pk=inquiry.product.id)
-    if request.user != inquiry.author and not request.user.is_staff and request.user != product.author:
-        messages.warning(request, '권한 없음')
-        return redirect('shop:product_detail')
-
-    if request.method == "POST":
-        inquiry.delete()
-        return redirect('shop:product_detail')
-    else:
-        return render(request, 'shop/detail.html', {'inquiry': inquiry})
+    inquiry = get_object_or_404(Inquiry, id=inquiry_id)
+    inquiry.delete()
+    return render(request, 'shop/detail.html')
 
 @login_required(login_url='product:login')
 def register_product(request, product_id):
