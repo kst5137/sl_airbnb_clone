@@ -4,12 +4,13 @@ from .models import *
 class ProductForm(forms.ModelForm):
     class Meta:
         model = Product  # 사용할 모델
+
         exclude = ()
 
 class ImageForm(forms.ModelForm):
     class Meta:
         model = Image
-        exclude = ()
+        fields = ['file',]
 
 ImageFormSet = forms.inlineformset_factory(Product, Image, form=ImageForm, extra=5)
 
@@ -42,3 +43,8 @@ class SafetyForm(forms.ModelForm):
     class Meta:
         model = Safety
         exclude = ()
+
+class InquiryForm(forms.ModelForm):
+    class Meta:
+        model = Inquiry
+        exclude = ('product', 'user',)

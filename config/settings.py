@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 import os.path
 from pathlib import Path
 import pymysql
+
 # import smtplib
 
 pymysql.install_as_MySQLdb()
@@ -22,6 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 import os, environ
+
 env = environ.Env(
     # set casting, default value
     DEBUG=(bool, False)
@@ -51,6 +53,7 @@ INSTALLED_APPS = [
     'shop',
     'django.contrib.sites',
     'allauth',
+    'django.contrib.humanize',
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.naver',
@@ -64,6 +67,7 @@ INSTALLED_APPS = [
     'order',
     'imagekit',
     'users',
+    'search',
 
 ]
 AUTH_USER_MODEL = 'users.User'
@@ -82,7 +86,7 @@ ROOT_URLCONF = 'config.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates'), os.path.join(BASE_DIR, 'templates', 'accounts')],
+        'DIRS': [os.path.join(BASE_DIR, 'templates'), os.path.join(BASE_DIR, 'templates', 'accounts', 'search')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -188,36 +192,17 @@ LOGIN_REDIRECT_URL = '/'
 
 CART_ID = 'cart_in_session'
 
-
 IAMPORT_KEY = os.environ.get('IAMPORT_KEY')
 IAMPORT_SECRET = os.environ.get('IAMPORT_SECRET')
-
-
-# 이메일 인증 관련
-ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
-
-ACCOUNT_EMAIL_REQUIRED = True
-
-
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.googlemail.com'
-EMAIL_USE_TLS = True
-EMAIL_PORT = 587
-# EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
-# EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
-EMAIL_HOST_USER = 'gyuhoairbnb@gmail.com'
-EMAIL_HOST_PASSWORD = 'woaljoyyzhcqlpag'
-DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
-# print(EMAIL_HOST_USER)
-
-# ACCOUNT_AUTHENTICATION_METHOD = 'email'
-# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-# ACCOUNT_EMAIL_REQUIRED = True
+#
+# # 이메일 인증 관련
 # ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
-# ACCOUNT_LOGIN_ATTEMPTS_LIMIT = 5
-# ACCOUNT_LOGIN_ATTEMPTS_TIMEOUT = 300
-# SOCIALACCOUNT_AUTO_SIGNUP = False
-
-
-
+# ACCOUNT_EMAIL_REQUIRED = True
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_HOST = 'smtp.googlemail.com'
+# EMAIL_USE_TLS = True
+# EMAIL_PORT = 587
+# EMAIL_HOST_USER = 'gyuhoairbnb@gmail.com'
+# EMAIL_HOST_PASSWORD = 'woaljoyyzhcqlpag'
+# DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 

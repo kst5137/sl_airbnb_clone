@@ -7,6 +7,7 @@ from .models import *
 from cart.forms import AddProductForm
 from .forms import *
 from django.db import transaction
+from django.http import HttpResponseNotAllowed
 #
 from allauth.account.signals import user_signed_up
 from django.dispatch import receiver
@@ -35,6 +36,20 @@ def product_detail(request, id, product_slug=None):
     add_to_cart = AddProductForm(initial={'quantity': 1})
     return render(request, 'shop/detail.html', {'product': product, 'add_to_cart': add_to_cart})
 
+
+    # login_session = request.session.get('login_session', '')
+    # context = {'login_session':login_session}
+    #
+    # product = get_object_or_404(Product, id=id, slug=product_slug)
+    # context['product'] = product
+    # inquiry = get_object_or_404(Inquiry, id=id)
+    # context['inquiry'] = inquiry
+    # if product.writer.user_id == login_session:
+    #     context['writer'] = True
+    # else :
+    #     context['writer'] = False
+
+
 #
 # @receiver(user_signed_up)
 # def user_signed_up_(**kwargs):
@@ -58,7 +73,10 @@ def create_product(request) :
         rule_form = RuleForm(request.POST)
         safety_form = SafetyForm(request.POST)
         image_formset = ImageFormSet(request.POST, request.FILES)
+        print('test_post')
+        print(product_form)
         if product_form.is_valid() and image_formset.is_valid():
+            print('test_valid')
             product = product_form.save(commit=False)
             type = type_form.save(commit=False)
             size = size_form.save(commit=False)
@@ -66,8 +84,8 @@ def create_product(request) :
             facility = facility_form.save(commit=False)
             rule = rule_form.save(commit=False)
             safety = safety_form.save(commit=False)
-            product.user = request.user
-
+            product.writer = request.user
+            print('test_valid')
             with transaction.atomic():
                 product.save()
                 type.save()
@@ -94,29 +112,63 @@ def create_product(request) :
                'facility_form':facility_form, 'rule_form':rule_form, 'safety_form':safety_form}
     return render(request, 'shop/create_product.html', context)
 
-# @login_required(login_url='product:login')
+@login_required
+def delete_product(request, product_id) :
+    product = get_object_or_404(Product, pk=product_id)
+    if request.user != product.user :
+        return redirect('shop:product_detail')
+    product.delete()
+    return redirect('shop:product_all')
+
+
+@login_required
+def inquiry_create(request, inquiry_id):
+    product = get_object_or_404(Product, pk=inquiry_id)
+    if request.method == "POST":
+        form = InquiryForm(request.POST)
+        if form.is_valid():
+            inquiry = form.save(commit=False)
+            inquiry.user = request.user
+            inquiry.product = product
+            inquiry.save()
+
+    else:
+        return HttpResponseNotAllowed('Only POST is possible.')
+    context = {'product': product, 'form': form}
+    return render(request, 'shop/detail.html', context)
+
+@login_required
+def inquiry_delete(request, inquiry_id) :
+    inquiry = get_object_or_404(Inquiry, id=inquiry_id)
+    inquiry.delete()
+    return render(request, 'shop/detail.html')
+
+@login_required(login_url='product:login')
 def register_product(request, product_id):
     product = get_object_or_404(Product, pk=product_id)
-    # if request.user != product.user:
-    #     messages.error(request, '수정권한이 없습니다')
-    #     return redirect('shop:detail', product_id=product.id)
-    if request.method == "POST":
-        form = ProductForm(request.POST, instance=product)
-        if form.is_valid():
-            product = form.save(commit=False)
-            product.save()
-            return redirect('shop:detail', product_id=product.id)
+    if request.user != product.user:
+        return redirect('shop:product_detail', product_id=product.id)
+    if request.method == "GET":
+        productForm = ProductForm(instance=product)
+        return render(request, 'shop/register_product.html', {'productForm' : productForm})
     else:
-        product_form = ProductForm()
-        image_formset = ImageFormSet()
-        type_form = TypeForm()
-        size_form = SizeForm()
-        attribute_form = AttributeForm()
-        facility_form = FacilityForm()
-        rule_form = RuleForm()
-        safety_form = SafetyForm()
-
-    context = {'product_form': product_form, 'image_formset': image_formset,
-               'type_form': type_form, 'size_form': size_form, 'attribute_form': attribute_form,
-               'facility_form': facility_form, 'rule_form': rule_form, 'safety_form': safety_form}
-    return render(request, 'shop/list.html', context)
+        productForm = ProductForm(request.POST)
+        if productForm.is_valid():
+            product.category = productForm.cleaned_data['category']
+            product.type = productForm.cleaned_data['type']
+            product.name = productForm.cleaned_data['name']
+            product.slug = productForm.cleaned_data['slug']
+            product.addr = productForm.cleaned_data['addr']
+            product.content = productForm.cleaned_data['content']
+            product.price = productForm.cleaned_data['price']
+            product.stock = productForm.cleaned_data['stock']
+            product.size = productForm.cleaned_data['size']
+            product.attribute = productForm.cleaned_data['attribute']
+            product.facility = productForm.cleaned_data['facility']
+            product.rule = productForm.cleaned_data['rule']
+            product.safety = productForm.cleaned_data['safety']
+            product.display = productForm.cleaned_data['display']
+            product.order = productForm.cleaned_data['order']
+            product.save()
+            return redirect('shop:product_detail')
+    return render(request, 'shop/list.html', )

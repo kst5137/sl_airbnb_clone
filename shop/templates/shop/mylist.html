@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% load static %}
+{% load i18n %}
+
+{% block head_title %}{% trans "Signup" %}{% endblock %}
+{% load humanize%}
+{% block content %}
+
+<h1>{{ user.u_nickname }} 님의 상품 내역입니다.</h1>
+
+
+
+<div class="row mt-5">
+    <div class="col-12">
+        <table class="table table-light">
+            <thead class="thead-light">
+            <tr>
+
+                <th scope="col">상품명</th>
+                <th scope="col">가격</th>
+                <th scope="col">재고</th>
+
+            </tr>
+            </thead>
+            <tbody class="text-dark">
+            {% if products %}
+            {% for product in products %}
+            {{product.writer}}
+<!--            {% if product.writer == user.u_nickname %}-->
+
+            <tr>
+                <th>{{product.name}}</th>
+                <th>{{product.price}}</th>
+                <th>{{product.stock}}</th>
+            </tr>
+
+<!--            {% endif %}-->
+
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+{% endblock %}

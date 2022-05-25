@@ -29,6 +29,7 @@ urlpatterns = [
     path('coupon/', include('coupon.urls')),
     path('order/', include('order.urls')),
     path('users/', include('users.urls')),
+    path('search/', include('search.urls')),
     path('', include('shop.urls')),
 
     # path('login',shop.views.func2)

@@ -9,7 +9,13 @@ from django.contrib.admin.views.decorators import staff_member_required
 from django.conf import settings
 from django.http import HttpResponse
 from django.template.loader import render_to_string
+from django.views.generic import ListView
+from .models import Order
+
+from django.contrib.auth.models import User
 # import weasyprint
+from users.models import User
+
 
 
 def order_create(request):
@@ -29,10 +35,10 @@ def order_create(request):
                                          quantity=item['quantity']
                                          )
             cart.clear()
-            return render(request, 'order/created.html', {'order': order})
+            return render(request, 'order/created_test.html', {'order': order})
     else:
         form = OrderCreateForm()
-    return render(request, 'order/create.html', {'cart': cart, 'form': form})
+    return render(request, 'order/create_test.html', {'cart': cart, 'form': form})
 
 
 def order_complete(request):
@@ -147,3 +153,38 @@ def admin_order_pdf(request, order_id):
     response['Content-Disposition'] = 'filename=order_{}.pdf'.format(order.id)
     # weasyprint.HTML(string=html).write_pdf(response, stylesheets=[weasyprint.CSS(settings.STATICFILES_DIRS[0]+'/css/pdf.css')])
     return response
+
+
+
+# 주문내역 조회
+
+
+
+
+# 왜인지 모르지만 구매자 목록
+# 후에 buyer detailfh tnwjdgodigka
+class order_List(ListView):
+    model = Order
+    template_name = 'order_list.html'
+    context_object_name = 'order_list'
+
+
+    def get_queryset(self, **kwargs):
+
+        print(self.request.user.id)
+        queryset = Order.objects.filter(username=self.request.user.id)
+        return queryset
+
+# 주문내역 조회 다시 도전
+
+class OrderitemList(ListView):
+    model = OrderItem
+    template_name = 'orderitem_list.html'
+    context_object_name = 'orderitem_list'
+
+    # def get_queryset(self, **kwargs):
+    #     user = self.request.session.get('user')
+    #     print(user)
+    # #
+    #     queryset = OrderItem.objects.filter(email=self.request.session.get('user'))
+    #     return queryset

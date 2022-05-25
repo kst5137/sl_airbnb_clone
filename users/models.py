@@ -17,3 +17,4 @@ class User(AbstractUser):
     u_address = models.CharField(max_length=200, verbose_name='주소', null=True)  # user 주소
     SEX = (('F', '여자'), ('M', '남자'), ('U', '선택 안함'))
     u_sex = models.CharField(max_length=10, choices=SEX, null=True, unique=False)
+    email = models.EmailField(max_length=128, verbose_name='사용자이메일')

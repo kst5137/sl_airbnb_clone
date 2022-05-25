@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% load static %}
+{% load i18n %}
+
+{% block head_title %}{% trans "Signup" %}{% endblock %}
+
+
+{% block content %}
+
+
+<h5>'{{ query }}' 검색 결과입니다.</h5>
+
+
+
+<div class="row">
+    {% for product in products %}
+
+    <div class="col-4">
+        <div class="card-header">
+
+            {% for image in product.image_set.all %}
+            <img class="card-img-top" src="{{image.file.url}}" alt="Product Image">
+            {% endfor %}
+            <div class="card-body">
+                <h5 class="card-title">{{product.name}}</h5>
+                <p class="card-text">{{product.description}} <span
+                        class="badge badge-secondary">&#8361;{{product.price}}</span>
+                </p>
+                <a href="{{product.get_absolute_url}}" class="btn btn-primary btn-block">View Detail</a>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <div>
+        <p class = "search_text">검색결과가 없습니다.</p>
+
+    </div>
+
+
+    {% endfor %}
+</div>
+
+{% endblock %}

@@ -1,0 +1,107 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% load i18n %}
+{% load account socialaccount %}
+
+{% block head_title %}{% trans "Sign In" %}{% endblock %}
+
+{% block content %}
+<div class="container">
+<div class="col-2">
+        <div class="list-group">
+            <a href="/" class="list-group-item {% if not current_category %}active{% endif %} btn btn-primary btn-block" >All</a>
+            {% for c in categories %}
+
+            <a href="{{c.get_absolute_url}}"
+               class="list-group-item {% if current_category.slug == c.slug %}active{% endif %} btn btn-primary btn-block"style="background-color: #008DC9;">{{c.name}}</a>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="live_things">
+        <div class="container">
+            <div class="heading">Live anywhere</div>
+            <div class="stays" >
+                {% for product in products %}
+
+                <a href="{{product.get_absolute_url}}" >
+                    <div class="item" >
+                        {% for image in product.image_set.all %}
+                        <img class="card-img-top" src="{{image.file.url}}" alt="Product Image" >
+                        {% endfor %}
+                        <span class="item_heading">{{product.name}}</span>
+                        <span class="item_heading">{{product.price}}</span>
+                        <span class="item_heading">{{product.writer.u_nickname}}</span>
+                        <span class="item_heading">{{product.created}}</span>
+                        {% if product.stock > 0 %}
+                        <span class="item_heading">{{product.stock}}</span>
+                        {% else %}
+                        <span> 재고가 없어요</span>
+                        {% endif %}
+                    </div>
+                </a>
+                {% endfor %}
+
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            // window.addEventListener("resize", () => {
+            //     if (document.body.clientWidth > 728) {
+            //         $(".sticky_menu").css("display", "block");
+            //         $(".form").css("display", "none");
+            //         $(".logo").css("display", "none");
+            //         $(".menu2").css("display", "none");
+            //         $(".profile").css("display", "none");
+            //         $(".menu2").css("display", "none");
+            //     } else {
+            //         $(".sticky_menu").css("display", "none");
+            //         // $(".form").css("display", "flex");
+            //         // $(".logo").css("display", "flex");
+            //         // $(".menu2").css("display", "flex");
+            //         // $(".profile").css("display", "flex");
+            //         // $(".menu2").css("display", "flex");
+            //     }
+            // });
+
+            $(window).scroll(function () {
+                if ($(document).scrollTop() > 1) {
+                    $(".sticky_menu").css("display", "block");
+                    $(".formm").css("display", "none");
+                    $(".logo").css("display", "none");
+                    $(".profile").css("display", "none");
+                    $(".menu2").css("opacity", "0");
+                } else {
+                    $(".sticky_menu").css("display", "none");
+                    $(".formm").css("display", "flex");
+                    $(".logo").css("display", "flex");
+                    $(".profile").css("display", "flex");
+                    $(".menu2").css("opacity", "1");
+                }
+            });
+            // const mediaQuery = window.matchMedia('(min-width: 744px)')
+            // if (mediaQuery.matches) {
+            //     // Then trigger an alert
+            //     $(".sticky_menu").css("b", "flex");
+            //     $(".form").css("display", "flex");
+            // }
+
+            // function responsive() {
+            //     if (window.innerWidth < 744 && document.scrollTop() > 1) {
+            //         $(".sticky_menu").css("background-color", "yellow");
+            //         $(".sticky_menu").css("display", "flex");
+            //     }
+            //     else {
+            //         $(".sticky_menu").css("display", "flex");
+            //         $(".form").css("display", "flex");
+
+            //     }
+            // }
+            // window.addEventListener("resize", responsive);
+        });
+    </script>
+
+</div>
+{% endblock %}
