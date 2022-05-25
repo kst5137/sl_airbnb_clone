@@ -54,13 +54,20 @@ class OrderCreateAjaxView(View):
 
         cart = Cart(request)
         form = OrderCreateForm(request.POST)
-
+        print("post 통과")
         if form.is_valid():
+            print("is_valid 통과")
             order = form.save(commit=False)
+            print("form save 통과")
             if cart.coupon:
                 order.coupon = cart.coupon
                 order.discount = cart.coupon.amount
+            order.username = self.request.user
+            print('usernaee:',order.username)
+            order.product = self.request.Product
+            print('product:',order.product)
             order.save()
+            print("order save 통과")
             for item in cart:
                 OrderItem.objects.create(order=order,
                                          product=item['product'],

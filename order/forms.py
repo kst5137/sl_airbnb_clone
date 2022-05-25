@@ -2,22 +2,23 @@ from django import forms
 from .models import Order
 
 
+
 class OrderCreateForm(forms.ModelForm):
     # product = forms.CharField(widget=forms.HiddenInput())
 
     class Meta:
         model = Order
-        fields = ['first_name', 'last_name', 'email', 'address', 'postal_code', 'city','username','product']
+        fields = ['first_name', 'last_name', 'email', 'address', 'postal_code', 'city']
+        # widgets = {'product' : forms.HiddenInput}
 
         
-    # def __init__(self, *args, **kwargs):
-    #     super().__init__(*args, **kwargs)
+    def __init__(self, *args, **kwargs):
+        super(OrderCreateForm, self).__init__(*args, **kwargs)
     #
-    #     # self.fields['product'] = self.fields.get('product_id')
+        # self.fields['product'].initial = 'default value'
     #
-    #
-    #
-    #     self.fields['product'].disabled = True
+        # self.fields['product'].disabled = True
+
 
 
 

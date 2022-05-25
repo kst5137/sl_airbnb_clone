@@ -55,6 +55,12 @@ order_complete_url = "{% url 'order:order_complete' %}";
 
 
         </form>
+        <script>
+            var product = document.getElementById('{{ form.product.id_for_label }}')
+    product.value = navigator.product;
+  	// Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.100 Safari/537.36
+
+        </script>
     </div>
 </div>
 {% endblock %}
