@@ -79,9 +79,9 @@
 ||GET|숙소간략정보|/room|Default|검색한 애용에 따라 숙소정보 요청|규호|| △
 ||GET|페이지에 나온 숙소들 위치 지도에 출력|/room|Default|검색한 내용에 따라 숙소 정보 요청|규호||
 |||||||||
-|숙소예약|GET|예약할 숙소정보|/room/reservation|Default|숙소정보들(이름, 사진, 옵션, 가격, 기간등을 요청)|재중||
-||GET|리뷰리스트|/room/reservation|Default|리뷰리스트 나열|재중||
-||POST|리뷰 등록|/room/reservation/review|Click|리뷰를 등록|재중|| ○
+|숙소예약|GET|예약할 숙소정보|/room/reservation|Default|숙소정보들(이름, 사진, 옵션, 가격, 기간등을 요청)|재중|| △
+||GET|리뷰리스트|/room/reservation|Default|리뷰리스트 나열|재중|| ●
+||POST|리뷰 등록|/room/reservation/review|Click|리뷰를 등록|재중|| ●
 ||PUT|리뷰 수정|/room/reservation/review|Click|리뷰를 수정|재중|| △
 ||DELETE|리뷰삭제|/room/reservation/review|Click|리뷰를 삭제|재중|| ○
 |||||||||
