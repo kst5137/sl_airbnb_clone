@@ -13,9 +13,10 @@
         <table class="table table-light">
             <thead class="thead-light">
             <tr>
-                <th scope="col">#</th>
+                <th scope="col">판매자</th>
                 <th scope="col">상품명</th>
-                <th scope="col">구매자</th>
+                <th scope="col">구매할때입력한 firts+last</th>
+                <th scope="col">구매닉네임</th>
                 <th scope="col">email</th>
                 <th scope="col">주문날짜</th>
             </tr>
@@ -24,25 +25,19 @@
             {% for order in order_list %}
 
             {% if order.paid == 1%}
-            {% with product=item.product %}
+<!--            {% with product=item.product %}-->
             <tr>
-                <th scope="row">
-                <a href="{{ product.get_absolute_url }}">
 
-                </a>
-                <div class="col-4">
-                    {% for image in product.image_set.all %}
-                    <img src="{{image.file.url}}" width="100%" alt="Product Image">
-                    {% endfor %}
-                </div>
-            </th>
+                <th>{{order.product.writer.u_nickname}}</th>
+
 
                 <th>{{order.product}}</th>
                 <th>{{order.first_name}}{{order.last_name}}</th>
+                <th>{{order.username.u_nickname}}</th>
                 <th>{{order.email}}</th>
                 <th>{{order.updated|date:'Y-m-d H:i'}}</th>
             </tr>
-            {% endwith %}
+<!--            {% endwith %}-->
             {% endif %}
 
             {% endfor %}
