@@ -10,14 +10,22 @@ class CategoryAdmin(admin.ModelAdmin):
 admin.site.register(Category, CategoryAdmin)
 
 class ProductAdmin(admin.ModelAdmin):
-    # 'user',
-    list_display = ['name', 'slug', 'category', 'price', 'stock', 'display', 'order', 'created', 'updated']
+    list_display = ['writer', 'name', 'slug', 'category', 'price', 'stock', 'display', 'order', 'created', 'updated']
     list_filter = ['display', 'created', 'updated', 'category']
     prepopulated_fields = {'slug': ('name',)}
     list_editable = ['price', 'stock', 'display', 'order']
 
-
 admin.site.register(Product, ProductAdmin)
+
+def path_image_path(instance, filename):
+    #{instance.content} => {instance.product.content}
+    return f'products/{instance.product.content}/{filename}'
+
+class ImageAdmin(admin.ModelAdmin):
+    list_display = ['file']
+
+admin.site.register(Image, ImageAdmin)
+
 
 class TypeAdmin(admin.ModelAdmin):
     list_display = ['name']

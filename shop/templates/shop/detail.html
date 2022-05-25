@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block title %}Product Detail{% endblock %}
 {% block content %}
-<div class="container my-3">
+<div class="container my-3" xmlns="http://www.w3.org/1999/html">
     <!-- message 표시 -->
     {% if messages %}
     <div class="alert alert-danger my-3" role="alert">
@@ -22,22 +22,121 @@
             </div>
             <div class="col">
                 <h1 class="display-6">{{product.name}}</h1>
+                <h3 class="display-6">Host : {{product.writer}}</h3>
 
-                <p><span class="badge badge-secondary">Price</span> &#8361;{{product.price}}</p>
+                <p><span class="badge badge-secondary">가격</span> &#8361;{{product.price}}</p>
                 <form action="{% url 'cart:product_add' product.id %}" method="post">
                     {{add_to_cart}}
                     {% csrf_token %}
-                    <input type="submit" class="btn btn-primary btn-sm" value="Add to Cart">
+                    <input type="submit" class="btn btn-primary btn-sm" value="장바구니">
 
                 </form>
-                <h5><span class="badge badge-secondary">Description</span>{{product.description|linebreaks}}</h5>
+                <h5><span class="badge badge-secondary">설명</span>{{product.addr|linebreaks}}</h5>
+                <td><button class="btn btn-secondary rounded-pill" onclick="location.href='/register_product/{{product.id}}/'">수정</button></td>
+                <td><button class="btn btn-danger rounded-pill" onclick="location.href='/delete_product/{{product.id}}/'">삭제</button></td>
+            </div>
+
+            <div data-viewid="findway" data-root="" class="cont_findway">
+                <center><span id="em4" class="tit_subject btn btn-outline-primary btn-block">찾아가는 길</span></center>
+                <div class="findway_map">
+                    <section class="module map only-desktop">
+
+                        <div class="map-container" tabindex="0"
+                             style="position: relative; overflow: hidden; background: url(&quot;https://ssl.pstatic.net/static/maps/mantle/1x/pattern_1.png&quot;) 0px 0px repeat transparent;">
+                            <div id="map" style="width:800px;height:400px;"></div>
+                            <div id="product_address1" data-title="{{ product.name }}" data-address="{{ product.address1 }}" style="display:none">{{ product.address1 }}</div>
+
+                            <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=e69641dcc68fbf07541f339e0ba36f35&libraries=services" ></script>
+                            <script>
+
+var mapContainer = document.getElementById('map'), // 지도를 표시할 div
+    mapOption = {
+        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+        level: 5 // 지도의 확대 레벨
+    };
+
+var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+
+// HTML5의 geolocation으로 사용할 수 있는지 확인합니다
+if (navigator.geolocation) {
+
+    // GeoLocation을 이용해서 접속 위치를 얻어옵니다
+    navigator.geolocation.getCurrentPosition(function(position) {
+
+        var lat = position.coords.latitude, // 위도
+            lon = position.coords.longitude; // 경도
+
+        var locPosition = new kakao.maps.LatLng(lat, lon), // 마커가 표시될 위치를 geolocation으로 얻어온 좌표로 생성합니다
+            message = '<div style="padding:8px;">현 위치</div>'; // 인포윈도우에 표시될 내용입니다
+
+        // 마커와 인포윈도우를 표시합니다
+        displayMarker(locPosition, message);
+
+      });
+
+} else { // HTML5의 GeoLocation을 사용할 수 없을때 마커 표시 위치와 인포윈도우 내용을 설정합니다
+
+    var locPosition = new kakao.maps.LatLng(33.450701, 126.570667),
+        message = 'geolocation을 사용할수 없어요..'
+
+    displayMarker(locPosition, message);
+}
+
+// 지도에 마커와 인포윈도우를 표시하는 함수입니다
+function displayMarker(locPosition, message) {
+
+    // 마커를 생성합니다
+    var marker = new kakao.maps.Marker({
+        map: map,
+        position: locPosition
+    });
+
+    var iwContent = message, // 인포윈도우에 표시할 내용
+        iwRemoveable = true;
+
+    // 인포윈도우를 생성합니다
+    var infowindow = new kakao.maps.InfoWindow({
+        content : iwContent,
+        removable : iwRemoveable
+    });
+
+    // 인포윈도우를 마커위에 표시합니다
+    infowindow.open(map, marker);
+
+    // 지도 중심좌표를 접속위치로 변경합니다
+    map.setCenter(locPosition);
+}
+                        </script>
+                        </div>
+                    </section><br><br><br><br>
+                    <h5>{{ product.inquiry_set.count }}개의 문의가 있습니다.</h5>
+                    <div>
+                        <ul>
+                            {% for inquiry in product.inquiry_set.all %}
+                            <li><div class="btn btn-info ">작성자 : {{ inquiry.user }}</div><br>
+                                <h1 class="display-6 btn btn-outline-info btn-lg ">{{ inquiry.content }}</h1>
+                                <form action="{% url 'shop:inquiry_delete' inquiry.id %}" method ="post">
+                                    {% csrf_token %}
+                                    <input type="submit" value="Delete">
+                                </form>
+                            </li>
+                            {% endfor %}
+
+                        </ul>
+                    </div>
+                    <form action="{% url 'shop:inquiry_create' product.id %}" method="post" class="my-3">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <center><div class="btn btn-info btn-block ">문의</div></center>
+                            <textarea name="content" id="content" class="form-control btn btn-outline-primary" rows="5"></textarea>
+                        </div>
+
+                        <input type="submit" value="문의 하기" class="btn btn-primary">
+
+                    </form>
+                </div><br><br><br>
             </div>
         </div>
-        <a href="{% url 'shop:register_product' product.id  %}"
-           class="btn btn-sm btn-outline-secondary float-right">수정</a>
     </div>
 </div>
-
 {% endblock %}
-<!--   user 모델 생성 후 할 내용         {% if request.user == product.user %}-->
-<!--            {% endif %}-->

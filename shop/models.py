@@ -1,8 +1,11 @@
 from django.db import models
 from django.urls import reverse
-from imagekit.models import ProcessedImageField
-from pilkit.processors import ResizeToFill
+from imagekit.models import ProcessedImageField, ImageSpecField
+from imagekit.processors import ResizeToFill
+from users.models import User
 from django.conf import settings
+from django.utils.text import slugify
+
 
 class Category(models.Model):
     name = models.CharField(max_length=200, db_index=True)
@@ -29,26 +32,26 @@ class Type(models.Model):
         return self.name
 
 class Product(models.Model):
-    writer = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE)
-    # user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user_product')
+    writer = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE, blank=True)
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, related_name='products')
     type     = models.ForeignKey(Type, on_delete=models.CASCADE, null=True)
-    name     = models.CharField(max_length=200, db_index=True)
-    slug     = models.SlugField(max_length=200, db_index=True, unique=True, allow_unicode=True)
+    name     = models.CharField('TITLE', max_length=200, db_index=True)
+    slug     = models.SlugField('SLUG', max_length=200, db_index=True, unique=True, allow_unicode=True, null=True, blank=True)
     addr     = models.TextField(blank=True)
     content  = models.TextField(blank=True)
+    address1 = models.CharField("Address line 1", max_length=300)
+    address2 = models.CharField("Address line 2", max_length=300)
     price    = models.DecimalField(max_digits=8, decimal_places=0, null=True)
     stock    = models.IntegerField(default=1)
-    size     = models.ForeignKey('Size', on_delete=models.CASCADE, null=True,blank=True)
-    attribute= models.ForeignKey('Attribute', on_delete=models.CASCADE, null=True,blank=True)
-    facility = models.ForeignKey('Facility', on_delete=models.CASCADE, null=True,blank=True)
-    rule     = models.ForeignKey('Rule', on_delete=models.CASCADE, null=True,blank=True)
-    safety   = models.ForeignKey('Safety', on_delete=models.CASCADE, null=True,blank=True)
+    size     = models.ForeignKey('Size', on_delete=models.CASCADE, null=True)
+    attribute= models.ForeignKey('Attribute', on_delete=models.CASCADE, null=True)
+    facility = models.ForeignKey('Facility', on_delete=models.CASCADE, null=True)
+    rule     = models.ForeignKey('Rule', on_delete=models.CASCADE, null=True)
+    safety   = models.ForeignKey('Safety', on_delete=models.CASCADE, null=True)
     display = models.BooleanField('Display', default=True)
     order = models.BooleanField('Order', default=True)
     created  = models.DateTimeField(auto_now_add=True)
     updated  = models.DateTimeField(auto_now=True, null=True, blank=True)
-
 
     class Meata:
         ordering = ['-created']
@@ -60,6 +63,10 @@ class Product(models.Model):
     def get_absolute_url(self):
         return reverse('shop:product_detail', args=[self.id, self.slug])
 
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.name)
+        super(Product, self).save(*args, **kwargs)
+
 # class ProductImage(models.Model) :
 #     productImage = models.ForeignKey(Product, on_delete=models.CASCADE)
 #     image = models.ImageField(upload_to='products/%Y/%m/%d')
@@ -70,8 +77,14 @@ def path_image_path(instance, filename):
 
 class Image(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
-    file = ProcessedImageField(upload_to='products/%Y/%m/%d', null=False)
+    file = ProcessedImageField(upload_to='products/%Y/%m/%d', null=False, processors=[ResizeToFill(120, 100)], format='JPEG', options={'quality':90})
 
+class Inquiry(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    content = models.CharField(max_length=300)
+    create_date = models.DateTimeField(auto_now_add=True)
+    update_date = models.DateTimeField(auto_now=True)
 
 class Size(models.Model):
     name = models.CharField(max_length=100)
@@ -94,6 +107,9 @@ class Attribute(models.Model):
 
     class Meta:
         db_table = 'attributes'
+
+    def __str__(self):
+        return self.name
 
 
 class ProductAttributes(models.Model):
