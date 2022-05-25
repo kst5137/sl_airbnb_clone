@@ -1,10 +1,10 @@
-{% extends "base.html" %}
-{% load static %}
-{% load i18n %}
+<!--{% extends "base.html" %}-->
+<!--{% load static %}-->
+<!--{% load i18n %}-->
 
-{% block head_title %}{% trans "Signup" %}{% endblock %}
-{% load humanize%}
-{% block content %}
+<!--{% block head_title %}{% trans "Signup" %}{% endblock %}-->
+<!--{% load humanize%}-->
+<!--{% block content %}-->
 
 <h1>{{ user.u_nickname }} 님 환영합니다</h1>
 {% if request.user == user %}
@@ -20,8 +20,8 @@
 {% endif %}
 <hr>
 <h2> 내 상품 내역 </h2>
-<button class="btn btn-secondary" onclick="location.href='{% url 'order:order_list' %}'"> 내 판매 내역</button>
+<button class="btn btn-secondary" onclick="location.href='{% url 'order:order_list' %}'"> 내 주문 내역(완성)</button>
 <button class="btn btn-secondary" onclick="location.href='{% url 'order:orderitem_list' %}'"> 내 주문 내역</button>
 
 
-{% endblock %}
+<!--{% endblock %}-->
