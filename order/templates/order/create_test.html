@@ -41,9 +41,22 @@ order_complete_url = "{% url 'order:order_complete' %}";
         <div class="alert alert-success" role="alert">Total : {{cart.get_total_price|floatformat:"2"}}</div>
 
         <!-- form에 class 추가 -->
+
         <form action="" method="post" class="order-form">
+            <div><span id = "username" >
+                        내 닉네임 :  {{ user.u_nickname }}</span></div>
+            <div>
+                {% for item in cart %}
+         <span id = "product_id" >
+                        상품명 :  {{ item.product }}</span>
+
+        {% endfor %}
+            </div>
             {{form.as_p}}
             {% csrf_token %}
+
+
+
 
 <!--{{user.id}}-->
 <!--            &lt;!&ndash; hidden field 추가&ndash;&gt;-->

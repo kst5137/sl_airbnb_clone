@@ -2,6 +2,8 @@ from django.db import models
 from django.urls import reverse
 from imagekit.models import ProcessedImageField, ImageSpecField
 from imagekit.processors import ResizeToFill
+
+from config.settings import AUTH_USER_MODEL
 from users.models import User
 from django.conf import settings
 from django.utils.text import slugify
@@ -32,11 +34,11 @@ class Type(models.Model):
         return self.name
 
 class Product(models.Model):
-    writer = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE, blank=True)
+    writer = models.ForeignKey(AUTH_USER_MODEL,on_delete=models.CASCADE, blank=True)
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, related_name='products')
     type     = models.ForeignKey(Type, on_delete=models.CASCADE, null=True)
-    name     = models.CharField('TITLE', max_length=200, db_index=True)
-    slug     = models.SlugField('SLUG', max_length=200, db_index=True, unique=True, allow_unicode=True, null=True, blank=True)
+    name     = models.CharField(max_length=200, db_index=True)
+    slug     = models.SlugField(max_length=200, db_index=True, unique=True, allow_unicode=True, null=True, blank=True)
     addr     = models.TextField(blank=True)
     content  = models.TextField(blank=True)
     address1 = models.CharField("Address line 1", max_length=300)
@@ -63,9 +65,6 @@ class Product(models.Model):
     def get_absolute_url(self):
         return reverse('shop:product_detail', args=[self.id, self.slug])
 
-    def save(self, *args, **kwargs):
-        self.slug = slugify(self.name)
-        super(Product, self).save(*args, **kwargs)
 
 # class ProductImage(models.Model) :
 #     productImage = models.ForeignKey(Product, on_delete=models.CASCADE)
