@@ -54,7 +54,7 @@
 ||PUT|숙소 정보 수정|/register/modify|Click|숙소 정보 수정|재중||△
 |||||||||
 |숙소등록페이지|POST|숙소유형선택|/register|click|숙소 유형 몇 가지 중 선택|재중|| ○
-||POST|숙소위치|/register|Click|숙소 위치 지도 api를 사용하여 선택|재중||
+||POST|숙소위치|/register|Click|숙소 위치 지도 api를 사용하여 선택|재중|| △
 ||POST|숙소인원수|/register|Click|숙소 인원수 입력|재중|| △
 ||POST|숙소 사진|/register|Click|숙소 사진 등록|재중|| ○
 ||POST|숙소 옵션|/register|Click|숙소 옵션 선택하기|재중|| △
@@ -81,9 +81,9 @@
 |||||||||
 |숙소예약|GET|예약할 숙소정보|/room/reservation|Default|숙소정보들(이름, 사진, 옵션, 가격, 기간등을 요청)|재중||
 ||GET|리뷰리스트|/room/reservation|Default|리뷰리스트 나열|재중||
-||POST|리뷰 등록|/room/reservation/review|Click|리뷰를 등록|재중||
-||PUT|리뷰 수정|/room/reservation/review|Click|리뷰를 수정|재중||
-||DELETE|리뷰삭제|/room/reservation/review|Click|리뷰를 삭제|재중||
+||POST|리뷰 등록|/room/reservation/review|Click|리뷰를 등록|재중|| ○
+||PUT|리뷰 수정|/room/reservation/review|Click|리뷰를 수정|재중|| △
+||DELETE|리뷰삭제|/room/reservation/review|Click|리뷰를 삭제|재중|| ○
 |||||||||
 |숙소결제시스템|GET|숙소 결제|/room/pay|Click|결제토큰 받아오기|규호||●
 ||POST|숙소 결제|/room/pay|Click|결제 정보등을 입렵이 전송되면 예약번호도 같이 받는다|규호||●
