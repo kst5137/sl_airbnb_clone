@@ -15,6 +15,7 @@ from .models import Order
 from django.contrib.auth.models import User
 # import weasyprint
 from users.models import User
+from shop.models import Product
 
 
 
@@ -50,14 +51,23 @@ def order_complete(request):
     return render(request, 'order/complete.html', {'order': order})
 
 
-class OrderCreateAjaxView(View):
+class OrderCreateAjaxView(View,Product):
     def post(self, request, *args, **kwargs):
         if not request.user.is_authenticated:
             return JsonResponse({"authenticated": False}, status=403)
 
-        cart = Cart(request)
+        product = Product.objects.all()
 
+        cart = Cart(request)
+        print(cart)
+
+        print('_________________________')
+        for item in cart:
+            print(item)
+            product_name = item['product']
+        print(product_name)
         form = OrderCreateForm(request.POST)
+        # print(form)
         # 실패목록
         # print(request.GET.all('cart'))
         # print(cart.session['products'])
@@ -70,6 +80,7 @@ class OrderCreateAjaxView(View):
         # print(cart.products) = AttributeError: 'Cart' object has no attribute 'products'
 
         print("post 통과")
+        # print(form)
         if form.is_valid():
             print("is_valid 통과")
 
@@ -83,11 +94,15 @@ class OrderCreateAjaxView(View):
             # order.username = request.user.u_nickname
             # print(User.objects.get(u_nickname=request.user.u_nickname))
             order.username = User.objects.get(u_nickname=request.user.u_nickname)
+            order.product = Product.objects.get(name=product_name)
+            # order.product = Product.objects.get(name=Product.name)
+            # print(order.product)
             # 새로운 오류
             # order.product = Product.name = ValueError: Cannot assign "<django.db.models.query_utils.DeferredAttribute object at 0x000002080E84ED60>": "Order.product" must be a "Product" instance.
             # order.product = Product.objects.get(id=form.product_id)
             # order.product = request.session.product
             # print(order.product)
+            order.save()
 
             # print('product:',order.product)
 
@@ -95,7 +110,7 @@ class OrderCreateAjaxView(View):
             # order.save()
             # print(cart[1])
             for item in cart:
-                print(item['product'])
+
                 # 프랑스라고 출력은 되는데 그럼 cart안에도 있는게 아닌가?
                 OrderItem.objects.create(order=order,
                                          product=item['product'],

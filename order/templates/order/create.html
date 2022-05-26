@@ -30,7 +30,7 @@ order_complete_url = "{% url 'order:order_complete' %}";
                 {{item.quantity}}X{{item.product.name}}
                 <span>{{item.total_price}}</span>
             </li>
-        {% endfor %}
+
         {% if cart.coupon %}
             <li class="list-group-item">
                 "{{ cart.coupon.code }}" ({{ cart.coupon.amount }} off)
@@ -53,8 +53,9 @@ order_complete_url = "{% url 'order:order_complete' %}";
             <input type="hidden" name="amount" value="{{ cart.get_total_price|floatformat:'2' }}">
             <input type="submit" class="btn btn-primary float-right" value="Place Order">
 
-
         </form>
+
+        {% endfor %}
         <script>
             var product = document.getElementById('{{ form.product.id_for_label }}')
     product.value = navigator.product;
