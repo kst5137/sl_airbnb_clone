@@ -196,13 +196,13 @@ IAMPORT_KEY = os.environ.get('IAMPORT_KEY')
 IAMPORT_SECRET = os.environ.get('IAMPORT_SECRET')
 #
 # # 이메일 인증 관련
-ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
-ACCOUNT_EMAIL_REQUIRED = True
+# ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
+# ACCOUNT_EMAIL_REQUIRED = True
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.googlemail.com'
-EMAIL_USE_TLS = True
-EMAIL_PORT = 587
-EMAIL_HOST_USER = 'gyuhoairbnb@gmail.com'
-EMAIL_HOST_PASSWORD = 'woaljoyyzhcqlpag'
-DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+# EMAIL_HOST = 'smtp.googlemail.com'
+# EMAIL_USE_TLS = True
+# EMAIL_PORT = 587
+# EMAIL_HOST_USER = 'gyuhoairbnb@gmail.com'
+# EMAIL_HOST_PASSWORD = 'woaljoyyzhcqlpag'
+# DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
