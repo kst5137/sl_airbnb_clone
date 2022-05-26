@@ -1,11 +1,77 @@
 {% extends 'base.html' %}
 {% block content %}
-<div class="container">
-    <h5 class="my-3 border-bottom pb-2">게시글 등록</h5>
-    <form method="POST" enctype="multipart/form-data">
+<section class="page-section" id="contact">
+    <div class="container">
+    <h4 class="my-3 border-bottom pb-2">&nbsp&nbsp숙소 정보 수정</h4>
+    <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
-        {{ product_form.as_p }}
-        {{ image_formset.as_p }}
-        <input class="btn btn-dark rounded-pill col-12" type="submit" value="수정하기" onclick="location.href='/<int:id>/<product_slug>/'">    </form>
+        <div class="row justify-content">
+            <div class="col-lg-8 col-xl-7">
+                <form method="POST">
+                    <br>
+                    <br>
+                    <br>
+                    {% csrf_token %}
+                    <div style="background-color:#808080;" class="btn btn-info ">
+                        작성자&nbsp&nbsp {{ form.writer }}</div>
+                    <div style="background-color:#808080;" class="btn btn-info">
+                        카테고리&nbsp&nbsp {{ form.category }}</div>
+                    <div style="background-color:#808080;" class="btn btn-info">
+                        숙소형태&nbsp&nbsp {{ form.type }}</div><br><br>
+                    <div style="background-color:#808080;" class="btn btn-info">
+                        숙소이름&nbsp&nbsp {{ form.p_name }}</div><br><br>
+                    <div style="background-color:#808080;" class="btn btn-info">
+                        &nbspU&nbspR&nbspL&nbsp&nbsp {{ form.p_slug }}</div><br><br>
+                    <div style="background-color: #808080;" class="btn btn-info">
+                        요약정보&nbsp&nbsp{{ form.addr }}</div><br><br>
+                    <div style="background-color: #808080;" class="btn btn-info">
+                        상세설명&nbsp&nbsp{{ form.content }}</div><br><br>
+                    <th>숙소주소 :
+                        <input class="btn btn-outline-secondary" type="text" id="address_kakao" name="address1" value="" required=""
+                               placeholder=[{{ form.address1 }}] readonly="readonly"></th>
+                    <div style="background-color: #808080;" class="btn btn-info">
+                        상세주소&nbsp&nbsp{{ form.address2 }}</div><br><br>
+                    <div style="background-color: #808080;" class="btn btn-info">
+                        &nbsp&nbsp가&nbsp&nbsp&nbsp&nbsp&nbsp격&nbsp&nbsp{{ form.price }}</div><br><br>
+                    <div style="background-color: #808080;" class="btn btn-info">
+                        &nbsp&nbsp수&nbsp&nbsp&nbsp&nbsp&nbsp량&nbsp&nbsp{{ form.stock }}</div>
+                    <div style="background-color: #808080;" class="btn btn-info">
+                        침대유형&nbsp&nbsp{{ form.size }}</div><br><br>
+                        <div style="background-color: #808080;" class="btn btn-info">
+                            옵션1&nbsp&nbsp{{ form.attribute }}</div>
+                        <div style="background-color: #808080;" class="btn btn-info">
+                            옵션2&nbsp&nbsp{{ form.facility }}</div><br><br>
+                        <div style="background-color: #808080;" class="btn btn-info">
+                            숙소규칙&nbsp&nbsp{{ form.rule }}</div>
+                        <div style="background-color: #808080;" class="btn btn-info">
+                            안전옵션&nbsp&nbsp{{ form.safety }}</div><br><br>
+                        <div style="background-color: #808080;" class="btn btn-info">
+                            화면표시&nbsp&nbsp{{ form.display }}</div>
+                        <div style="background-color: #808080;" class="btn btn-info">
+                            주문가능&nbsp&nbsp{{ form.order }}</div><br><br>
+
+                        <div style="color:blue background-color: #E1F6FA;" class="btn btn-dark">
+                            {{ image_formset.as_p }}</div>
+                </form>
+                <button type="submit" class="btn btn-primary float-right">저장하기</button><br><br><br><br><br><br>
+            </div>
+        </div>
+
+    </form>
+        <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script>
+window.onload = function(){
+    document.getElementById("address_kakao").addEventListener("click", function(){ //주소입력칸을 클릭하면
+        //카카오 지도 발생
+        new daum.Postcode({
+            oncomplete: function(data) { //선택시 입력값 세팅
+                document.getElementById("address_kakao").value = data.address; // 주소 넣기
+                document.querySelector("input[name=address2]").focus(); //상세입력 포커싱
+            }
+        }).open();
+    });
+}
+</script>
 </div>
+</section>
 {% endblock %}

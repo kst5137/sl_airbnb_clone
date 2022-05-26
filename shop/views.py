@@ -1,5 +1,4 @@
-from time import timezone
-
+from django.utils import timezone
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.shortcuts import render, get_object_or_404, redirect
@@ -22,7 +21,7 @@ def product_in_category(request, category_slug=None):
     products = Product.objects.filter(display=True)
 
     if category_slug:
-        current_category = get_object_or_404(Category, slug=category_slug)
+        current_category = get_object_or_404(Category, c_slug=category_slug)
         products = products.filter(category=current_category)
 
     return render(request, 'shop/list.html', {'current_category': current_category,
@@ -33,7 +32,7 @@ def product_in_category(request, category_slug=None):
 
 
 def product_detail(request, id, product_slug=None):
-    product = get_object_or_404(Product, id=id, slug=product_slug)
+    product = get_object_or_404(Product, id=id, p_slug=product_slug)
     add_to_cart = AddProductForm(initial={'quantity': 1})
     return render(request, 'shop/detail.html', {'product': product, 'add_to_cart': add_to_cart})
 
@@ -67,64 +66,79 @@ def product_detail(request, id, product_slug=None):
 def create_product(request) :
     if request.method == 'POST':
         product_form = ProductForm(request.POST)
-        type_form = TypeForm(request.POST)
-        size_form = SizeForm(request.POST)
-        attribute_form = AttributeForm(request.POST)
-        facility_form = FacilityForm(request.POST)
-        rule_form = RuleForm(request.POST)
-        safety_form = SafetyForm(request.POST)
         image_formset = ImageFormSet(request.POST, request.FILES)
-        print('test_post')
-        print(product_form)
         if product_form.is_valid() and image_formset.is_valid():
-            print('test_valid')
             product = product_form.save(commit=False)
-            type = type_form.save(commit=False)
-            size = size_form.save(commit=False)
-            attribute = attribute_form.save(commit=False)
-            facility = facility_form.save(commit=False)
-            rule = rule_form.save(commit=False)
-            safety = safety_form.save(commit=False)
             product.writer = request.user
-            print('test_valid')
             with transaction.atomic():
                 product.save()
-                type.save()
-                size.save()
-                attribute.save()
-                facility.save()
-                rule.save()
-                safety.save()
                 image_formset.instance = product
                 image_formset.save()
-                return redirect('shop:product_all')
+                return redirect(product)
     else:
         product_form = ProductForm()
         image_formset = ImageFormSet()
-        type_form = TypeForm()
-        size_form = SizeForm()
-        attribute_form = AttributeForm()
-        facility_form = FacilityForm()
-        rule_form = RuleForm()
-        safety_form = SafetyForm()
 
-    context = {'product_form' : product_form, 'image_formset' : image_formset,
-               'type_form':type_form, 'size_form':size_form, 'attribute_form':attribute_form,
-               'facility_form':facility_form, 'rule_form':rule_form, 'safety_form':safety_form}
+    context = {'product_form' : product_form, 'image_formset' : image_formset}
     return render(request, 'shop/create_product.html', context)
 
 @login_required
-def delete_product(request, product_id) :
-    product = get_object_or_404(Product, pk=product_id)
-    if request.user != product.user :
-        return redirect('shop:product_detail')
-    product.delete()
+def register_product(request, id):
+    product = get_object_or_404(Product, pk=id)
+    if product.writer == request.user or request.user.is_staff == '1':
+        if request.method == "GET":
+            form = ProductForm(instance=product)
+            image_formset = ImageFormSet()
+            return render(request, 'shop/register_product.html', {'form': form, 'image_formset':image_formset})
+        else:
+            form = RegisterProductForm(request.POST, instance=product)
+            image_formset = ImageFormSet(request.POST, request.FILES)
+            print('POST~!', form)
+            if form.is_valid():
+                print('valid~!')
+                product.category = form.cleaned_data['category']
+                product.type = form.cleaned_data['type']
+                product.p_name = form.cleaned_data['p_name']
+                product.p_slug = form.cleaned_data['p_slug']
+                product.addr = form.cleaned_data['addr']
+                product.content = form.cleaned_data['content']
+                product.price = form.cleaned_data['price']
+                product.address1 = form.cleaned_data['address1']
+                product.address2 = form.cleaned_data['address2']
+                product.stock = form.cleaned_data['stock']
+                product.size = form.cleaned_data['size']
+                product.attribute = form.cleaned_data['attribute']
+                product.facility = form.cleaned_data['facility']
+                product.rule = form.cleaned_data['rule']
+                product.safety = form.cleaned_data['safety']
+                product.display = form.cleaned_data['display']
+                product.order = form.cleaned_data['order']
+                product.updated = timezone.now()
+                with transaction.atomic():
+                    product.save()
+                    image_formset.instance = product
+                    image_formset.save()
+                    print(product)
+                    return redirect('shop:product_all')
+    else :
+        messages.error(request, "내 게시글이 아닙니다.")
+        return redirect(product)
     return redirect('shop:product_all')
 
+@login_required
+def delete_product(request, id) :
+    product = get_object_or_404(Product, pk=id)
+    if product.writer == request.user or request.user.is_staff == '1':
+        product = get_object_or_404(Product, pk=id)
+        product.delete()
+        return redirect('shop:product_all')
+    else :
+        messages.error(request, "내 게시글이 아닙니다.")
+        return redirect(product)
 
 @login_required
-def inquiry_create(request, inquiry_id):
-    product = get_object_or_404(Product, pk=inquiry_id)
+def inquiry_create(request, id):
+    product = get_object_or_404(Product, pk=id)
     if request.method == "POST":
         form = InquiryForm(request.POST)
         if form.is_valid():
@@ -132,44 +146,19 @@ def inquiry_create(request, inquiry_id):
             inquiry.user = request.user
             inquiry.product = product
             inquiry.save()
-
     else:
         return HttpResponseNotAllowed('Only POST is possible.')
     context = {'product': product, 'form': form}
     return render(request, 'shop/detail.html', context)
 
 @login_required
-def inquiry_delete(request, inquiry_id) :
-    inquiry = get_object_or_404(Inquiry, id=inquiry_id)
-    inquiry.delete()
-    return render(request, 'shop/detail.html')
+def inquiry_delete(request, id) :
+    inquiry = get_object_or_404(Inquiry, id=id)
+    product = get_object_or_404(Product, id=inquiry.product.id)
+    if inquiry.user == request.user or request.user.is_staff == '1':
+        inquiry.delete()
+        return redirect(product)
+    else :
+        messages.error(request, "내 문의글이 아닙니다.")
+        return redirect(product)
 
-@login_required(login_url='product:login')
-def register_product(request, product_id):
-    product = get_object_or_404(Product, pk=product_id)
-    if request.user != product.user:
-        return redirect('shop:product_detail', product_id=product.id)
-    if request.method == "GET":
-        productForm = ProductForm(instance=product)
-        return render(request, 'shop/register_product.html', {'productForm' : productForm})
-    else:
-        productForm = ProductForm(request.POST)
-        if productForm.is_valid():
-            product.category = productForm.cleaned_data['category']
-            product.type = productForm.cleaned_data['type']
-            product.name = productForm.cleaned_data['name']
-            product.slug = productForm.cleaned_data['slug']
-            product.addr = productForm.cleaned_data['addr']
-            product.content = productForm.cleaned_data['content']
-            product.price = productForm.cleaned_data['price']
-            product.stock = productForm.cleaned_data['stock']
-            product.size = productForm.cleaned_data['size']
-            product.attribute = productForm.cleaned_data['attribute']
-            product.facility = productForm.cleaned_data['facility']
-            product.rule = productForm.cleaned_data['rule']
-            product.safety = productForm.cleaned_data['safety']
-            product.display = productForm.cleaned_data['display']
-            product.order = productForm.cleaned_data['order']
-            product.save()
-            return redirect('shop:product_detail')
-    return render(request, 'shop/list.html', )

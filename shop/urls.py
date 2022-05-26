@@ -8,10 +8,10 @@ urlpatterns = [
     path('create_product/', create_product, name='create_product'),
     path('<category_slug>/', product_in_category, name='product_in_category'),
     path('<int:id>/<product_slug>/', product_detail, name='product_detail'),
-    path('inquiry/create/<int:inquiry_id>/', inquiry_create, name='inquiry_create'),
-    path('inquiry/delete/<int:inquiry_id>/', inquiry_delete, name='inquiry_delete'),
-    path('register_product/<int:product_id>/', register_product, name='register_product'),
-    path('delete_product/<int:product_id>/', delete_product, name='delete_product'),
+    path('inquiry/create/<int:id>/', inquiry_create, name='inquiry_create'),
+    path('inquiry/delete/<int:id>/', inquiry_delete, name='inquiry_delete'),
+    path('register_product/<int:id>/', register_product, name='register_product'),
+    path('delete_product/<int:id>/', delete_product, name='delete_product'),
 ]
 
 #
