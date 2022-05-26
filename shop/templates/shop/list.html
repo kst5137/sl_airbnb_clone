@@ -8,7 +8,7 @@
             <a href="/" class="list-group-item {% if not current_category %}active{% endif %} btn btn-primary btn-block" >All</a>
             {% for c in categories %}
 
-            <a href="{{c.get_absolute_url}}"
+            <a href="{{c.get_absolute_url2}}"
                class="list-group-item {% if current_category.c_slug == c.c_slug %}active{% endif %} btn btn-primary btn-block"style="background-color: #008DC9;">{{c.c_name}}</a>
             {% endfor %}
         </div>
