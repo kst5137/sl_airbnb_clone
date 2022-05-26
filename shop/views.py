@@ -21,7 +21,7 @@ def product_in_category(request, category_slug=None):
     products = Product.objects.filter(display=True)
 
     if category_slug:
-        current_category = get_object_or_404(Category, slug=category_slug)
+        current_category = get_object_or_404(Category, c_slug=category_slug)
         products = products.filter(category=current_category)
 
     return render(request, 'shop/list.html', {'current_category': current_category,
@@ -31,7 +31,7 @@ def product_in_category(request, category_slug=None):
 
 
 def product_detail(request, id, product_slug=None):
-    product = get_object_or_404(Product, id=id, slug=product_slug)
+    product = get_object_or_404(Product, id=id, p_slug=product_slug)
     add_to_cart = AddProductForm(initial={'quantity': 1})
     return render(request, 'shop/detail.html', {'product': product, 'add_to_cart': add_to_cart})
 
@@ -97,8 +97,8 @@ def register_product(request, id):
                 print('valid~!')
                 product.category = form.cleaned_data['category']
                 product.type = form.cleaned_data['type']
-                product.name = form.cleaned_data['name']
-                product.slug = form.cleaned_data['slug']
+                product.p_name = form.cleaned_data['p_name']
+                product.p_slug = form.cleaned_data['p_slug']
                 product.addr = form.cleaned_data['addr']
                 product.content = form.cleaned_data['content']
                 product.price = form.cleaned_data['price']

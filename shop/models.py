@@ -10,35 +10,35 @@ from django.utils.text import slugify
 
 
 class Category(models.Model):
-    name = models.CharField(max_length=200, db_index=True)
-    slug = models.SlugField(max_length=200, db_index=True, unique=True, allow_unicode=True)
+    c_name = models.CharField(max_length=200, db_index=True)
+    c_slug = models.SlugField(max_length=200, db_index=True, unique=True, allow_unicode=True)
 
     class Meata:
-        ordering = ['name']
+        ordering = ['c_name']
         verbose_name = 'category'
         verbose_name_plural = 'categories'
 
     def __str__(self):
-        return self.name
+        return self.c_name
 
     def get_absolute_url(self):
-        return reverse('shop:product_detail', args=[self.id, self.slug])
+        return reverse('shop:product_detail', args=[self.id, self.c_slug])
 
 class Type(models.Model):
-    name = models.CharField(max_length=100)
+    t_name = models.CharField(max_length=100)
 
     class Meta:
         db_table = 'types'
 
     def __str__(self):
-        return self.name
+        return self.t_name
 
 class Product(models.Model):
     writer = models.ForeignKey(AUTH_USER_MODEL,on_delete=models.CASCADE, blank=True)
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, related_name='products')
     type     = models.ForeignKey(Type, on_delete=models.CASCADE, null=True)
-    name     = models.CharField(max_length=200, db_index=True)
-    slug     = models.SlugField(max_length=200, db_index=True, unique=True, allow_unicode=True, null=True, blank=True)
+    p_name     = models.CharField(max_length=200, db_index=True)
+    p_slug     = models.SlugField(max_length=200, db_index=True, unique=True, allow_unicode=True, null=True, blank=True)
     addr     = models.TextField(blank=True)
     content  = models.TextField(blank=True)
     address1 = models.CharField("Address line 1", max_length=300)
@@ -57,13 +57,13 @@ class Product(models.Model):
 
     class Meata:
         ordering = ['-created']
-        index_together = [['id','slug']]
+        index_together = [['id','p_slug']]
 
     def __str__(self):
-        return self.name
+        return self.p_name
 
     def get_absolute_url(self):
-        return reverse('shop:product_detail', args=[self.id, self.slug])
+        return reverse('shop:product_detail', args=[self.id, self.p_slug])
 
 
 # class ProductImage(models.Model) :
@@ -86,13 +86,13 @@ class Inquiry(models.Model):
     update_date = models.DateTimeField(auto_now=True)
 
 class Size(models.Model):
-    name = models.CharField(max_length=100)
+    z_name = models.CharField(max_length=100)
 
     class Meta:
         db_table = 'sizes'
 
     def __str__(self):
-        return self.name
+        return self.z_name
 
 class ProductSizes(models.Model):
     product = models.ForeignKey('Product', on_delete=models.CASCADE)
@@ -102,13 +102,13 @@ class ProductSizes(models.Model):
         db_table = 'product_sizes'
 
 class Attribute(models.Model):
-    name = models.CharField(max_length=100)
+    a_name = models.CharField(max_length=100)
 
     class Meta:
         db_table = 'attributes'
 
     def __str__(self):
-        return self.name
+        return self.a_name
 
 
 class ProductAttributes(models.Model):
@@ -119,13 +119,13 @@ class ProductAttributes(models.Model):
         db_table = 'product_attributes'
 
 class Facility(models.Model):
-    name = models.CharField(max_length=100)
+    f_name = models.CharField(max_length=100)
 
     class Meta:
         db_table = 'facilities'
 
     def __str__(self):
-        return self.name
+        return self.f_name
 
 
 class ProductFacilities(models.Model):
@@ -136,13 +136,13 @@ class ProductFacilities(models.Model):
         db_table = 'product_facilities'
 
 class Rule(models.Model):
-    name = models.CharField(max_length=100)
+    r_name = models.CharField(max_length=100)
 
     class Meta:
         db_table = 'rules'
 
     def __str__(self):
-        return self.name
+        return self.r_name
 
 
 class ProductRules(models.Model):
@@ -153,13 +153,13 @@ class ProductRules(models.Model):
         db_table = 'product_rules'
 
 class Safety(models.Model):
-    name = models.CharField(max_length=100)
+    s_name = models.CharField(max_length=100)
 
     class Meta:
         db_table = 'safeties'
 
     def __str__(self):
-        return self.name
+        return self.s_name
 
 
 class ProductSafeties(models.Model):
