@@ -21,19 +21,28 @@
                 {% endfor %}
             </div>
             <div class="col">
+                <h1 class="btn btn-outline-info btn-block btn-lg">'{{product.category}}'</h1>
                 <h1 class="display-6">{{product.name}}</h1>
                 <h3 class="display-6">Host : {{product.writer}}</h3>
-
-                <p><span class="badge badge-secondary">가격</span> &#8361;{{product.price}}</p>
+                <h5><span class="badge badge-secondary">&nbsp가&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp격&nbsp</span> &#8361;{{product.price}}</h5>
+                <h5><span class="badge badge-secondary">숙소형태</span> {{product.type}}</h5>
+                <h5><span class="badge badge-secondary">&nbsp위&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp치&nbsp</span> {{product.address1}}{{product.address2}}</h5>
+                <h5><span class="badge badge-secondary">보유수량</span> {{product.stock}}</h5>
+                <h5><span class="badge badge-secondary">침대유형</span> {{product.size}}</h5>
+                <h5><span class="badge badge-secondary">숙소소개</span> {{product.content}}</h5>
                 <form action="{% url 'cart:product_add' product.id %}" method="post">
                     {{add_to_cart}}
                     {% csrf_token %}
                     <input type="submit" class="btn btn-primary btn-sm" value="장바구니">
-
                 </form>
                 <h5><span class="badge badge-secondary">설명</span>{{product.addr|linebreaks}}</h5>
-                <td><button class="btn btn-secondary rounded-pill" onclick="location.href='/register_product/{{product.id}}/'">수정</button></td>
-                <td><button class="btn btn-danger rounded-pill" onclick="location.href='/delete_product/{{product.id}}/'">삭제</button></td>
+                <form action="{% url 'shop:delete_product' product.id %}" method="get">
+                    {% csrf_token %}
+                    <input type="submit" class="btn btn-primary btn-sm float-right" value="삭 제"></form>
+                <form action="{% url 'shop:register_product' product.id %}" method="get">
+                    {% csrf_token %}
+                    <input type="submit" class="btn btn-primary btn-sm float-right" value="수 정"></form>
+
             </div>
 
             <div data-viewid="findway" data-root="" class="cont_findway">
