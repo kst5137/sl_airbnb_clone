@@ -24,6 +24,11 @@ class Category(models.Model):
     def get_absolute_url(self):
         return reverse('shop:product_detail', args=[self.id, self.slug])
 
+    def get_absolute_url2(self):
+        return reverse('shop:product_in_category', args=[self.slug])
+
+
+
 class Type(models.Model):
     name = models.CharField(max_length=100)
 
