@@ -70,6 +70,11 @@ def product_in_category_test(request, category_slug=None):
 
 
 
+
+
+
+
+
 def product_detail(request, id, product_slug=None):
     product = get_object_or_404(Product, id=id, p_slug=product_slug)
     add_to_cart = AddProductForm(initial={'quantity': 1})

@@ -8,36 +8,102 @@
 {% block content %}
 
 
-<h5>'{{ query }}' 검색 결과입니다.</h5>
+<div class="flexible_filter">
+    <div class="container">
+        <h5>'{{ query }}' 검색 결과입니다.</h5>
 
-
-
-<div class="row">
-    {% for product in products %}
-
-    <div class="col-4">
-        <div class="card-header">
-
-            {% for image in product.image_set.all %}
-            <img class="card-img-top" src="{{image.file.url}}" alt="Product Image">
-            {% endfor %}
-            <div class="card-body">
-                <h5 class="card-title">{{product.p_name}}</h5>
-                <p class="card-text">{{product.description}} <span
-                        class="badge badge-secondary">&#8361;{{product.price}}</span>
-                </p>
-                <a href="{{product.get_absolute_url}}" class="btn btn-primary btn-block">View Detail</a>
+    </div>
+    <div class="flexible">
+        <br>
+        <br>
+        <div class="container">
+            {% for product in posts %}
+            <div class="card" style="width:30%; display:inline-block;">
+                <div class="card-header">
+                    <div id="product{{ product.id }}" class="carousel slide" data-ride="carousel">
+                        <div class="carousel-inner">
+                            {% for image in product.image_set.all %}
+                            <div class="carousel-item {% if forloop.counter == 1 %} active {% endif %}">
+                                <img src="{{ image.file.url }}" class="card-img-top"
+                                     alt="{{ image.file.image }}">
+                            </div>
+                            {% endfor %}
+                        </div>
+                        <a class="carousel-control-prev" href="#product_{{ product.id }}"
+                           role="button" data-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="carousel-control-next" href="#product_{{ product.id }}"
+                           role="button" data-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">{{product.p_name}}</h5>
+                        <h5 class="card-user">{{product.writer}}</h5>
+                        <p class="card-text">{{product.addr}} <span
+                                class="badge badge-secondary">&#8361;{{product.price}}</span>
+                        </p>
+                        <a href="{{product.get_absolute_url}}" class="btn btn-primary btn-block">View Detail</a>
+                    </div>
+                </div>
             </div>
+            {% empty %}
+            <div>
+                <p class="search_text">검색결과가 없습니다.</p>
+            </div>
+            {% endfor %}
         </div>
     </div>
-    {% empty %}
-    <div>
-        <p class = "search_text">검색결과가 없습니다.</p>
 
+    <div class="stays">
+        <div class="container">
+            <div class="left">
+                <div class="pagination">
+                    <div class="pages">
+                        {{posts}}
+
+
+                        {% if posts.has_previous %}
+                        <span
+                                class="abutton" OnClick="location.href='?page=1'">맨 앞으로
+                        </span>
+                        <span
+                                class="abutton" OnClick="location.href='?page={{posts.previous_page_number}}'">이전
+                        </span>
+                        {% endif %}
+
+                        </span>
+                        {% for page in posts.paginator.page_range %}
+                        {% if page >= posts.number|add:-2 and page <= posts.number|add:2 %}
+                        <span class="{% if page == posts.number %}current{% endif %}">
+                        <a onclick="location.href='?page={{ page }}'">{{ page}}</a>
+                    </span>
+                        {% elif page >= posts.number|add:-3 and page <= posts.number|add:3 %}
+                        ..
+                        {% endif %}
+                        {% endfor %}
+
+                        {% if posts.has_next %}
+                        <span
+                                class="abutton" OnClick="location.href='?page={{posts.next_page_number}}'">다음
+                        </span>
+                        <span
+                                class="abutton" OnClick="location.href='?page={{posts.paginator.num_pages}}'">맨 뒤로
+                        </span>
+
+                        {% endif %}
+                    </div>
+
+
+                </div>
+
+            </div>
+            <div class="right"><img src="img/fake_map.jpg" alt=""></div>
+        </div>
     </div>
-
-
-    {% endfor %}
 </div>
 
 {% endblock %}

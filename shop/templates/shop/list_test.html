@@ -77,12 +77,13 @@
 
             <div class="pagination">
                 <div class="pages">
+                    {{posts}}
                     {% if posts.has_previous %}
                     <span
-                            class="abutton" OnClick="location.href='?page=1'">다음
+                            class="abutton" OnClick="location.href='?page='">맨 앞으로
                         </span>
                     <span
-                            class="abutton" OnClick="location.href='?page={{posts.previous_page_number}}'">맨 뒤로
+                            class="abutton" OnClick="location.href='?page={{posts.previous_page_number}}'">이전
                         </span>
                     {% endif %}
 

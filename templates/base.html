@@ -22,7 +22,7 @@
         .abutton {
             background-color: #e6e6ff;
             color: #7b7b7b;
-            font-size: big;
+            font-size: small;
             text-align: right;
         }
 
@@ -185,7 +185,11 @@
         </form>
         <div class="profile2">
             {% if user.is_authenticated %}
-            <a href="{% url 'users:host_main' %}">Become a Host</a>
+
+<!--            <a href="{% url 'users:host_main' %}">Become a Host</a>-->
+            <!--            호스트 페이지 없으니 바로 등록으로 이동-->
+            <a href="{% url 'shop:create_product' %}">Become a Host</a>
+
             {% endif %}
 
 

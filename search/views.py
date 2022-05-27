@@ -1,16 +1,49 @@
 from django.shortcuts import render
 from shop.models import Product
 from django.db.models import Q
+from django.core.paginator import Paginator
 def searchResult(request):
   products = None
   query = None
+  global posts
   if 'q' in request.GET:
     query = request.GET.get('q')
-    products = Product.objects.all().filter(Q(p_name__contains=query) | Q(content__contains=query) | Q(price__contains=query))
+
+    products = Product.objects.all().filter(Q(p_name__contains=query) | Q(content__contains=query) | Q(price__contains=query) | Q(writer_id__username__contains=query))
+
+    paginator = Paginator(products, 3)
+    page = int(request.GET.get('page', 1))
+
+    posts = paginator.get_page(page)
 
 
 
-  return render(request,'search/search_list.html',{'query':query, 'products': products})
+
+    return render(request,'search/search_list.html',{'query':query, 'products': products, 'posts':posts})
+
+
+# def product_in_category_test(request):
+#
+#
+#   products = Product.objects.filter(display=True)
+#
+#   paginator = Paginator(products, 3)
+#   page = int(request.GET.get('page', 1))
+#   posts = paginator.get_page(page)
+#
+#   if category_slug:
+#     current_category = get_object_or_404(Category, c_slug=category_slug)
+#     products = products.filter(category=current_category)
+#     paginator = Paginator(products, 3)
+#     page = int(request.GET.get('page', 1))
+#     posts = paginator.get_page(page)
+#
+#   return render(request, 'shop/list_test.html', {'current_category': current_category,
+#                                                  'categories': categories,
+#                                                  'products': products,
+#                                                  'posts': posts
+#                                                  })
+
 # def search(request):
 #   content_list = Product.objects.all()
 #   search = request.GET.get('search','')
