@@ -1,0 +1,124 @@
+{% extends 'base.html' %}
+{% block title %}AirBnB Main{% endblock %}
+{% block content %}
+<div class="flexible_filter">
+    <div class="container">
+        <div class="flexible_filter_left">
+            <div OnClick="location.href ='/'" style="cursor:pointer;"
+
+                 class="flexible_filter_item {% if not current_category %}active{% endif %} ">All
+            </div>
+            {% for c in categories %}
+
+            <div OnClick="location.href ='{{c.get_absolute_url2}}'"
+                 class="flexible_filter_item {% if current_category.c_slug == c.c_slug %}active{% endif %}"
+            >
+
+                {{c.c_name}}
+            </div>
+            {% endfor %}
+
+        </div>
+
+
+    </div>
+    <div class="flexible">
+        <center>
+            <div class="" role="alert">
+                {% if current_category %}{{current_category.c_name}}{% else %}All Products{% endif %}
+            </div>
+        </center>
+        <br>
+        <br>
+
+        <div class="container">
+
+            {% for product in posts %}
+
+            <div class="card" style="width: 18rem;">
+                <div class="card-header">
+                    <div id="product{{ product.id }}" class="carousel slide" data-ride="carousel">
+                        <div class="carousel-inner">
+                            {% for image in product.image_set.all %}
+                            <div class="carousel-item {% if forloop.counter == 1 %} active {% endif %}">
+                                <img src="{{ image.file.url }}" class="card-img-top"
+                                     alt="{{ image.file.image }}">
+                            </div>
+                            {% endfor %}
+                        </div>
+                        <a class="carousel-control-prev" href="#product_{{ product.id }}"
+                           role="button" data-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="carousel-control-next" href="#product_{{ product.id }}"
+                           role="button" data-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">{{product.p_name}}</h5>
+                        <h5 class="card-user">{{product.writer}}</h5>
+                        <p class="card-text">{{product.addr}} <span class="badge badge-secondary">&#8361;{{product.price}}</span>
+                        </p>
+                        <a href="{{product.get_absolute_url}}" class="btn btn-primary btn-block">View Detail</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+
+        </div>
+    </div>
+    <div class="stays">
+    <div class="container">
+        <div class="left">
+
+
+            <div class="pagination">
+                <div class="pages">
+                    {% if posts.has_previous %}
+                    <span
+                            class="abutton" OnClick="location.href='?page=1'">다음
+                        </span>
+                    <span
+                            class="abutton" OnClick="location.href='?page={{posts.previous_page_number}}'">맨 뒤로
+                        </span>
+                    {% endif %}
+
+                    </span>
+                    {% for page in posts.paginator.page_range %}
+                    {% if page >= posts.number|add:-2 and page <= posts.number|add:2 %}
+                    <span class="{% if page == posts.number %}current{% endif %}">
+                        <a onclick="location.href='?page={{ page }}'" >{{ page}}</a>
+                    </span>
+                    {% elif page >= posts.number|add:-3 and page <= posts.number|add:3 %}
+                    ..
+                    {% endif %}
+                    {% endfor %}
+
+                    {% if posts.has_next %}
+                    <span
+                            class="abutton" OnClick="location.href='?page={{posts.next_page_number}}'">다음
+                        </span>
+                    <span
+                            class="abutton" OnClick="location.href='?page={{posts.paginator.num_pages}}'">맨 뒤로
+                        </span>
+                    {% endif %}
+                </div>
+
+
+            </div>
+
+        </div>
+        <div class="right"><img src="img/fake_map.jpg" alt=""></div>
+    </div>
+</div>
+</div>
+
+
+
+
+
+
+{% endblock %}

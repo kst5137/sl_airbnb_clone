@@ -6,7 +6,7 @@ def searchResult(request):
   query = None
   if 'q' in request.GET:
     query = request.GET.get('q')
-    products = Product.objects.all().filter(Q(name__contains=query) | Q(content__contains=query) | Q(price__contains=query))
+    products = Product.objects.all().filter(Q(p_name__contains=query) | Q(content__contains=query) | Q(price__contains=query))
 
 
 

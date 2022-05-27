@@ -7,6 +7,7 @@ from cart.forms import AddProductForm
 from .forms import *
 from django.db import transaction
 from django.http import HttpResponseNotAllowed
+from django.core.paginator import Paginator
 #
 from allauth.account.signals import user_signed_up
 from django.dispatch import receiver
@@ -15,18 +16,56 @@ from django.dispatch import receiver
 def func2(abcde) :
     return render(abcde, 'templates/users01/login.html')
 
+
+# def home():
+#     return render(request, 'shop/list.html', {'current_category': current_category,
+#                                               'categories': categories,
+#                                               'products': products,
+#                                               'posts': posts
 def product_in_category(request, category_slug=None):
     current_category = None
     categories = Category.objects.all()
     products = Product.objects.filter(display=True)
 
+    paginator = Paginator(products,3)
+    page = request.GET.get('page')
+    posts=paginator.get_page(page)
+
+
     if category_slug:
         current_category = get_object_or_404(Category, c_slug=category_slug)
         products = products.filter(category=current_category)
 
+
     return render(request, 'shop/list.html', {'current_category': current_category,
                                               'categories': categories,
                                               'products': products,
+
+                                              })
+
+
+def product_in_category_test(request, category_slug=None):
+    current_category = None
+    categories = Category.objects.all()
+    products = Product.objects.filter(display=True)
+
+    paginator = Paginator(products,3)
+    page = int(request.GET.get('page',1))
+    posts=paginator.get_page(page)
+
+
+    if category_slug:
+        current_category = get_object_or_404(Category, c_slug=category_slug)
+        products = products.filter(category=current_category)
+        paginator = Paginator(products, 3)
+        page = int(request.GET.get('page',1))
+        posts = paginator.get_page(page)
+
+
+    return render(request, 'shop/list_test.html', {'current_category': current_category,
+                                              'categories': categories,
+                                              'products': products,
+                                              'posts' : posts
                                               })
 
 
