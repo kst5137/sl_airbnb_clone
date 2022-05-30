@@ -1,10 +1,18 @@
 from django.contrib import admin
 from .models import *
+from .forms import checkinForm
 
 
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ['c_name', 'c_slug']
     prepopulated_fields = {'c_slug': ('c_name',)}
+
+
+class checkin(admin.ModelAdmin):
+    form = checkinForm
+
+
+
 
 
 admin.site.register(Category, CategoryAdmin)
@@ -14,6 +22,7 @@ class ProductAdmin(admin.ModelAdmin):
     list_filter = ['display', 'created', 'updated', 'category']
     prepopulated_fields = {'p_slug': ('p_name',)}
     list_editable = ['price', 'stock', 'display', 'order']
+    form = checkinForm
 
 admin.site.register(Product, ProductAdmin)
 

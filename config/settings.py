@@ -69,6 +69,7 @@ INSTALLED_APPS = [
     'users',
     'search',
     'corsheaders',
+    'bootstrap_datepicker_plus',
 
 ]
 AUTH_USER_MODEL = 'users.User'

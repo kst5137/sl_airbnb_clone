@@ -8,6 +8,7 @@ from .forms import *
 from django.db import transaction
 from django.http import HttpResponseNotAllowed
 from django.core.paginator import Paginator
+from django.views.generic.edit import CreateView
 from django.views.generic import ListView
 #
 from allauth.account.signals import user_signed_up
@@ -109,12 +110,27 @@ def product_detail(request, id, product_slug=None):
 
 # Create your views here.
 
+
+
+
+class PromiseCreateView(CreateView):
+    model = Product
+    form_class = PromiseForm
+
+
+
+
+
+
 @login_required
 def create_product(request) :
     if request.method == 'POST':
         product_form = ProductForm(request.POST)
         image_formset = ImageFormSet(request.POST, request.FILES)
+        print('체크인')
+        print(product_form)
         if product_form.is_valid() and image_formset.is_valid():
+            print('valid통과')
             product = product_form.save(commit=False)
             product.writer = request.user
             with transaction.atomic():
@@ -123,6 +139,7 @@ def create_product(request) :
                 image_formset.save()
                 return redirect(product)
     else:
+
         product_form = ProductForm()
         image_formset = ImageFormSet()
 

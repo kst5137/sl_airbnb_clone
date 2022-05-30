@@ -3,6 +3,7 @@
 {% load static %}
 <head>
 
+
     <style>
 		.pagination_test {
             display: flex;
@@ -26,7 +27,21 @@
             text-align: right;
         }
 
+
     </style>
+
+    <link
+            rel="stylesheet"
+            href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"
+    />
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script>
+      $(function () {
+        $("#datepicker").datepicker({ dateFormat: "yy-mm-dd" });
+      });
+
+    </script>
     <meta charset="UTF-8"/>
     <title>{% block title %}{% endblock %}</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
@@ -163,7 +178,7 @@
 
 
 <div class="menu_other menu_other_flexible">
-         <div class="container">
+    <div class="container">
         <div class="logo2">
             <a href="/">
                 <svg width="102" height="32" fill="currentcolor" style="display: block">
@@ -186,7 +201,7 @@
         <div class="profile2">
             {% if user.is_authenticated %}
 
-<!--            <a href="{% url 'users:host_main' %}">Become a Host</a>-->
+            <!--            <a href="{% url 'users:host_main' %}">Become a Host</a>-->
             <!--            호스트 페이지 없으니 바로 등록으로 이동-->
             <a href="{% url 'shop:create_product' %}">Become a Host</a>
 
@@ -234,11 +249,7 @@
 
         </div>
     </div>
-    </div>
-
-
-
-
+</div>
 
 
 <script>$('.owl-carousel').owlCarousel({
@@ -256,7 +267,8 @@
                     items: 5
                 }
             }
-        })</script>
+        })
+</script>
 
 
 <script>
@@ -293,9 +305,9 @@
       }
   };
 })();
-</script></body>
 
-
+</script>
+</body>
 
 
 {% block content %}
