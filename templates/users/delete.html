@@ -7,6 +7,7 @@
 
 {% block content %}
 <h1>{{ user.u_nickname }} 님 여기는 회원 탈퇴페이지 입니다.</h1>
+<h2> 버튼을 누르면 탈퇴가 완료됩니다</h2>
 
         <form action="{% url 'users:user_delete' %}" method="POST">
             {% csrf_token %}
@@ -14,5 +15,6 @@
             <button class="btn btn-primary">회원탈퇴</button>
 
         </form>
+
 
 {% endblock %}
