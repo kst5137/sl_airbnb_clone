@@ -63,15 +63,15 @@
             <div class="left">
                 <div class="pagination">
                     <div class="pages">
-                        {{posts}}
+<!--                        {{posts}}-->
 
 
                         {% if posts.has_previous %}
                         <span
-                                class="abutton" OnClick="location.href='?page=1'">맨 앞으로
+                                class="abutton" OnClick="location.href='?q={{query}}&page=1'">맨 앞으로
                         </span>
                         <span
-                                class="abutton" OnClick="location.href='?page={{posts.previous_page_number}}'">이전
+                                class="abutton" OnClick="location.href='?q={{query}}&page={{posts.previous_page_number}}'">이전
                         </span>
                         {% endif %}
 
@@ -79,7 +79,7 @@
                         {% for page in posts.paginator.page_range %}
                         {% if page >= posts.number|add:-2 and page <= posts.number|add:2 %}
                         <span class="{% if page == posts.number %}current{% endif %}">
-                        <a onclick="location.href='?page={{ page }}'">{{ page}}</a>
+                        <a onclick="location.href='?q={{query}}&page={{ page }}'">{{ page}}</a>
                     </span>
                         {% elif page >= posts.number|add:-3 and page <= posts.number|add:3 %}
                         ..
@@ -88,10 +88,10 @@
 
                         {% if posts.has_next %}
                         <span
-                                class="abutton" OnClick="location.href='?page={{posts.next_page_number}}'">다음
+                                class="abutton" OnClick="location.href='?q={{query}}&page={{posts.next_page_number}}'">다음
                         </span>
                         <span
-                                class="abutton" OnClick="location.href='?page={{posts.paginator.num_pages}}'">맨 뒤로
+                                class="abutton" OnClick="location.href='?q={{query}}&page={{posts.paginator.num_pages}}'">맨 뒤로
                         </span>
 
                         {% endif %}

@@ -8,6 +8,7 @@ from .forms import *
 from django.db import transaction
 from django.http import HttpResponseNotAllowed
 from django.core.paginator import Paginator
+from django.views.generic import ListView
 #
 from allauth.account.signals import user_signed_up
 from django.dispatch import receiver
@@ -22,6 +23,8 @@ def func2(abcde) :
 #                                               'categories': categories,
 #                                               'products': products,
 #                                               'posts': posts
+
+
 def product_in_category(request, category_slug=None):
     current_category = None
     categories = Category.objects.all()
