@@ -1,3 +1,4 @@
+from django.db import transaction
 from django.shortcuts import render, get_object_or_404
 from .models import *
 from cart.cart import Cart
@@ -55,17 +56,12 @@ class OrderCreateAjaxView(View,Product):
     def post(self, request, *args, **kwargs):
         if not request.user.is_authenticated:
             return JsonResponse({"authenticated": False}, status=403)
-
         product = Product.objects.all()
-
         cart = Cart(request)
-        print(cart)
-
-        print('_________________________')
         for item in cart:
             print(item)
             product_name = item['product']
-        print(product_name)
+            product_quantity = item['quantity']
         form = OrderCreateForm(request.POST)
         # print(form)
         # 실패목록
@@ -78,52 +74,61 @@ class OrderCreateAjaxView(View,Product):
         # print(cart['product']) = TypeError: 'Cart' object is not subscriptable
         # cart['product']의 형태가 아니라 cart.product 이런식으로 안해서 일어나는 오류
         # print(cart.products) = AttributeError: 'Cart' object has no attribute 'products'
-
         print("post 통과")
-        # print(form)
+
+
+
         if form.is_valid():
-            print("is_valid 통과")
+            with transaction.atomic():
+                print("is_valid 통과")
 
 
-            order = form.save(commit=False)
-            print("form save 통과")
-            # print(request.user.u_nickname)
-            if cart.coupon:
-                order.coupon = cart.coupon
-                order.discount = cart.coupon.amount
-            # order.username = request.user.u_nickname
-            # print(User.objects.get(u_nickname=request.user.u_nickname))
-            order.username = User.objects.get(u_nickname=request.user.u_nickname)
-            order.product = Product.objects.get(name=product_name)
-            # order.product = Product.objects.get(name=Product.name)
-            # print(order.product)
-            # 새로운 오류
-            # order.product = Product.name = ValueError: Cannot assign "<django.db.models.query_utils.DeferredAttribute object at 0x000002080E84ED60>": "Order.product" must be a "Product" instance.
-            # order.product = Product.objects.get(id=form.product_id)
-            # order.product = request.session.product
-            # print(order.product)
-            order.save()
-
-            # print('product:',order.product)
-
-            print("order save 1 통과")
-            # order.save()
-            # print(cart[1])
-            for item in cart:
-
-                # 프랑스라고 출력은 되는데 그럼 cart안에도 있는게 아닌가?
-                OrderItem.objects.create(order=order,
-                                         product=item['product'],
-                                         price=item['price'],
-                                         quantity=item['quantity']
-                                         )
+                order = form.save(commit=False)
+                print("form save 통과")
+                # print(request.user.u_nickname)
+                if cart.coupon:
+                    order.coupon = cart.coupon
+                    order.discount = cart.coupon.amount
+                # order.username = request.user.u_nickname
+                # print(User.objects.get(u_nickname=request.user.u_nickname))
+                order.username = User.objects.get(u_nickname=request.user.u_nickname)
+                print('오더프로덕트전')
+                order.product = Product.objects.get(p_name=product_name)
+                print(order.product)
+                # order.product = Product.objects.get(name=Product.name)
+                # print(order.product)
+                # 새로운 오류
+                # order.product = Product.name = ValueError: Cannot assign "<django.db.models.query_utils.DeferredAttribute object at 0x000002080E84ED60>": "Order.product" must be a "Product" instance.
+                # order.product = Product.objects.get(id=form.product_id)
+                # order.product = request.session.product
+                # print(order.product)
+                order.save()
 
 
-            cart.clear()
-            data = {
-                "order_id": order.id
-            }
-            return JsonResponse(data)
+                prod = Product.objects.get(p_name=product_name)
+                prod.stock -= int(product_quantity)
+                prod.save()
+
+
+                # print('product:',order.product)
+                print("order save 1 통과")
+                # order.save()
+                # print(cart[1])
+                for item in cart:
+
+                    # 프랑스라고 출력은 되는데 그럼 cart안에도 있는게 아닌가?
+                    OrderItem.objects.create(order=order,
+                                             product=item['product'],
+                                             price=item['price'],
+                                             quantity=item['quantity']
+                                             )
+
+
+                cart.clear()
+                data = {
+                    "order_id": order.id
+                }
+                return JsonResponse(data)
         else:
             return JsonResponse({}, status=401)
 
