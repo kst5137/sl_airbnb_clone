@@ -74,26 +74,6 @@ class SizeForm(forms.ModelForm):
         model = Size
         exclude = ()
 
-class AttributeForm(forms.ModelForm):
-    class Meta:
-        model = Attribute
-        exclude = ()
-
-class FacilityForm(forms.ModelForm):
-    class Meta:
-        model = Facility
-        exclude = ()
-
-class RuleForm(forms.ModelForm):
-    class Meta:
-        model = Rule
-        exclude = ()
-
-class SafetyForm(forms.ModelForm):
-    class Meta:
-        model = Safety
-        exclude = ()
-
 class InquiryForm(forms.ModelForm):
     class Meta:
         model = Inquiry

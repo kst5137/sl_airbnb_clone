@@ -171,10 +171,17 @@ def register_product(request, id):
                 product.address2 = form.cleaned_data['address2']
                 product.stock = form.cleaned_data['stock']
                 product.size = form.cleaned_data['size']
-                product.attribute = form.cleaned_data['attribute']
-                product.facility = form.cleaned_data['facility']
-                product.rule = form.cleaned_data['rule']
-                product.safety = form.cleaned_data['safety']
+                product.facility1 = form.cleaned_data['facility1']
+                product.facility2 = form.cleaned_data['facility2']
+                product.facility3 = form.cleaned_data['facility3']
+                product.facility4 = form.cleaned_data['facility4']
+                product.facility5 = form.cleaned_data['facility5']
+                product.rule1 = form.cleaned_data['rule1']
+                product.rule2 = form.cleaned_data['rule2']
+                product.rule3 = form.cleaned_data['rule3']
+                product.safety1 = form.cleaned_data['safety1']
+                product.safety2 = form.cleaned_data['safety2']
+                product.safety3 = form.cleaned_data['safety3']
                 product.display = form.cleaned_data['display']
                 product.order = form.cleaned_data['order']
                 product.updated = timezone.now()
@@ -210,6 +217,7 @@ def inquiry_create(request, id):
             inquiry.user = request.user
             inquiry.product = product
             inquiry.save()
+            return redirect(product)
     else:
         return HttpResponseNotAllowed('Only POST is possible.')
     context = {'product': product, 'form': form}
