@@ -274,6 +274,7 @@
                         <h5 class="card-user">{{product.writer}}</h5>
                         <p class="card-text">{{product.addr}} <span class="badge badge-secondary">&#8361;{{product.price}}</span>
                         </p>
+                        <p class="card-text" id="available"> {{product.checkin|date:'Y-m-d'}} ~ {{product.checkout|date:'Y-m-d'}}</p>
                         <a href="{{product.get_absolute_url}}" class="btn btn-primary btn-block">View Detail</a>
                     </div>
                 </div>
