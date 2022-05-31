@@ -66,6 +66,8 @@ class Product(models.Model):
     order = models.BooleanField('Order', default=True)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True, null=True, blank=True)
+    checkin = models.DateTimeField(null=True, blank=True)
+    checkout = models.DateTimeField(null=True, blank=True)
 
     class Meata:
         ordering = ['-created']
