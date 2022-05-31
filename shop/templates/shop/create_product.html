@@ -40,13 +40,19 @@
                         <div style="background-color: #808080;" class="btn btn-info">
                             침대유형&nbsp&nbsp{{ product_form.size }}</div>
                         <div style="background-color: #808080;" class="btn btn-info">
-                            옵션1&nbsp&nbsp{{ product_form.attribute }}</div>
+                            주방&nbsp&nbsp{{ product_form.facility1 }}
+                            테라스&nbsp&nbsp{{ product_form.facility2 }}
+                            바베큐&nbsp&nbsp{{ product_form.facility3 }}
+                            냉장고&nbsp&nbsp{{ product_form.facility4 }}
+                            에어컨&nbsp&nbsp{{ product_form.facility5 }}</div><br><br>
                         <div style="background-color: #808080;" class="btn btn-info">
-                            옵션2&nbsp&nbsp{{ product_form.facility }}</div><br><br>
+                            담배&nbsp&nbsp{{ product_form.rule1 }}
+                            애완동물&nbsp&nbsp{{ product_form.rule2 }}
+                            취사&nbsp&nbsp{{ product_form.rule3 }}</div>
                         <div style="background-color: #808080;" class="btn btn-info">
-                            숙소규칙&nbsp&nbsp{{ product_form.rule }}</div>
-                        <div style="background-color: #808080;" class="btn btn-info">
-                            안전옵션&nbsp&nbsp{{ product_form.safety }}</div><br><br>
+                            일산화탐소 경보&nbsp&nbsp{{ product_form.safety1 }}
+                            화재 경보&nbsp&nbsp{{ product_form.safety2 }}
+                            소화기&nbsp&nbsp{{ product_form.safety3 }}</div><br><br>
                         <div style="background-color: #808080;" class="btn btn-info">
                             화면표시&nbsp&nbsp{{ product_form.display }}</div>
                         <div style="background-color: #808080;" class="btn btn-info">
@@ -54,6 +60,11 @@
 
                         <div style="color:blue background-color: #E1F6FA;" class="btn btn-dark">
                             {{ image_formset.as_p }}</div>
+
+                    <br><br>
+<div style="background-color: #808080;" class="btn btn-info">
+                                숙소이용가능날짜 &nbsp&nbsp{{ product_form.checkin }} ~ {{ product_form.checkout }}
+                            </div>
                 </form>
                 <button type="submit" class="btn btn-primary float-right">저장하기</button><br><br><br><br><br><br>
             </div>

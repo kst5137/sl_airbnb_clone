@@ -1,6 +1,8 @@
 {% extends 'base.html' %}
 {% block title %}Product Detail{% endblock %}
+{% load static %}
 {% block content %}
+
 <div class="container my-3" xmlns="http://www.w3.org/1999/html">
     <!-- message 표시 -->
     {% if messages %}
@@ -15,6 +17,7 @@
 
     <div class="container">
         <div class="row">
+
             <div class="col-4">
                 {% for image in product.image_set.all %}
                 <img src="{{image.file.url}}" width="100%" alt="Product Image">
@@ -29,20 +32,60 @@
                 <h5><span class="badge badge-secondary">&nbsp위&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp치&nbsp</span> {{product.address1}}{{product.address2}}</h5>
                 <h5><span class="badge badge-secondary">보유수량</span> {{product.stock}}</h5>
                 <h5><span class="badge badge-secondary">침대유형</span> {{product.size}}</h5>
-                <h5><span class="badge badge-secondary">숙소소개</span> {{product.content}}</h5>
-                <h5><span class="badge badge-secondary">설명<br></span>{{product.addr|linebreaks}}</h5>
-                <h5><span class="badge badge-secondary">숙소형태</span> {{product.type}}</h5>
+                <h5><span class="badge badge-secondary" style="border-bottom-width: 10px;padding-bottom: 3.75;margin-bottom: 10px;">숙소소개</span> {{product.content|linebreaks}}</h5>
+                <div style="border: 2px solid #788884; max-height: 35px; max-width: 100px; margin:5px; padding-top: 2px;" ><h4 >숙소시설</h4></div>
+                <div style="margin:10px">
+                    {% if product.facility1 is True %}
+                    <img src="https://onlineshop-jj.s3.ap-northeast-2.amazonaws.com/static/images/cooking.png">
+                    {% endif %}&nbsp
+                    {% if product.facility2 is True %}
+                    <img src="https://onlineshop-jj.s3.ap-northeast-2.amazonaws.com/static/images/terrace.png">
+                    {% endif %}&nbsp
+                    {% if product.facility3 is True %}
+                    <img src="https://onlineshop-jj.s3.ap-northeast-2.amazonaws.com/static/images/barbecue.png">
+                    {% endif %}&nbsp
+                    {% if product.facility4 is True %}
+                    <img src="https://onlineshop-jj.s3.ap-northeast-2.amazonaws.com/static/images/refrigerator.png">
+                    {% endif %}&nbsp
+                    {% if product.facility5 is True %}
+                    <img src="https://onlineshop-jj.s3.ap-northeast-2.amazonaws.com/static/images/air_conditioning.png">
+                    {% endif %}</div><br>
+
+                <div style="border: 2px solid #788884; max-height: 35px; max-width: 100px; margin:5px; padding-top: 2px;" ><h4>금지사항</h4></div>
+                <div style="margin:10px">
+                    {% if product.rule1 is True %}
+                    <img src="https://onlineshop-jj.s3.ap-northeast-2.amazonaws.com/static/images/nosmoking.png">
+                    {% endif %}&nbsp
+                    {% if product.rule2 is True %}
+                    <img src="https://onlineshop-jj.s3.ap-northeast-2.amazonaws.com/static/images/no-pets.png">
+                    {% endif %}&nbsp
+                    {% if product.rule3 is True %}
+                    <img src="https://onlineshop-jj.s3.ap-northeast-2.amazonaws.com/static/images/no_cook.png">
+                    {% endif %}</div><br>
+
+                <div style="border: 2px solid #788884; max-height: 35px; max-width: 100px; margin:5px; padding-top: 2px;" ><h4>안전설비</h4></div>
+                <div style="margin:10px">
+                    {% if product.safety1 is True %}
+                    <img src="https://onlineshop-jj.s3.ap-northeast-2.amazonaws.com/static/images/co.png">
+                    {% endif %}&nbsp
+                    {% if product.safety2 is True %}
+                    <img src="https://onlineshop-jj.s3.ap-northeast-2.amazonaws.com/static/images/flame.png">
+                    {% endif %}&nbsp
+                    {% if product.safety3 is True %}
+                    <img src="https://onlineshop-jj.s3.ap-northeast-2.amazonaws.com/static/images/fireex.png">
+                    {% endif %}</div>
                 <form action="{% url 'cart:product_add' product.id %}" method="post">
                     {{add_to_cart}}
                     {% csrf_token %}
                     <input type="submit" class="btn btn-primary btn-sm" value="장바구니">
                 </form>
+
                 <form action="{% url 'shop:delete_product' product.id %}" method="get">
                     {% csrf_token %}
-                    <input type="submit" class="btn btn-primary btn-sm float-right" value="삭 제"></form>
+                    <input type="submit" class="btn btn-secondary btn-sm float-right" value="삭 제"></form>
                 <form action="{% url 'shop:register_product' product.id %}" method="get">
                     {% csrf_token %}
-                    <input type="submit" class="btn btn-primary btn-sm float-right" value="수 정"></form>
+                    <input type="submit" class="btn btn-secondary btn-sm float-right" value="수 정"></form>
 
             </div>
 
@@ -53,7 +96,7 @@
 
                         <div class="map-container" tabindex="0"
                              style="position: relative; overflow: hidden; background: url(&quot;https://ssl.pstatic.net/static/maps/mantle/1x/pattern_1.png&quot;) 0px 0px repeat transparent;">
-                            <div id="map" style="width:800px;height:400px;"></div>
+                            <div id="map" style="width:810px;height:380px;"></div>
                             <div id="product_address1" data-title="{{ product.p_name }}" data-address="{{ product.address1 }}" style="display:none">{{ product.address1 }}</div>
 
                             <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=e69641dcc68fbf07541f339e0ba36f35&libraries=services" ></script>
@@ -119,19 +162,22 @@ function displayMarker(locPosition, message) {
                         </script>
                         </div>
                     </section><br><br><br><br>
-                    <h5>{{ product.inquiry_set.count }}개의 문의가 있습니다.</h5>
+                    <h5 style="padding-left: 15px;padding-bottom: 10px;">{{ product.inquiry_set.count }}개의 문의가 있습니다.</h5>
                     <div>
                         <ul>
                             {% for inquiry in product.inquiry_set.all %}
-                            <li><div class="btn btn-info ">작성자 : {{ inquiry.user }}</div><br>
-                                <h1 class="display-6 btn btn-outline-info btn-lg ">{{ inquiry.content }}</h1>
-                                <form action="{% url 'shop:inquiry_delete' inquiry.id %}" method ="post">
-                                    {% csrf_token %}
-                                    <input type="submit" value="Delete">
-                                </form>
+                            <li style="border: 3px solid #788884; height: 80px; width: 800px; margin:5px">
+                                <div class=" btn-light" style="max-height: 35px; width: 500px; margin:5px;border-top-width: 100px;padding-top: ‒10;padding-top: 10px;padding-left: 10px;">{{ inquiry.content }}</div>
                             </li>
+                            <form action="{% url 'shop:inquiry_delete' inquiry.id %}" method ="post">
+                                {% csrf_token %}
+                                <input type="submit" class="float-right" value="Delete" style="margin-top: -30px;margin-right: 10px;">
+                            </form>
+                            <div class="badge badge-light float-right" style="border: 2px solid #788884; max-height: 27px; max-width: 500px; margin-top:-80px; margin-right:10px"><h6>작성자 : {{ inquiry.user }}</h6>
+                            </div>
+                            <div class="badge float-right" style=" max-height: 27px; max-width: 500px; margin-top:-53px; margin-right:10px"><h8>{{ inquiry.create_date }}</h8>
+                            </div>
                             {% endfor %}
-
                         </ul>
                     </div>
                     <form action="{% url 'shop:inquiry_create' product.id %}" method="post" class="my-3">
@@ -141,7 +187,7 @@ function displayMarker(locPosition, message) {
                             <textarea name="content" id="content" class="form-control btn btn-outline-primary" rows="5"></textarea>
                         </div>
 
-                        <input type="submit" value="문의 하기" class="btn btn-primary">
+                        <input type="submit" value="문의 하기" class="btn btn-primary float-right">
 
                     </form>
                 </div><br><br><br>

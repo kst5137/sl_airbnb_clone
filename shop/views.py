@@ -7,6 +7,9 @@ from cart.forms import AddProductForm
 from .forms import *
 from django.db import transaction
 from django.http import HttpResponseNotAllowed
+from django.core.paginator import Paginator
+from django.views.generic.edit import CreateView
+from django.views.generic import ListView
 #
 from allauth.account.signals import user_signed_up
 from django.dispatch import receiver
@@ -15,19 +18,64 @@ from django.dispatch import receiver
 def func2(abcde) :
     return render(abcde, 'templates/users01/login.html')
 
+
+
+
+
+
+
+
+
 def product_in_category(request, category_slug=None):
     current_category = None
     categories = Category.objects.all()
     products = Product.objects.filter(display=True)
 
+    paginator = Paginator(products,4)
+    page = request.GET.get('page')
+    posts=paginator.get_page(page)
+
+
     if category_slug:
         current_category = get_object_or_404(Category, c_slug=category_slug)
         products = products.filter(category=current_category)
 
+
     return render(request, 'shop/list.html', {'current_category': current_category,
                                               'categories': categories,
                                               'products': products,
+
                                               })
+
+
+def product_in_category_test(request, category_slug=None):
+    current_category = None
+    categories = Category.objects.all()
+    products = Product.objects.filter(display=True)
+
+    paginator = Paginator(products,4)
+    page = int(request.GET.get('page',1))
+    posts=paginator.get_page(page)
+
+
+    if category_slug:
+        current_category = get_object_or_404(Category, c_slug=category_slug)
+        products = products.filter(category=current_category)
+        paginator = Paginator(products, 3)
+        page = int(request.GET.get('page',1))
+        posts = paginator.get_page(page)
+
+
+    return render(request, 'shop/list_test.html', {'current_category': current_category,
+                                              'categories': categories,
+                                              'products': products,
+                                              'posts' : posts
+                                              })
+
+
+
+
+
 
 
 
@@ -62,12 +110,27 @@ def product_detail(request, id, product_slug=None):
 
 # Create your views here.
 
+
+
+
+class PromiseCreateView(CreateView):
+    model = Product
+    form_class = PromiseForm
+
+
+
+
+
+
 @login_required
 def create_product(request) :
     if request.method == 'POST':
         product_form = ProductForm(request.POST)
         image_formset = ImageFormSet(request.POST, request.FILES)
+        print('체크인')
+        print(product_form)
         if product_form.is_valid() and image_formset.is_valid():
+            print('valid통과')
             product = product_form.save(commit=False)
             product.writer = request.user
             with transaction.atomic():
@@ -76,6 +139,7 @@ def create_product(request) :
                 image_formset.save()
                 return redirect(product)
     else:
+
         product_form = ProductForm()
         image_formset = ImageFormSet()
 
@@ -107,10 +171,17 @@ def register_product(request, id):
                 product.address2 = form.cleaned_data['address2']
                 product.stock = form.cleaned_data['stock']
                 product.size = form.cleaned_data['size']
-                product.attribute = form.cleaned_data['attribute']
-                product.facility = form.cleaned_data['facility']
-                product.rule = form.cleaned_data['rule']
-                product.safety = form.cleaned_data['safety']
+                product.facility1 = form.cleaned_data['facility1']
+                product.facility2 = form.cleaned_data['facility2']
+                product.facility3 = form.cleaned_data['facility3']
+                product.facility4 = form.cleaned_data['facility4']
+                product.facility5 = form.cleaned_data['facility5']
+                product.rule1 = form.cleaned_data['rule1']
+                product.rule2 = form.cleaned_data['rule2']
+                product.rule3 = form.cleaned_data['rule3']
+                product.safety1 = form.cleaned_data['safety1']
+                product.safety2 = form.cleaned_data['safety2']
+                product.safety3 = form.cleaned_data['safety3']
                 product.display = form.cleaned_data['display']
                 product.order = form.cleaned_data['order']
                 product.updated = timezone.now()
@@ -146,6 +217,7 @@ def inquiry_create(request, id):
             inquiry.user = request.user
             inquiry.product = product
             inquiry.save()
+            return redirect(product)
     else:
         return HttpResponseNotAllowed('Only POST is possible.')
     context = {'product': product, 'form': form}

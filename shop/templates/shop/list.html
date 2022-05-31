@@ -2,6 +2,13 @@
 {% block title %}AirBnB Main{% endblock %}
 {% block content %}
 
+
+
+  <form action="./" method="post">
+      Date: <input autocomplete="off" type="text" id="datepicker" name="formdate" />
+      {% csrf_token %}
+      <input type="submit" value="검색" />
+    </form>
 <div class="row">
     <div class="col-2">
         <div class="list-group">
@@ -51,8 +58,11 @@
                 </div>
             </div>
             {% endfor %}
+
         </div>
     </div>
+
+
 </div>
 
 {% endblock %}

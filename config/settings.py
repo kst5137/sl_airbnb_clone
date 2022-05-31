@@ -68,6 +68,8 @@ INSTALLED_APPS = [
     'imagekit',
     'users',
     'search',
+    'corsheaders',
+    'bootstrap_datepicker_plus',
 
 ]
 AUTH_USER_MODEL = 'users.User'
@@ -79,6 +81,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
+
 ]
 
 ROOT_URLCONF = 'config.urls'
@@ -206,3 +210,10 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 # EMAIL_HOST_PASSWORD = 'woaljoyyzhcqlpag'
 # DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
+# cors 문제 해결용
+CORS_ORIGIN_WHITELIST = [
+    # 허용할 프론트엔드 도메인 추가 EX:
+    'http://localhost:3000',
+    'https://localhost:3000',
+    'http://127.0.0.1:8000',
+]

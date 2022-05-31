@@ -2469,6 +2469,7 @@ body {
   padding-right: 0px;
   -ms-flex-direction: row;
       flex-direction: row;
+  text-align: center;
 }
 
 @media (min-width: 950px) {

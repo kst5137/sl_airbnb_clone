@@ -41,24 +41,33 @@ class Type(models.Model):
 class Product(models.Model):
     writer = models.ForeignKey(AUTH_USER_MODEL,on_delete=models.CASCADE, blank=True)
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, related_name='products')
-    type     = models.ForeignKey(Type, on_delete=models.CASCADE, null=True)
-    p_name     = models.CharField(max_length=200, db_index=True)
-    p_slug     = models.SlugField(max_length=200, db_index=True, unique=True, allow_unicode=True, null=True, blank=True)
-    addr     = models.TextField(blank=True)
-    content  = models.TextField(blank=True)
+    type = models.ForeignKey(Type, on_delete=models.CASCADE, null=True)
+    p_name = models.CharField(max_length=200, db_index=True)
+    p_slug = models.SlugField(max_length=200, db_index=True, unique=True, allow_unicode=True, null=True, blank=True)
+    addr = models.TextField(blank=True)
+    content = models.TextField(blank=True)
     address1 = models.CharField("Address line 1", max_length=300)
     address2 = models.CharField("Address line 2", max_length=300)
-    price    = models.DecimalField(max_digits=8, decimal_places=0, null=True)
-    stock    = models.IntegerField(default=1)
-    size     = models.ForeignKey('Size', on_delete=models.CASCADE, null=True)
-    attribute= models.ForeignKey('Attribute', on_delete=models.CASCADE, null=True)
-    facility = models.ForeignKey('Facility', on_delete=models.CASCADE, null=True)
-    rule     = models.ForeignKey('Rule', on_delete=models.CASCADE, null=True)
-    safety   = models.ForeignKey('Safety', on_delete=models.CASCADE, null=True)
+    price = models.DecimalField(max_digits=8, decimal_places=0, null=True)
+    stock = models.IntegerField(default=1)
+    size = models.ForeignKey('Size', on_delete=models.CASCADE, null=True)
+    facility1 = models.BooleanField('Facility1', null=True, blank=True, default=False)
+    facility2 = models.BooleanField('Facility2', null=True, blank=True, default=False)
+    facility3 = models.BooleanField('Facility3', null=True, blank=True, default=False)
+    facility4 = models.BooleanField('Facility4', null=True, blank=True, default=False)
+    facility5 = models.BooleanField('Facility5', null=True, blank=True, default=False)
+    rule1 = models.BooleanField('Rule1', null=True, blank=True, default=False)
+    rule2 = models.BooleanField('Rule2', null=True, blank=True, default=False)
+    rule3 = models.BooleanField('Rule3', null=True, blank=True, default=False)
+    safety1 = models.BooleanField('Safety1', null=True, blank=True, default=False)
+    safety2 = models.BooleanField('Safety2', null=True, blank=True, default=False)
+    safety3 = models.BooleanField('Safety3', null=True, blank=True, default=False)
     display = models.BooleanField('Display', default=True)
     order = models.BooleanField('Order', default=True)
-    created  = models.DateTimeField(auto_now_add=True)
-    updated  = models.DateTimeField(auto_now=True, null=True, blank=True)
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True, null=True, blank=True)
+    checkin = models.DateTimeField(null=True, blank=True)
+    checkout = models.DateTimeField(null=True, blank=True)
 
     class Meata:
         ordering = ['-created']
@@ -71,10 +80,6 @@ class Product(models.Model):
         return reverse('shop:product_detail', args=[self.id, self.p_slug])
 
 
-# class ProductImage(models.Model) :
-#     productImage = models.ForeignKey(Product, on_delete=models.CASCADE)
-#     image = models.ImageField(upload_to='products/%Y/%m/%d')
-
 def path_image_path(instance, filename):
     #{instance.content} => {instance.product.content}
     return f'products/{instance.product.content}/{filename}'
@@ -86,7 +91,7 @@ class Image(models.Model):
 class Inquiry(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    content = models.CharField(max_length=300)
+    content = models.CharField(max_length=150)
     create_date = models.DateTimeField(auto_now_add=True)
     update_date = models.DateTimeField(auto_now=True)
 
@@ -105,71 +110,3 @@ class ProductSizes(models.Model):
 
     class Meta:
         db_table = 'product_sizes'
-
-class Attribute(models.Model):
-    a_name = models.CharField(max_length=100)
-
-    class Meta:
-        db_table = 'attributes'
-
-    def __str__(self):
-        return self.a_name
-
-
-class ProductAttributes(models.Model):
-    product  = models.ForeignKey('Product', on_delete=models.CASCADE)
-    attribute = models.ForeignKey('Attribute', on_delete=models.CASCADE)
-
-    class Meta:
-        db_table = 'product_attributes'
-
-class Facility(models.Model):
-    f_name = models.CharField(max_length=100)
-
-    class Meta:
-        db_table = 'facilities'
-
-    def __str__(self):
-        return self.f_name
-
-
-class ProductFacilities(models.Model):
-    product = models.ForeignKey('Product', on_delete=models.CASCADE)
-    facility = models.ForeignKey('Facility', on_delete=models.CASCADE)
-
-    class Meta:
-        db_table = 'product_facilities'
-
-class Rule(models.Model):
-    r_name = models.CharField(max_length=100)
-
-    class Meta:
-        db_table = 'rules'
-
-    def __str__(self):
-        return self.r_name
-
-
-class ProductRules(models.Model):
-    product = models.ForeignKey('Product', on_delete=models.CASCADE)
-    rule     = models.ForeignKey('Rule', on_delete=models.CASCADE)
-
-    class Meta:
-        db_table = 'product_rules'
-
-class Safety(models.Model):
-    s_name = models.CharField(max_length=100)
-
-    class Meta:
-        db_table = 'safeties'
-
-    def __str__(self):
-        return self.s_name
-
-
-class ProductSafeties(models.Model):
-    product = models.ForeignKey('Product', on_delete=models.CASCADE)
-    safety   = models.ForeignKey('Safety', on_delete=models.CASCADE)
-
-    class Meta:
-        db_table = 'product_safeties'
