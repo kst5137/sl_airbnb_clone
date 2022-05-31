@@ -271,10 +271,11 @@
                     </div>
                     <div class="card-body">
                         <h5 class="card-title">{{product.p_name}}</h5>
-                        <h5 class="card-user">{{product.writer}}</h5>
-                        <p class="card-text">{{product.addr}} <span class="badge badge-secondary">&#8361;{{product.price}}</span>
+                        <h5 class="card-user">작성자 : {{product.writer}}</h5>
+                        <p class="card-text">{{product.address1}}  {{product.address2}}
                         </p>
-                        <p class="card-text" id="available"> {{product.checkin|date:'Y-m-d'}} ~ {{product.checkout|date:'Y-m-d'}}</p>
+                        <p class="card-text">{{product.price}}원</p>
+                        <p class="card-text" id="available"> 이용 가능기간 : {{product.checkin|date:'Y-m-d'}} ~ {{product.checkout|date:'Y-m-d'}}</p>
                         <a href="{{product.get_absolute_url}}" class="btn btn-primary btn-block">View Detail</a>
                     </div>
                 </div>
