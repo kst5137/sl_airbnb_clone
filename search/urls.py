@@ -5,5 +5,6 @@ app_name = 'search'
 
 urlpatterns = [
     path('', searchResult, name='searchResult'),
+    path('calender',calenderResult,name='calenderResult')
 
 ]
