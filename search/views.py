@@ -32,14 +32,25 @@ def calenderResult(request):
     checkin = (request.GET.get('date'))
     checkout = (request.GET.get('date2'))
     want_checkin = datetime.strptime(checkin,"%Y-%m-%d").date()
-    want_checkout = datetime.strptime(checkout,"%Y-%m-%d").date()
-    products =Product.objects.all().filter((Q(checkin__gte = want_checkin) & Q(checkout__lte=want_checkout)))
-    # print(type(want_checkout))
-    # print(checkin)
-    # print(checkout)
-    # print(want_checkout)
-    # print('-----------')
-    # print(products)
+    want_checkout = datetime.strptime(checkout,"%Y-%m-%d").date()-timedelta(days=1)
+    # want_checkout = datetime.strptime(checkout, "%Y-%m-%d").date()
+    products =Product.objects.all().filter(
+      (Q(checkout__gt=checkin) & Q(checkin__lte=checkin)) |
+      Q(checkin__range = [want_checkin,want_checkout])
+    )
+
+
+    # date_filtered_products = address_filtered_products.exclude(
+    #   (Q(booking__check_out__gt=checkin) & Q(booking__check_in__lte=checkin)) |
+    #   Q(booking__check_in__range=[checkin, new_checkout])
+    # )
+
+
+
+
+    # products = Product.objects.all().filter((Q(checkin__lt=want_checkin) & Q(checkout__lte=want_checkout) & Q(checkout__lt=want_checkin)) |
+    #                                         (Q(checkin__lte=want_checkin) & Q(checkout__gte=want_checkout)))
+
     paginator = Paginator(products, 4)
     page = int(request.GET.get('page', 1))
     posts = paginator.get_page(page)
