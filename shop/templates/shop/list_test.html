@@ -246,6 +246,7 @@
         <div class="container">
 
             {% for product in posts %}
+            {% if product.stock != 0 %}
 
             <div class="card" style="width: 18rem;">
                 <div class="card-header">
@@ -276,10 +277,12 @@
                         </p>
                         <p class="card-text">{{product.price}}원</p>
                         <p class="card-text" id="available"> 이용 가능기간 : {{product.checkin|date:'Y-m-d'}} ~ {{product.checkout|date:'Y-m-d'}}</p>
+                        <p class="card-text">잔여 : {{product.stock}}개</p>
                         <a href="{{product.get_absolute_url}}" class="btn btn-primary btn-block">View Detail</a>
                     </div>
                 </div>
             </div>
+            {% endif %}
             {% endfor %}
 
         </div>
