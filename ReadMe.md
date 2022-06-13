@@ -76,7 +76,7 @@
 |||||||||
 ||
 |숙소검색리스트|GET|숙소간략정보|/room|Default|검색한 애용에 따라 숙소정보 요청|규호|| △
-||GET|페이지에 나온 숙소들 위치 지도에 출력|/room|Default|검색한 내용에 따라 숙소 정보 요청|규호||
+||
 |||||||||
 |숙소예약|GET|예약할 숙소정보|/room/reservation|Default|숙소정보들(이름, 사진, 옵션, 가격, 기간등을 요청)|재중|| △
 ||GET|리뷰리스트|/room/reservation|Default|리뷰리스트 나열|재중|| ●
@@ -92,39 +92,9 @@
 
 ## :link: ERD 설계
 
-<img width="70%" src="https://user-images.githubusercontent.com/67016829/167670567-9ab60ff2-b695-41b5-aa7d-afb31437fdc4.png"/>
+<img width="70%" src="https://user-images.githubusercontent.com/67016829/173347836-54aa64df-965b-4c1e-ad1a-69049a67e272.png"/>
 
-## 🖥UI 설계
 
-### 메인페이지
-<img width="70%" src="https://user-images.githubusercontent.com/67016829/167669929-dace8715-eff4-4ac6-94da-cc73587ba4fd.png"/>
-<img width="70%" src="https://user-images.githubusercontent.com/67016829/167669927-677dff8b-c145-4e15-b546-99f3cabd796e.png"/>
-
-### 호스트모드
-<img width="70%" src="https://user-images.githubusercontent.com/67016829/167669925-967f9bd7-7200-4c6c-9143-c8597ffb8c64.png"/>
-<img width="70%" src="https://user-images.githubusercontent.com/67016829/167669949-b5c4b2ce-31e3-4132-a360-0593ee5358d1.png"/>
-
-### 숙소등록
-<img width="70%" src="https://user-images.githubusercontent.com/67016829/167669938-43a5909b-d165-4e81-80a5-1b1b3edbaa4c.png"/>
-<img width="70%" src="https://user-images.githubusercontent.com/67016829/167669936-25295f8a-9973-4fc7-a894-90f412117547.png"/>
-<img width="70%" src="https://user-images.githubusercontent.com/67016829/167669934-58e6bc84-9dc5-48ed-b67b-360c472ba3ad.png"/>
-<img width="70%" src="https://user-images.githubusercontent.com/67016829/167669932-0a946d0d-1686-4106-a03b-e4476b82d59b.png"/>
-
-### 로그인 & 회원가입
-<img width="70%" src="https://user-images.githubusercontent.com/67016829/167669922-3580119a-9ada-484c-a5ed-a939c32ded5f.png"/>
-<img width="70%" src="https://user-images.githubusercontent.com/67016829/167669946-cb49bf61-7942-4d6c-9ea5-ad6826991fa7.png"/>
-
-### 숙소 검색 & 숙소 정보
-<img width="70%" src="https://user-images.githubusercontent.com/67016829/167669921-5a937886-f974-457f-8c98-4d8f065189df.png"/>
-<img width="70%" src="https://user-images.githubusercontent.com/67016829/167669914-d1ac651c-0c5d-4315-9a40-6a3af92771bf.png"/>
-<img width="70%" src="https://user-images.githubusercontent.com/67016829/167669963-f320ff75-ebed-4247-945d-5a704e9e5e0b.png"/>
-<img width="70%" src="https://user-images.githubusercontent.com/67016829/167669959-40493b2d-0470-4d99-867d-f5d2014e1bb9.png"/>
-<img width="70%" src="https://user-images.githubusercontent.com/67016829/167669948-a5e117e6-37b7-4147-9122-d874855eaccd.png"/>
-
-### 예약 및 결제
-
-<img width="70%" src="https://user-images.githubusercontent.com/67016829/167669955-a35d43de-3d86-4780-a3c6-7c74b91dea3e.png"/>
-<img width="70%" src="https://user-images.githubusercontent.com/67016829/167669951-63398b23-525f-4e02-9382-c46397f9bf31.png"/>
 
 
 ## ✏참고
