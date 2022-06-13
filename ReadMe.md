@@ -46,12 +46,10 @@
 ||GET|호스트페이지|/hostpage|click|호스트모드 버튼 클릭시 호스트 모드 페이지로 이동|규호||○ 
 |||||||||
 |메인페이지|GET|현재숙소목록|/|default|메인페이지에 유형에 따라 이미지 요청|규호|| ○
-||GET|랜덤한 숙소|/randomroom|click|모든 숙소중 랜덤하게 요청|||
+||
 ||GET|캘린더로 숙소  |/날짜들|click|모든 숙소중 원하는 날짜에 예약가능한 숙소 검색|규호||○
 |||||||||
-|호스트모드|GET|현재 게스트 상황|/|Default|현재의 게스트 상황을 요청|규호||
-||GET|메세지|/message|Default|메세지 이력 요청|규호||
-||GET|숙소등록|/register|Click|숙소등록 페이지로 이동|재중|| ○
+|호스트모드|GET|숙소등록|/register|Click|숙소등록 페이지로 이동|재중|| ○
 ||PUT|숙소 정보 수정|/register/modify|Click|숙소 정보 수정|재중|| ○
 |||||||||
 |숙소등록페이지|POST|숙소유형선택|/register|click|숙소 유형 몇 가지 중 선택|재중|| ○
@@ -59,7 +57,7 @@
 ||POST|숙소인원수|/register|Click|숙소 인원수 입력|재중|| △
 ||POST|숙소 사진|/register|Click|숙소 사진 등록|재중|| ○
 ||POST|숙소 옵션|/register|Click|숙소 옵션 선택하기|재중|| ○
-||POST|숙소 기간|/register|Click|숙소 사용 가능 기간 선택하기|재중||
+||POST|숙소 기간|/register|Click|숙소 사용 가능 기간 선택하기|재중||○
 ||POST|숙소 가격|/register|Click|숙소 가격 입력|재중|| ○
 |||||||||
 |로그인및 회원가입|GET|로그인페이지|accounts/login|Click|로그인 페이지로 접속|규호|| ●
@@ -76,8 +74,8 @@
 ||POST|비밀번호변경|users/change_password|Click|비밀번호를 변경한다.|규호|| ○
 ||DELETE|회원탈퇴|users/user_delete|Click|회원정보를 삭제한다|규호|| ○
 |||||||||
-|숙소검색리스트|GET|요금과 유형외에 분류|/room|Click|숙소 분류에 따라 재정렬|규호||
-||GET|숙소간략정보|/room|Default|검색한 애용에 따라 숙소정보 요청|규호|| △
+||
+|숙소검색리스트|GET|숙소간략정보|/room|Default|검색한 애용에 따라 숙소정보 요청|규호|| △
 ||GET|페이지에 나온 숙소들 위치 지도에 출력|/room|Default|검색한 내용에 따라 숙소 정보 요청|규호||
 |||||||||
 |숙소예약|GET|예약할 숙소정보|/room/reservation|Default|숙소정보들(이름, 사진, 옵션, 가격, 기간등을 요청)|재중|| △
