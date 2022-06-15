@@ -1,4 +1,4 @@
-# 프로젝트 :  Airbnb clone 
+# 프로젝트 : 대용량 트래픽을 견딜 수 있는 백엔드 구현하기
 <!-- <img src="https://img.shields.io/badge/Airbnb-FF5A5F?style=flat-square&logo=Airbnb&logoColor=white"/> -->
 
 ## :clipboard: 개발환경
@@ -26,17 +26,22 @@
 * <img alt="Html" src ="https://img.shields.io/badge/HTML-E34F26.svg?&style=for-the-badge&logo=HTML5&logoColor=white"/>
 * <img alt="Css" src ="https://img.shields.io/badge/CSS-1572B6.svg?&style=for-the-badge&logo=CSS3&logoColor=white"/> 
 
+### 모니터링
 
+* <img alt="" src ="https://img.shields.io/badge/grafana-F46800.svg?&style=for-the-badge&logo=grafana&logoColor=white"/>
+* <img alt="" src ="https://img.shields.io/badge/Prometheus-E6522C.svg?&style=for-the-badge&logo=Prometheus&logoColor=white"/>
 
 
 
 ## 🕹기능
+
 * 회원관련 : 회원가입/로그인/회원탈퇴/회원정보수정/비밀번호변경
 
 * 호스트모드 : 숙소 등록 / 현재 게스트 상황 / 
- 
 
 * 게스트: 숙소 검색 / 날짜로 검색 / 숙소 예약 / 결제 / 
+
+* 모니터링
 
 ## :link: API 설계도
 |page|request|feature|api|event|설&nbsp;명|담&nbsp;당|비&nbsp;고|&nbsp;구현여부&nbsp;|
@@ -95,6 +100,8 @@
 <img width="70%" src="https://user-images.githubusercontent.com/67016829/173347836-54aa64df-965b-4c1e-ad1a-69049a67e272.png"/>
 
 
+## :link: 서버아키텍쳐
+<img width="100%" src="https://user-images.githubusercontent.com/67016829/173768569-415650b4-f037-41e0-b79a-4ce0edc6ef7b.png"/>
 
 
 ## ✏참고
