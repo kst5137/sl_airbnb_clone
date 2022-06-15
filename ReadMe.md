@@ -1,11 +1,11 @@
 # 프로젝트 : 대용량 트래픽을 견딜 수 있는 백엔드 구현하기
 <!-- <img src="https://img.shields.io/badge/Airbnb-FF5A5F?style=flat-square&logo=Airbnb&logoColor=white"/> -->
 
-## 주제선정 이유
+## :clipboard: 주제선정 이유
 특정시간에 사람이 몰려 서버가 다운되는 경우가 빈번하게 보임( ex) 네고왕의 이벤트 대상, 쇼핑몰)
 서비스를 잘 구축하여도 서버가 못 견디면 의미가 없기때문에 견고한 백엔드 구현이 필요하다.
 
-## 서비스 모델 
+## :clipboard: 서비스 모델 
 서비스 모델로 에어비앤비 선정
 
 ## :clipboard: 개발환경
